@@ -47,42 +47,19 @@ Keeping all of these mentioned points in mind, Bleach aims to be an alternative 
 
 Before taking a deep dive in what makes Bleach an actual and viable option to be used in a classroom environment, it's important to mention that there are several programming languages created with the purpose of being a supplementary tool for teaching undergraduate Compilers course that have opted for a more practice-oriented procedure.
 
-In this section, some of the most popular programming languages designed with this motivation will be discussed in chronological order. The intention with this is to explain the context behind them and their features, as well as their advantages and disadvantages.
+In this section, some of the most popular programming languages designed with this motivation will be discussed in chronological order. The intention with this is to provide information about their origin, historical context and features.
 
 \begin{itemize}
-    \item \textbf{Cool:}
-    \begin{itemize}
-        \item \textbf{Context/Origin:} The Cool (a.k.a, Classroom Object-Oriented Language) programming language \cite{aiken1996cool} is a programming language created in the 90s by Alexander Aiken at the Stanford University. 
-        \item \textbf{Purpose:}
-        \item \textbf{Adoption:}
-        \item \textbf{Core Features:}
-        \item \textbf{Advantages:}
-        \item \textbf{Disadvantages:}
-    \end{itemize}
-
-    \item \textbf{MiniJava}
-    \begin{itemize}
-        \item \textbf{Context/Origin:} The MiniJava programming language \cite{cambridge_minijava_project} is a subset, as its name suggests, of the Java programming language. MiniJava was created during the 90s and was first presented as part of \cite{appel2002modernCompilerImplementationJava}.
-        \item \textbf{Purpose:} Its purpose is to be used as a teaching tool in Compilers courses. Since it is a subset, as previously mentioned, it allows the students to focus on the fundamental concepts of this subject without overwhelming them with the complexities of a full-fledged programming language like Java.
-        \item \textbf{Adoption:} A proof of its success is that MiniJava has been adopted in several prestigious universities worldwide as part of their computer science curriculum, particularly in courses related to compiler construction and programming language implementation, such as University of Washington \cite{university_of_washington_cs_compiler_construction_course_page_2024}, University of California, Los Angeles \cite{ucla_cs_compiler_construction_course_page_fall_2012}, among others, like the Loyola University of Chicago \cite{loyola_university_of_chicago_cs_compiler_construction_course_page_fall_2018}.
-        \item \textbf{Core Features:}
-        \begin{itemize}
-            \item \textbf{Subset of Java:} As explained above, MiniJava is a simplified version of Java. Essentially, this means that it contains all basic features that Java has, like: classes, attributes/fields, methods, logical control structures (if-else) and loop control structures (while). However, since it was tailored for an educational environment, it doesn't contain Java's advanced features, such as: exceptions, inheritance and interfaces. More details about which features MiniJava exactly keeps can be found at \cite{cambridge_minijava_project} and \cite{cambridge_minijava_grammar}.
-            \item \textbf{Object-Oriented:} Since it is a subset of Java, it is logical that MiniJava preserves the object-oriented nature of Java. This feature allows students to better understand and put to practice object-oriented programming concepts.
-            \item \textbf{Simplified Syntax:} The language itself has a syntax that is simpler than Java due to the fact that it omits more advanced features of Java. This feature makes the lexing and parsing of the language easier to be implemented by the students.
-            \item \textbf{Static Typing:} As Java, MiniJava is also a statically-typed language. In practice, this means that type-checking is executed during compile time.
-        \end{itemize}
-        \item \textbf{Advantages:}
-        \begin{itemize}
-            \item \textbf{Educational Tool:} As discussed above, MiniJava is a great tool for both professors and students when it comes to Compiler Design courses. Even though, MiniJava can be considered a simple programming language, it embodies key concepts of object-oriented programming and static typing. Both aspects allow students to not only learn but also practice more about them, which is enriching.
-            \item \textbf{Simplicity:} MiniJava's simplicity makes it suitable for students that are making their first contact with a Compiler Construction/Design course to focus on its essentials of without getting stuck or overwhelmed by the complexities of a full programming language.
-        \end{itemize}
-        \item \textbf{Disadvantages:}
-        \begin{itemize}
-            \item \textbf{Limited Features:} Since MiniJava was designed to be used in an one-semester undergraduate level Compilers course, several advanced features of Java (such as: inheritance, interfaces, generics and exceptions) had to be removed so that the fundamental concepts that constitute the basis of the programming language were presented in a satisfactory way within the allocated period of time. Thus, this means that it does not fully represent all the challenges present in modern programming language design and implementation.
-            \item \textbf{Limited Real-World Application:} While MiniJava is valuable for educational purposes, its limited set of features means that it is not suitable for the development of real-world applications.
-        \end{itemize} 
-    \end{itemize}
+    \item \textbf{COOL (Classroom Object-Oriented Language):} This is a object-oriented and statically-typed programming language \cite{aiken1996cool} created in the 90s by Alexander Aiken and his colleagues at the Stanford University. It was designed with the intention to be used as a tool in an educational setting in universities. Even though COOL is simple and small, it has an interesting variety of features besides the ones mentioned above, such as: basic class types (Bool, Int, IO, Object and String), automatic garbage collection and many others that can be found at "The COOL Reference Manual" \cite{cool_reference_manual}.
+    
+    According to Aiken, a compiler project is normally the most complex software project that most undergraduate students will complete. Therefore, the use of a full-featured programming language (any language that has a substantial number of users, like C, C++, Pascal, etc) does not fit into the scope of such project. In practice, the usual approach was to select a subset of these popular languages and ask the students to implement them. However, according to Aiken, this method is too demanding for the teaching staff, since several steps must be taken after choosing a language for a Compilers project. For example: a detailed specification of the project itself must be written, any supporting software that might be used must be developed, tested and documented beforehand. Finally, the project itself must also be implemented by the teaching staff \textit{a priori} since, according to Aiken, such effort is required to guarantee that the project is complete, consistent and tractable.
+    
+    It was with all the efforts mentioned above to build a framework for a compiler project  in mind that Aiken created COOL. Ultimately, it is worth mentioning that COOL is not only a programming language, but rather a freely available and portable compiler project. COOL has being distributed since its creation with the goal of helping professors from other institutions to leverage from the efforts of the project developers and the many students who have written COOL compilers in order to structure their own Compilers courses following their own tastes. COOL has been adopted at several relevant institutions, such as University of California, Berkeley \cite{aiken1996cool} (where it was first introduced), Stanford University \cite{stanford_cs143_compilers_course_page}, University of Illinois Urbana-Champaign \cite{university_of_illinois_urbana_champaign_compilers_course_page} and University of Michigan \cite{university_of_michigan_compiler_construction_course_page}.
+    
+    \item \textbf{MiniJava:} This programming language \cite{cambridge_minijava_project} is a subset, as its name suggests, of the Java programming language. MiniJava was created by Andrew Appel and Jens Palsberg during the 90s and was first presented as part of \cite{appel2002modernCompilerImplementationJava}. This subset of Java contains its most core features, such as: classes, attributes/fields, methods, logical control structures (if-else) and loop control structures (while). However, since it was tailored for an educational environment, it doesn't contain Java's more advanced features, like: exceptions, generics, inheritance, interfaces and lambda functions. More details about which features MiniJava exactly keeps can be found at \cite{cambridge_minijava_project} and \cite{cambridge_minijava_grammar}.
+        
+    Its purpose is to be used as a teaching tool in Compilers courses. Since it is a subset, as previously mentioned, it allows the students to focus on the fundamental concepts of this subject without overwhelming them with the complexities of a full-fledged programming language like Java.
+    A proof of its success is that MiniJava has been adopted in several prestigious universities worldwide as part of their computer science curriculum, particularly in courses related to compiler construction and programming language implementation, such as University of Washington \cite{university_of_washington_cs_compiler_construction_course_page_2024}, University of California, Los Angeles \cite{ucla_cs_compiler_construction_course_page_fall_2012}, among others, like the Loyola University of Chicago \cite{loyola_university_of_chicago_cs_compiler_construction_course_page_fall_2018}.     
     
     \item \textbf{Selfie:}
     \begin{itemize}
@@ -90,18 +67,15 @@ In this section, some of the most popular programming languages designed with th
         \item \textbf{Purpose:}
         \item \textbf{Adoption:}
         \item \textbf{Core Features:}
-        \item \textbf{Advantages:}
-        \item \textbf{Disadvantages:}
     \end{itemize}
     
     \item \textbf{Chocopy:}
     \begin{itemize}
-        \item \textbf{Context/Origin:} The Chocopy programming language \cite{padhye2019chocopy} is a programming language created in 2019 
+        \item \textbf{What is:} ChocoPy is a programming language created in 2019 and first presented at Padhye et al. \cite{padhye2019chocopy} with the goal of being used as a teaching tool in an undergraduate course on compilers and programming language. It is a subset of Python 3.6 that uses static type annotations in order to ensure compile-time type-safety. 
+        The project stands out due to its complete specification, which uses a formal grammar, typing rules and operational semantics as described in \cite{padhye2019chocopy}.
         \item \textbf{Purpose:}
-        \item \textbf{Adoption:}
+        \item \textbf{Adoption:} The language started out being used at the UC Berkeley and since then has been adopted by several other institutions, such as: TU Delft \cite{}, UC San Diego{} and NYU \cite{}. 
         \item \textbf{Core Features:}
-        \item \textbf{Advantages:}
-        \item \textbf{Disadvantages:}
     \end{itemize}
     
 \end{itemize}
