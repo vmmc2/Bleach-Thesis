@@ -13,7 +13,7 @@
 \section{Introduction}
 This chapter is dedicated to provide the historical context behind how the way of teaching undergraduate Compilers courses evolved since the 70s, as well as a brief overview of surveys that demonstrate the positive impact that more practice-orient approach brings to students. Such factors are what motivated the creation of the Bleach programming language. Furthermore, a revisit and deepening regarding the purpose of Bleach will also be made. Then, an analysis about how Bleach distinguishes itself from other proposed programming languages that also aim to solve its same issue will be presented. In the end, the chapter will provide a detailed description about the context Bleach is inserted in, which includes: the target audience, educational environment, typical use cases and the educational benefits provided by it.
 
-\section{Historical Context of Undergraduate Compilers \newline Courses}
+\section{Historical Evolution of Compilers Courses}
 Looking back, it can be said that the way of teaching an undergraduate Compilers course evolved as follows:
 
 During the 1970s, undergraduate Compilers courses used to have a heavy focus on the theoretical aspects of the field, such as: formal languages, automata theory, lexing techniques and parsing techniques. During that period, access to computational resources were still scarce, even in an academic environment. However, students were still able implement toy compilers in different tastes of Assembly or in an early high-level language like Fortran \cite{fortran_official_website}. Still, the pillars of this course emphasized a deep understanding of the theoretical and formal aspects mentioned above.
@@ -61,25 +61,29 @@ In this section, some of the most popular programming languages designed with th
     Its purpose is to be used as a teaching tool in Compilers courses. Since it is a subset, as previously mentioned, it allows the students to focus on the fundamental concepts of this subject without overwhelming them with the complexities of a full-fledged programming language like Java.
     A proof of its success is that MiniJava has been adopted in several prestigious universities worldwide as part of their computer science curriculum, particularly in courses related to compiler construction and programming language implementation, such as University of Washington \cite{university_of_washington_cs_compiler_construction_course_page_2024}, University of California, Los Angeles \cite{ucla_cs_compiler_construction_course_page_fall_2012}, among others, like the Loyola University of Chicago \cite{loyola_university_of_chicago_cs_compiler_construction_course_page_fall_2018}.     
     
-    \item \textbf{Selfie:}
+    \item \textbf{C*:}
     \begin{itemize}
-        \item \textbf{Context/Origin:} The Selfie programming language \cite{kirsch2017selfie} is a programming language created in 2017 
+        \item \textbf{Context/Origin:} The C* programming language \cite{kirsch2017selfie} is a programming language created in 2017 
         \item \textbf{Purpose:}
         \item \textbf{Adoption:}
         \item \textbf{Core Features:}
     \end{itemize}
     
-    \item \textbf{Chocopy:}
+    \item \textbf{ChocoPy:} ChocoPy is a programming language created in 2019 and first presented at Padhye et al. \cite{padhye2019chocopy} with the goal of being used as a teaching tool in an undergraduate course on compilers and programming language. It is a subset of Python 3.6 that uses static type annotations in order to ensure compile-time type-safety. The project stands out due to its complete specification, which uses a formal grammar, typing rules and operational semantics as described in \cite{padhye2019chocopy}. More technical information about ChocoPy can be found at ChocoPy's official website \cite{chocopy_official_website}.
+
+    According to the authors of \cite{padhye2019chocopy}, the purpose of creating ChocoPy was based on the following 5 major reasons:
     \begin{itemize}
-        \item \textbf{What is:} ChocoPy is a programming language created in 2019 and first presented at Padhye et al. \cite{padhye2019chocopy} with the goal of being used as a teaching tool in an undergraduate course on compilers and programming language. It is a subset of Python 3.6 that uses static type annotations in order to ensure compile-time type-safety. 
-        The project stands out due to its complete specification, which uses a formal grammar, typing rules and operational semantics as described in \cite{padhye2019chocopy}.
-        \item \textbf{Purpose:}
-        \item \textbf{Adoption:} The language started out being used at the UC Berkeley and since then has been adopted by several other institutions, such as: TU Delft \cite{}, UC San Diego{} and NYU \cite{}. 
-        \item \textbf{Core Features:}
+        \item \textbf{Familiarity:} The staff behind the project wanted to develop a language that was a subset of a widely used programming language, hence, prioritizing the familiarity of the students with it. With this reasoning in mind, Python \cite{python_language} was chosen.
+        \item \textbf{Expressiveness:} The professionals responsible for ChocoPy wanted to create a language that allowed students to write non-trivial programs in it. Particularly, an Object-Oriented paradigm with enough complexity got chosen to be supported. This option was made in order to illustrate important language implementation concepts, such as optimized code generation and type-checking at compile-time. 
+        \item \textbf{Formally Specified:} In order to make a robust tie the theoretical concepts presented in an undergraduate Compilers course with their application in an implementation project, the authors opted for a language whose syntax, type-checking rules and operational semantics were all formally specified. With these needs kept in mind, Python was a good alternative.
+        \item \textbf{Modern Target Language:} Instead of targeting an old or too complex Assembly language. Too make the code generation less intimidating, the instructors instead opted for targeting the 32-bits RISC-V Instruction Set Architecture \cite{riscv_instruction_set_manual}.
+        \item \textbf{Re-usability:} One of the major reasons for ChocoPy's creation was the democratization of artifacts that could be freely used by professors, instructors, teaching assistants and students from different institutions offering Compilers courses.
     \end{itemize}
+
+    The language started out being used at the UC Berkeley, as stated in \cite{padhye2019chocopy}, and since then has been adopted by several other institutions, such as: TU Delft \cite{tu_delft_cs4200_2020_compiler_construction_course_page}, UC San Diego \cite{uc_san_diego_cse213_winter2021_advanced_compiler_design_course_page} and NYU \cite{nyu_2020_compiler_construction_course_page}. Finally, the ChocoPy language specification was also used as a reference at IIT Bombay \cite{iit_bombay_sclp}.
+
+    As previously stated, ChocoPy was designed to be a subset of Python. In practice, this means that every valid ChocoPy program that does not result in a runtime error is also a valid Python program. Therefore, the result observed when executing the said ChocoPy program is equal to the one when executing the same program in a Python Interpreter. When it comes down to language features, ChocoPy has support for statements, expressions, assignments and control-flow structures (conditionals and loops). When dealing with evaluation of an expression, the result will always have one of the following types: a boolean, an integer, a list, a string, an user-defined class or the special value \texttt{None}. Unfortunately, according to the authors of \cite{padhye2019chocopy}, the language does not have support for dict type, first-class functions and reflective introspection. It is also worth mentioning every expression in ChocoPy is statically typed. On top of it, variables (both global and local ones) and class attributes are also statically typed and have explicit type annotations. Ultimately, type annotations are also present in function and method declarations in order to signal the parameters' and return value's type. More information about ChocoPy's features can be found in \cite{padhye2019chocopy} and in \cite{chocopy_v2.2_language_manual_reference}.
     
 \end{itemize}
-
--> Falar sobre a abordagem incremental, flexível e modular de Bleach. Como ela é mais abrangente que MiniJava. E como ela é mais educativa, flexível e modular do que Cool, Chocopy e Selfie.
 
 \section{Scenario Overview}
