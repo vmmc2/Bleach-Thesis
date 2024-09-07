@@ -14,7 +14,7 @@
 This chapter is dedicated to provide the historical context behind how the way of teaching undergraduate Compilers courses evolved since the 70s, as well as a brief overview of surveys that demonstrate the positive impact that more practice-orient approach brings to students. Such factors are what motivated the creation of the Bleach programming language. Furthermore, a revisit and deepening regarding the purpose of Bleach will also be made. Then, an analysis about how Bleach distinguishes itself from other proposed programming languages that also aim to solve its same issue will be presented. In the end, the chapter will provide a detailed description about the context Bleach is inserted in, which includes: the target audience, educational environment, typical use cases and the educational benefits provided by it.
 
 \section{Historical Evolution of Compilers Courses}
-Looking back, it can be said that the way of teaching an undergraduate Compilers course evolved as follows:
+Looking back at the history of compiler construction \cite{wikipedia_compiler_construction} and the history of programming languages \cite{wikipedia_programming_languages}, it can be said that the way of teaching an undergraduate Compilers course evolved as follows:
 
 During the 1970s, undergraduate Compilers courses used to have a heavy focus on the theoretical aspects of the field, such as: formal languages, automata theory, lexing techniques and parsing techniques. During that period, access to computational resources were still scarce, even in an academic environment. However, students were still able implement toy compilers in different tastes of Assembly or in an early high-level language like Fortran \cite{fortran_official_website}. Still, the pillars of this course emphasized a deep understanding of the theoretical and formal aspects mentioned above.
 
@@ -61,13 +61,13 @@ In this section, some of the most popular programming languages designed with th
     Its purpose is to be used as a teaching tool in Compilers courses. Since it is a subset, as previously mentioned, it allows the students to focus on the fundamental concepts of this subject without overwhelming them with the complexities of a full-fledged programming language like Java.
     A proof of its success is that MiniJava has been adopted in several prestigious universities worldwide as part of their computer science curriculum, particularly in courses related to compiler construction and programming language implementation, such as University of Washington \cite{university_of_washington_cs_compiler_construction_course_page_2024}, University of California, Los Angeles \cite{ucla_cs_compiler_construction_course_page_fall_2012}, among others, like the Loyola University of Chicago \cite{loyola_university_of_chicago_cs_compiler_construction_course_page_fall_2018}.     
     
-    \item \textbf{C*:}
-    \begin{itemize}
-        \item \textbf{Context/Origin:} The C* programming language \cite{kirsch2017selfie} is a programming language created in 2017 
-        \item \textbf{Purpose:}
-        \item \textbf{Adoption:}
-        \item \textbf{Core Features:}
-    \end{itemize}
+    \item \textbf{C* (C Star):} The C* (C Star) programming language \cite{kirsch2017selfie} is a programming language created in 2017 by Christoph M. Kirsch as a component of the Selfie Open-Source Software Project \cite{selfie_official_website} \cite{selfie_official_repo_github}.
+
+    According to Kirsch, the creation of C*, as well as the Selfie project as a whole, was inspired by seminal works made in different sub-fields from Computer Science, such as: Algorithms \cite{knuth2011art} \cite{wirth1976algorithms}, Compilers \cite{wirth1996compiler}, Computer Architecture \cite{hennessy2011computer}, Operating Systems \cite{liedtke1996toward}, Programming Languages \cite{kernighan1988c} \cite{richards2009bcpl}, Systems Engineering \cite{dijkstra1968structure} \cite{goldberg1983smalltalk} \cite{nisan2005elements} \cite{sussman1996structure} and Theory of Computation \cite{sipser1996introduction}. In addition, it was motivated by the challenge of teaching the basics of this field to larger audiences that are not specifically majoring in Computer Science.
+
+    Regarding adoption of C*, the language has been adopted by the University of Salzburg at Austria \cite{selfie_official_website} and by the Czech Technical University (CTU) at Czech Republic \cite{cvut_compiler_construction_course_page}.
+
+    C* has support for 5 different types of statements (assignment, if-then-else, while loop, function call, return). Related to this, the language also implements the following native built-in functions: \texttt{exit}, \texttt{malloc}, \texttt{open}, \texttt{read} and \texttt{write} (it is important to notice the absence of \texttt{close} and \texttt{free}). Regarding to keywords, C* has just 6: \texttt{int}, \texttt{while}, \texttt{if}, \texttt{else}, \texttt{return} and \texttt{void}. Talking about functions, C* allows them to have parameters, local variables and a return value. With respect to operators, C* has support to the most common arithmetic (\texttt{+}, \texttt{-}, \texttt{*}, \texttt{/}, \texttt{\%}) and comparison (\texttt{==}, \texttt{!=}, \texttt{>}, \texttt{>=}, \texttt{<}, \texttt{<=}) operators. However, it does not support bit-wise nor boolean operators. There are just 2 data types present in C*: signed integer (\texttt{int}) and pointer to signed integer (\texttt{int*}). It's worth mentioning that C* has support for integer, character and string literal however. Finally, when it comes to the access of dynamically-allocated memory, the only way of doing so is through the use of the dereferencing operator (\texttt{*}).
     
     \item \textbf{ChocoPy:} ChocoPy is a programming language created in 2019 and first presented at Padhye et al. \cite{padhye2019chocopy} with the goal of being used as a teaching tool in an undergraduate course on compilers and programming language. It is a subset of Python 3.6 that uses static type annotations in order to ensure compile-time type-safety. The project stands out due to its complete specification, which uses a formal grammar, typing rules and operational semantics as described in \cite{padhye2019chocopy}. More technical information about ChocoPy can be found at ChocoPy's official website \cite{chocopy_official_website}.
 
@@ -87,3 +87,11 @@ In this section, some of the most popular programming languages designed with th
 \end{itemize}
 
 \section{Scenario Overview}
+In this section the context in which Bleach is expected to be used, who will be using it, and how it fits into the educational environment of an undergraduate compilers course are all presented with more details.
+
+\begin{itemize}
+    \item \textbf{Target Audience:}
+    \item \textbf{Educational Environment:}
+    \item \textbf{Use Cases:}
+    \item \textbf{Educational Benefits:}
+\end{itemize}
