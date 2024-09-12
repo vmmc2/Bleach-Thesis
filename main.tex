@@ -7,6 +7,46 @@
 \usepackage{lipsum}
 \usepackage{array}
 \usepackage{amsmath}
+\usepackage{listings}     % Package for including code snippets
+\usepackage{xcolor}       % For custom colors
+
+% Define a new language for your programming language
+\lstdefinelanguage{Bleach}{
+    % Define keywords
+    morekeywords={and, break, class, continue, do, elif, else, false, for, function, if, inherits, lambda, let, method, nil, or, print, return, self, super, true, whole},
+    % Define other keywords (e.g., types or built-ins) with different styles
+    morekeywords=[2]{std::chrono::clock, std::io::readLine, std::io::print, std::io::fileRead, std::io::fileWrite,
+    std::math::abs, std::math::fmod, std::math::log, std::math::pow", std::math::sqrt, std::random::random,
+    std::utils::ord, std::utils::numToStr, std::utils::strToNum, std::utils::strToBool, std::utils::strToNil},
+    % Define comments
+    comment=[l]{//}, % Line comment with //
+    morecomment=[s]{/*}{*/}, % Block comment between /* and */
+    % Define string delimiters
+    morestring=[b]", % Strings are enclosed in double quotes
+    % Styling for different parts
+    keywordstyle=\color{blue}\bfseries,   % Style for keywords (bold blue)
+    keywordstyle=[2]\color{teal},         % Style for secondary keywords (teal)
+    commentstyle=\color{gray}\itshape,    % Style for comments (italic gray)
+    stringstyle=\color{red},              % Style for strings (red)
+    numberstyle=\tiny\color{gray},        % Line numbers style (tiny gray)
+    backgroundcolor=\color{white},        % Background color (optional)
+    showstringspaces=false,               % Don't show spaces in strings
+}
+
+\lstset{
+    language=Bleach, % Change to your language
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{red},
+    numberstyle=\tiny\color{gray},
+    numbers=left,
+    stepnumber=1,
+    breaklines=true,
+    frame=single,
+}
+
+
 \usepackage[linesnumbered,ruled,vlined]{algorithm2e}
 \usepackage{csquotes}
 \begin{document}

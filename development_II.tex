@@ -11,11 +11,182 @@
 \end{flushright}
 
 \section{Introduction}
-This chapter is dedicated to provide a detailed explanation about  Bleach programming language.  Then, a breakdown of each of its components will be presented. Finally, the challenges encountered during the development of this project will be presented, as well as decisions and trade-offs made.
+This chapter is dedicated to provide a detailed explanation about the Bleach programming language. Firstly, a brief overview of Bleach's features will be presented by showcasing a few programs written in the language. Then, a detailed breakdown of each of its components and features will be shown to the reader. Afterwards, the challenges encountered during the development of this project will be presented, as well as decisions and trade-offs made. Finally, a comparison between Bleach and the previous languages introduced will be made, as well as a discussion about how Bleach can be properly used to its fullest in an undergraduate Compilers course.
 
 \section{Bleach Overview}
+As previously mentioned, this section is dedicated to showcase a few of Bleach's features through the exposition of simple, yet useful, programs to the reader. It's expected that the reader has some familiarity programming with another languages, such as C \cite{kernighan1988c}, C++ \cite{strousrup2000c++}, JavaScript, Lox \cite{nystrom2021crafting}, Python \cite{python_language} and Ruby, so the similarities between Bleach and these languages make themselves more evident. \newline
 
-\section{Bleach Components Breakdown}
+\begin{figure}
+    \centering
+    \begin{lstlisting}
+    function greet(){
+      print "Hello, World!";
+    }
+    
+    greet(); // "Hello, World!"
+    \end{lstlisting}
+    \caption{Bleach's simplest program: The famous "Hello, World!" program.}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{lstlisting}
+    function factorial(n){
+      if(n == 0){
+        return 1;
+      }else{
+        return n * factorial(n - 1);
+      }
+    }
+    
+    print factorial(5); // 120
+    \end{lstlisting}
+    \caption{A Bleach program that shows the usage of recursive functions, if-else statements and arithmetic operators to calculate the factorial of a number.}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{lstlisting}
+    function main(){
+      let numbersInfo = [];
+      for(let i = 0; i <= 10; i = i + 1){
+        if(i % 2 == 0){
+          numbersInfo.append(i + " is even!");
+        }else{
+          numbersInfo.append(i + " is odd!");
+        }
+      }
+      print numbersInfo;
+    }
+    
+    main();
+    \end{lstlisting}
+    \caption{A Bleach program that shows the usage of for loops and the native \texttt{list} type in order to build a list that contains some information about numbers from 0 to 10.}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{lstlisting}
+    function quadraticEquationSolver(a, b, c){
+      let delta = std::math::pow(b, 2) - 4 * a * c;
+      let x1 = (-b + std::math::sqrt(delta))/(2 * a);
+      let x2 = (-b - std::math::sqrt(delta))/(2 * a);
+    
+      return [x1, x2];
+    }
+    
+    print quadraticEquationSolver(1, 0, -4); // [2, -2]
+    \end{lstlisting}
+    \caption{A Bleach that uses a function which receives the coefficients of a quadratic equation to compute its roots.}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{lstlisting}
+    class Shape{ // Base Class
+      method init(name){
+        self.name = name;
+      }
+    
+      method str() {
+        return "This is a " + self.name + ".";
+      }
+    
+      method area(){ // To be overridden by subclasses
+        return 0;
+      }
+    }
+    
+    class Circle inherits Shape{ // Derived Class
+      method init(radius){
+        super.init("Circle"); // Call the Base Class constructor
+        self.radius = radius;
+      }
+    
+      method area(){
+        return std::math::pow(self.radius, 2) * 3.14159;
+      }
+    }
+    
+    class Triangle inherits Shape{ // Derived Class
+      method init(base, height) {
+        super.init("Triangle"); // Call the Base Class constructor
+        self.base = base;
+        self.height = height;
+      }
+    
+      method area(){
+        return (self.base * self.height) / 2;
+      }
+    }
+    
+    let c = Circle(5);
+    let t = Triangle(3, 7);
+    
+    // This is a Circle. It has an area of 78.539749999999998 units.
+    print c + " It has an area of " + c.area() + " units.";
+    // This is a Triangle. It has an area of 10.5 units.
+    print t + " It has an area of " + t.area() + " units.";
+    \end{lstlisting}
+    \caption{A Bleach program that illustrates its Object-Oriented features, such as: classes, instances, attributes, methods, overriding and inheritance.}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{lstlisting}
+    function writeToFile(){
+      let userInput = std::io::readLine();
+      std::io::fileWrite("output.txt", "w", userInput, true);
+    
+      userInput = std::io::readLine();
+      std::io::fileWrite("output.txt", "a", userInput, false);
+    
+      return;
+    }
+    
+    writeToFile();
+    \end{lstlisting}
+    \caption{A Bleach program that shows its capability with dealing with user-input and writing to \texttt{.txt} files.}
+\end{figure}
+
+\section{Bleach Features}
+\subsection{Introduction}
+This section, as its name suggests, is dedicated to provide to the reader a more extensive and exhausting walkthrough the features available in Bleach. 
+
+\subsection{Data Types}
+Bleach has 5 built-in data types made available to the user. Such types are divided into scalar types  and compound types.
+
+Scalar types are types that can represent a single value. In Bleach, there are 3 scalar data types: \texttt{bool}, \texttt{nil} and \texttt{num}.
+\begin{itemize}
+    \item \texttt{bool}: This data type is used to represent one of two possible values: \texttt{true} or \texttt{false}. Such values are used to express logical conditions and to control the execution of certain parts of a program's source code.
+    
+    In this context, it's important to mention that Bleach takes inspiration from Ruby and other modern programming languages and implements the concept of "truthy" and "falsey" values in order to evaluate the truthiness or the falseness of values when they are used inside .
+    
+    \item \texttt{nil}:
+    \item \texttt{num}:
+\end{itemize}
+
+Compound types are types that can group multiple values into one. In Bleach, there are 2 compound types: \texttt{list} and \texttt{str}.
+\begin{itemize}
+    \item \texttt{list}:
+    \item \texttt{str}:
+\end{itemize}
+
+\subsection{Comments}
+\subsection{Variables}
+\subsection{Operators}
+\subsection{Control-Flow Structures}
+\subsection{Functions}
+\subsection{OOP in Bleach}
+\subsection{Bleach Native Functions}
+
+\section{Bleach Interpreter Components Breakdown}
+
+\subsection{Bleach Tree-Walk Interpreter Overview}
+\subsection{Lexer/Scanner}
+\subsection{Parser}
+\subsection{Resolver}
+\subsection{Interpreter/Runtime}
 
 \section{Challenges, Decisions and Trade-Offs}
 
