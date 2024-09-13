@@ -19,11 +19,11 @@ As previously mentioned, this section is dedicated to showcase a few of Bleach's
 \begin{figure}
     \centering
     \begin{lstlisting}
-    function greet(){
-      print "Hello, World!";
-    }
-    
-    greet(); // "Hello, World!"
+function greet(){
+  print "Hello, World!";
+}
+
+greet(); // "Hello, World!"
     \end{lstlisting}
     \caption{Bleach's simplest program: The famous "Hello, World!" program.}
 \end{figure}
@@ -31,15 +31,15 @@ As previously mentioned, this section is dedicated to showcase a few of Bleach's
 \begin{figure}
     \centering
     \begin{lstlisting}
-    function factorial(n){
-      if(n == 0){
-        return 1;
-      }else{
-        return n * factorial(n - 1);
-      }
-    }
-    
-    print factorial(5); // 120
+function factorial(n){
+  if(n == 0){
+    return 1;
+  }else{
+    return n * factorial(n - 1);
+  }
+}
+
+print factorial(5); // 120
     \end{lstlisting}
     \caption{A Bleach program that shows the usage of recursive functions, if-else statements and arithmetic operators to calculate the factorial of a number.}
 \end{figure}
@@ -47,19 +47,19 @@ As previously mentioned, this section is dedicated to showcase a few of Bleach's
 \begin{figure}
     \centering
     \begin{lstlisting}
-    function main(){
-      let numbersInfo = [];
-      for(let i = 0; i <= 10; i = i + 1){
-        if(i % 2 == 0){
-          numbersInfo.append(i + " is even!");
-        }else{
-          numbersInfo.append(i + " is odd!");
-        }
-      }
-      print numbersInfo;
+function main(){
+  let numbersInfo = [];
+  for(let i = 0; i <= 10; i = i + 1){
+    if(i % 2 == 0){
+      numbersInfo.append(i + " is even!");
+    }else{
+      numbersInfo.append(i + " is odd!");
     }
-    
-    main();
+  }
+  print numbersInfo;
+}
+
+main();
     \end{lstlisting}
     \caption{A Bleach program that shows the usage of for loops and the native \texttt{list} type in order to build a list that contains some information about numbers from 0 to 10.}
 \end{figure}
@@ -67,15 +67,15 @@ As previously mentioned, this section is dedicated to showcase a few of Bleach's
 \begin{figure}
     \centering
     \begin{lstlisting}
-    function quadraticEquationSolver(a, b, c){
-      let delta = std::math::pow(b, 2) - 4 * a * c;
-      let x1 = (-b + std::math::sqrt(delta))/(2 * a);
-      let x2 = (-b - std::math::sqrt(delta))/(2 * a);
-    
-      return [x1, x2];
-    }
-    
-    print quadraticEquationSolver(1, 0, -4); // [2, -2]
+function quadraticEquationSolver(a, b, c){
+  let delta = std::math::pow(b, 2) - 4 * a * c;
+  let x1 = (-b + std::math::sqrt(delta))/(2 * a);
+  let x2 = (-b - std::math::sqrt(delta))/(2 * a);
+
+  return [x1, x2];
+}
+
+print quadraticEquationSolver(1, 0, -4); // [2, -2]
     \end{lstlisting}
     \caption{A Bleach that uses a function which receives the coefficients of a quadratic equation to compute its roots.}
 \end{figure}
@@ -83,50 +83,50 @@ As previously mentioned, this section is dedicated to showcase a few of Bleach's
 \begin{figure}
     \centering
     \begin{lstlisting}
-    class Shape{ // Base Class
-      method init(name){
-        self.name = name;
-      }
-    
-      method str() {
-        return "This is a " + self.name + ".";
-      }
-    
-      method area(){ // To be overridden by subclasses
-        return 0;
-      }
-    }
-    
-    class Circle inherits Shape{ // Derived Class
-      method init(radius){
-        super.init("Circle"); // Call the Base Class constructor
-        self.radius = radius;
-      }
-    
-      method area(){
-        return std::math::pow(self.radius, 2) * 3.14159;
-      }
-    }
-    
-    class Triangle inherits Shape{ // Derived Class
-      method init(base, height) {
-        super.init("Triangle"); // Call the Base Class constructor
-        self.base = base;
-        self.height = height;
-      }
-    
-      method area(){
-        return (self.base * self.height) / 2;
-      }
-    }
-    
-    let c = Circle(5);
-    let t = Triangle(3, 7);
-    
-    // This is a Circle. It has an area of 78.539749999999998 units.
-    print c + " It has an area of " + c.area() + " units.";
-    // This is a Triangle. It has an area of 10.5 units.
-    print t + " It has an area of " + t.area() + " units.";
+class Shape{ // Base Class
+  method init(name){
+    self.name = name;
+  }
+
+  method str() {
+    return "This is a " + self.name + ".";
+  }
+
+  method area(){ // To be overridden by subclasses
+    return 0;
+  }
+}
+
+class Circle inherits Shape{ // Derived Class
+  method init(radius){
+    super.init("Circle"); // Call the Base Class constructor
+    self.radius = radius;
+  }
+
+  method area(){
+    return std::math::pow(self.radius, 2) * 3.14159;
+  }
+}
+
+class Triangle inherits Shape{ // Derived Class
+  method init(base, height) {
+    super.init("Triangle"); // Call the Base Class constructor
+    self.base = base;
+    self.height = height;
+  }
+
+  method area(){
+    return (self.base * self.height) / 2;
+  }
+}
+
+let c = Circle(5);
+let t = Triangle(3, 7);
+
+// This is a Circle. It has an area of 78.539749999999998 units.
+print c + " It has an area of " + c.area() + " units.";
+// This is a Triangle. It has an area of 10.5 units.
+print t + " It has an area of " + t.area() + " units.";
     \end{lstlisting}
     \caption{A Bleach program that illustrates its Object-Oriented features, such as: classes, instances, attributes, methods, overriding and inheritance.}
 \end{figure}
@@ -134,17 +134,17 @@ As previously mentioned, this section is dedicated to showcase a few of Bleach's
 \begin{figure}
     \centering
     \begin{lstlisting}
-    function writeToFile(){
-      let userInput = std::io::readLine();
-      std::io::fileWrite("output.txt", "w", userInput, true);
-    
-      userInput = std::io::readLine();
-      std::io::fileWrite("output.txt", "a", userInput, false);
-    
-      return;
-    }
-    
-    writeToFile();
+function writeToFile(){
+  let userInput = std::io::readLine();
+  std::io::fileWrite("output.txt", "w", userInput, true);
+
+  userInput = std::io::readLine();
+  std::io::fileWrite("output.txt", "a", userInput, false);
+
+  return;
+}
+
+writeToFile();
     \end{lstlisting}
     \caption{A Bleach program that shows its capability with dealing with user-input and writing to \texttt{.txt} files.}
 \end{figure}
@@ -188,10 +188,10 @@ Compound types are types that can group multiple values into one. In Bleach, the
     \begin{figure}[H]
         \centering
         \begin{lstlisting}
-        let l0 = [0, 1, 2, 3, 2.71, 3.14159];
-        let l1 = ["hello", "there"];
-        let l2 = [];
-        let l3 = [false, "Brazil", 9.98, nil];
+let l0 = [0, 1, 2, 3, 2.71, 3.14159];
+let l1 = ["hello", "there"];
+let l2 = [];
+let l3 = [false, "Brazil", 9.98, nil];
         \end{lstlisting}
         \caption{Examples of \texttt{list} literals in Bleach.}
     \end{figure}
@@ -216,10 +216,10 @@ Compound types are types that can group multiple values into one. In Bleach, the
     \begin{figure}[H]
         \centering
         \begin{lstlisting}
-        let s0 = "Ichigo Kurosaki";
-        let s1 = "Byakuya Kuchiki";
-        let s2 = "Bazzard Black";
-        let s3 = "Jugram Haschwalth";
+let s0 = "Ichigo Kurosaki";
+let s1 = "Byakuya Kuchiki";
+let s2 = "Bazzard Black";
+let s3 = "Jugram Haschwalth";
         \end{lstlisting}
         \caption{Examples of \texttt{str} literals in Bleach.}
     \end{figure}
@@ -263,17 +263,184 @@ Operators are fundamental building blocks in every programming language, since t
 This subsection is dedicated to introduce the operators Bleach grants to its users and how each of such operators behave. In the end, an operator precedence table will be shown.
 
 \begin{itemize}
-    \item \textbf{Unary Operators:}
+    \item \textbf{Unary Operators:} These operators expects just one operand. Bleach has 2 operators that fall in this class.
         \begin{itemize}
-            \item Arithmetical:
-            \item Logical:
+            \item \textbf{Arithmetical:}
+                \begin{itemize}
+                    \item \textbf{Negation} (\texttt{-}): Negates the value of an operand of type \texttt{num}.
+                    \begin{figure}[H]
+                        \centering
+                        \begin{lstlisting}
+let n = 42;
+print -n; // -42
+                        \end{lstlisting}
+                        \caption{Example of usage of the "negation" operator (\texttt{-}).}
+                    \end{figure}
+                \end{itemize}
+            \item \textbf{Logical:}
+                \begin{itemize}
+                    \item \textbf{Not} (\texttt{!}): Inverts the value of an operand of type \texttt{bool}.
+                    \begin{figure}[H]
+                        \centering
+                        \begin{lstlisting}
+let b = true;
+print !b; // false
+print !!b; // true
+                        \end{lstlisting}
+                        \caption{Example of usage of the "not" operator (\texttt{!}).}
+                    \end{figure}                    
+                \end{itemize}
         \end{itemize}
-    \item \textbf{Binary Operators:}
+    \item \textbf{Binary Operators:} These operators expects just two operands. Bleach has 13 operators that fall in this class.
         \begin{itemize}
-            \item Arithmetical
-            \item Comparison/Relational
-            \item Equality
-            \item Logical
+            \item \textbf{Arithmetical:}
+                \begin{itemize}
+                    \item \textbf{Addition} (\texttt{+}):
+                    
+                    
+                    \item \textbf{Subtraction} (\texttt{-}): This operator expects two operands of type \texttt{num}. It subtracts the second (right) operand from the first (left) operand, and returns the result (a value of type \texttt{num}).
+                    \begin{figure}[H]
+                        \centering
+                        \begin{lstlisting}
+print 5 - 3; // 2
+                        \end{lstlisting}
+                        \caption{Example of usage of the "subtraction" operator (\texttt{-}).}
+                    \end{figure}
+                    
+                    \item \textbf{Multiplication} (\texttt{*}): This operator expects two operands of type \texttt{num}. It multiplies the first (left) operand by the second (right) operand, and returns the result (a value of type \texttt{num}).
+                    \begin{figure}[H]
+                        \centering
+                        \begin{lstlisting}
+print 1.5 * 4; // 6
+                        \end{lstlisting}
+                        \caption{Example of usage of the "multiplication" operator (\texttt{*}).}
+                    \end{figure}
+                    
+                    \item \textbf{Division} (\texttt{/}): This operator expects two operands of type \texttt{num}. It divides the first (left) operand, also called dividend, by the second (right) operand, also called divisor, and returns the result (a value of type \texttt{num}). It is worth mentioning that if the value of the divisor is \texttt{0}, then a runtime error will be thrown.
+                    \begin{figure}[H]
+                        \centering
+                        \begin{lstlisting}
+print 5 / 2; // 2
+print 1 / 3; // 0.333333333333333
+                        \end{lstlisting}
+                        \caption{Example of usage of the "division" operator (\texttt{/}).}
+                    \end{figure}
+
+                    
+                    \item \textbf{Remainder} (\texttt{\%}): This operator expects two operands of type \texttt{num}.
+                
+                
+                \end{itemize}
+                
+            \item \textbf{Comparison:}
+                \begin{itemize}
+                    \item \textbf{Greater Than} (\texttt{>}): This operator expects two operands of type \texttt{num}. It checks if the first (left) operand is greater than the second (right) operand. If that is indeed the case, it returns \texttt{true}. Otherwise, it returns \texttt{false}.
+                    \begin{figure}[H]
+                        \centering
+                        \begin{lstlisting}
+print 5 > 2; // true
+print 1 > 3; // false
+                        \end{lstlisting}
+                        \caption{Example of usage of the "greater than" operator (\texttt{>}).}
+                    \end{figure}
+
+                    \item \textbf{Greater Than or Equal} (\texttt{>=}): This operator expects two operands of type \texttt{num}. It checks if the first (left) operand is greater than or equal to the second (right) operand. If that is indeed the case, it returns \texttt{true}. Otherwise, it returns \texttt{false}.
+                    \begin{figure}[H]
+                        \centering
+                        \begin{lstlisting}
+print 5 >= 2; // true
+print -1 >= -1 // true
+print 1 >= 3; // false
+                        \end{lstlisting}
+                        \caption{Example of usage of the "greater than or equal" operator (\texttt{>=}).}
+                    \end{figure}
+
+                    \item \textbf{Lesser Than} (\texttt{<}): This operator expects two operands of type \texttt{num}. It checks if the first (left) operand is lesser than the second (right) operand. If that is indeed the case, it returns \texttt{true}. Otherwise, it returns \texttt{false}.
+                    \begin{figure}[H]
+                        \centering
+                        \begin{lstlisting}
+print 5 < 2; // false
+print 1 < 3; // true
+                        \end{lstlisting}
+                        \caption{Example of usage of the "lesser than" operator (\texttt{<}).}
+                    \end{figure}
+
+                    
+                    \item \textbf{Lesser Than or Equal} (\texttt{<=}): This operator expects two operands of type num. It checks if the first (left) operand is lesser than or equal to the second (right) operand. If that is indeed the case, it returns \texttt{true}. Otherwise, it returns \texttt{false}.
+                    \begin{figure}[H]
+                        \centering
+                        \begin{lstlisting}
+print 5 <= 2; // false
+print 0 <= 0; // true
+print 1 <= 3; // true
+                        \end{lstlisting}
+                        \caption{Example of usage of the "lesser than or equal" operator (\texttt{<=}).}
+                    \end{figure}
+                \end{itemize}
+                
+            \item \textbf{Equality:}
+                \begin{itemize}
+                    \item \textbf{Equal} (\texttt{==}): This operator expects two operands of the following built-in types (\texttt{bool}, \texttt{nil}, \texttt{num}, \texttt{str}). It checks whether the values are of the same type and, if that's the case, checks whether such values are the same. Returns \texttt{true} if both conditions are true. Otherwise, returns \texttt{false}.
+                    \begin{figure}[H]
+                        \centering
+                        \begin{lstlisting}
+print 2 == 2; // true
+print 2 == (1 + 1); // true
+print 2 == 3; // false
+print "hello" == "hello"; // true
+print "hello" == "hell"; // false
+print 2 == nil; // false
+print nil == nil; // true
+print true == true; // true
+print true == false; // false
+print true == !!true; // true
+                        \end{lstlisting}
+                        \caption{Example of usage of the "equal" operator (\texttt{==}).}
+                    \end{figure}
+
+                    
+                    \item \textbf{Not Equal} (\texttt{!=}): This operator expects two operands of the following built-in types (\texttt{bool}, \texttt{nil}, \texttt{num}, \texttt{str}). It checks whether the values are not of the same type and, if they are of the same type, it then checks whether such values are not the same. Returns \texttt{true} if one (or both) conditions mentioned above are not satisfied. Otherwise, returns \texttt{false}.
+                    \begin{figure}[H]
+                        \centering
+                        \begin{lstlisting}
+print 2 != 2; // false
+print 2 != (1 + 1); // false
+print 2 != 3; // true
+print "hello" != "hello"; // false
+print "hello" != "hell"; // true
+print 2 != nil; // true
+print nil != nil; // false
+print true != true; // false
+print true != false; // true
+print true != !!true; // false
+                        \end{lstlisting}
+                        \caption{Example of usage of the "not equal" operator (\texttt{!=}).}
+                    \end{figure}
+                \end{itemize}
+                
+            \item \textbf{Logical:}
+                \begin{itemize}
+                    \item \textbf{And} (\texttt{and}): This operator returns \texttt{true} if, and only if, both operands are "truthy" values. Otherwise, it returns \texttt{false}. This operator performs short-circuiting whenever possible.
+                    \begin{figure}[H]
+                        \centering
+                        \begin{lstlisting}
+print 5 and 2; // true
+print 5 and false; // false
+print false and nil; // false
+                        \end{lstlisting}
+                        \caption{Example of usage of the "and" operator (\texttt{and}).}
+                    \end{figure}
+                    \item \textbf{Or} (\texttt{or}): This operator returns \texttt{true} if one of its operands is a "truthy" value. Otherwise, it returns \texttt{false}. As the operator above, this one also performs short-circuiting whenever possible.
+                                        \begin{figure}[H]
+                        \centering
+                        \begin{lstlisting}
+print 5 or 2; // true
+print 5 or false; // true
+print false or nil; // false
+                        \end{lstlisting}
+                        \caption{Example of usage of the "or" operator (\texttt{or}).}
+                    \end{figure}
+                \end{itemize}
         \end{itemize}
     \item \textbf{Ternary Operator:}
         A ternary operator is, as its name suggests, an operator that expects three operands. Bleach has just one operator that falls in this class (\texttt{? :}), the one the reader is probably familiar with from C and C++.
@@ -301,7 +468,7 @@ This subsection is dedicated to introduce the operators Bleach grants to its use
             \hline
             7 & \texttt{or} \\
             \hline
-            8 & \texttt{? :} (ternary) \\
+            8 & \texttt{? :} \\
             \hline
             9 & \texttt{=} (assignment) \\
             \hline
