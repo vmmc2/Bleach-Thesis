@@ -160,23 +160,231 @@ Scalar types are types that can represent a single value. In Bleach, there are 3
 \begin{itemize}
     \item \texttt{bool}: This data type is used to represent one of two possible values: \texttt{true} or \texttt{false}. Such values are used to express logical conditions and to control the execution of certain parts of a program's source code.
     
-    In this context, it's important to mention that Bleach takes inspiration from Ruby and other modern programming languages and implements the concept of "truthy" and "falsey" values in order to evaluate the truthiness or the falseness of values when they are used inside .
+    In this context, it's important to mention that Bleach takes inspiration from Ruby and other modern programming languages and implements the concept of "truthy" and "falsey" values in order to evaluate the truthiness or the falseness of values when they are being evaluated inside \texttt{if} statements, loops (\texttt{while}, \texttt{do-while}, \texttt{for}) and ternary operators (\texttt{? :}).
+
+    Essentially, this means that, in Bleach, values of any type (built-in or user-defined) can be used in places where a value of type \texttt{bool} is expected. Moreover, Bleach opted to follow the same convention of Ruby in this matter, which says:
+
+    \begin{itemize}
+        \item \textbf{"Falsey" values:} \texttt{false}, \texttt{nil}.
+        \item \textbf{"Truthy" values:} Any other value that is not \texttt{false} nor \texttt{nil}.
+    \end{itemize}
     
-    \item \texttt{nil}:
-    \item \texttt{num}:
+    \item \texttt{nil}: This one is an old acquaintance for most programmers. The \texttt{nil} type has just one possible value: the \texttt{nil} value. In short this value conveys the idea of "no value" or the idea of "absence of a value".
+
+    In other programming languages, this concept appears in other forms, like: \texttt{NULL}, \texttt{nullptr}, \texttt{null}, \texttt{None}, \texttt{nil}, and others. Since Bleach has some influence from Ruby, it adopted \texttt{nil}.
+    
+    \item \texttt{num}: In favor of simplicity, Bleach has only one type to represent numbers: the \texttt{num} type. This type can be used to represent both integers and floating-point numbers.
+
+    Behind the scenes, the \texttt{num} type is implemented with a double-precision floating-point type, which allows Bleach to cover a lot of territory when it comes to numerical values while still keeping the simplicity initially envisioned for the language.
+    
+    Finally, with respect to numerical literals, Bleach has support for only basic integer and decimal literals, such as: \texttt{23}, \texttt{42}, \texttt{3.14159}, \texttt{2.71828}, \texttt{-10.4}.
+    
 \end{itemize}
 
 Compound types are types that can group multiple values into one. In Bleach, there are 2 compound types: \texttt{list} and \texttt{str}.
 \begin{itemize}
-    \item \texttt{list}:
-    \item \texttt{str}:
+    \item \texttt{list}: Taking inspiration from Python \cite{python_language}, Bleach has this type. Here, the \texttt{list} type represents an linear-sequence of elements. As previously stated, Bleach is a dynamically-typed language, just like Python. Thus, the \texttt{list} type can store values of different types with no issues. Moreover, Bleach has support for \texttt{list} literals, just as the ones shown below:\newline
+
+    \begin{figure}[H]
+        \centering
+        \begin{lstlisting}
+        let l0 = [0, 1, 2, 3, 2.71, 3.14159];
+        let l1 = ["hello", "there"];
+        let l2 = [];
+        let l3 = [false, "Brazil", 9.98, nil];
+        \end{lstlisting}
+        \caption{Examples of \texttt{list} literals in Bleach.}
+    \end{figure}
+
+    Finally, as in Python, the \texttt{list} type in Bleach has the following useful methods that makes the student's life easier when working with this type.
+    
+    \begin{itemize}
+        \item \texttt{append}: Method responsible for adding one value of any type to the end of the \texttt{list} value it was called on. Returns \texttt{nil}.
+        \item \texttt{clear}: Method responsible for deleting every element that is currently stored inside the \texttt{list} value it was called on. Returns \texttt{nil}.
+        \item \texttt{empty}: Method responsible for checking whether the \texttt{list} value it was called on currently has values stored inside it or not. Returns a \texttt{bool} value.
+        \item \texttt{fill}: Method responsible for resizing the \texttt{list} value it was called on to a provided size and also filling all of its indexes with a provided value of any type. Returns \texttt{nil}; 
+        \item \texttt{getAt}: Method responsible for returning the value present at the provided index. Returns a value of any type.
+        \item \texttt{pop}: Method responsible for deleting and returning the last element present inside a \texttt{list} value, if any. Returns a value of any type.
+        \item \texttt{setAt}: Method responsible for setting the value stored at the provided index to the value that was provided. Returns \texttt{nil}.
+        \item \texttt{size}: Method responsible for checking and returning the current amount of elements that the \texttt{list} value it was on called on currently has. Return a \texttt{num} value.
+    \end{itemize}
+
+    Last but not least, it's important to mention that any misuse of the methods presented above will result in a runtime error during the program's execution.
+
+    \item \texttt{str}: Also taking inspiration from Python \cite{python_language}, Bleach has this type. The \texttt{str} type represents an indexed-sequence of characters (a string), typically used to store and manipulate text. Just as the \texttt{list} type, Bleach also has support for literal values of this type:
+
+    \begin{figure}[H]
+        \centering
+        \begin{lstlisting}
+        let s0 = "Ichigo Kurosaki";
+        let s1 = "Byakuya Kuchiki";
+        let s2 = "Bazzard Black";
+        let s3 = "Jugram Haschwalth";
+        \end{lstlisting}
+        \caption{Examples of \texttt{str} literals in Bleach.}
+    \end{figure}
+
+    There are other aspects about the \texttt{str} type that must be mentioned.
+
+    First of all, it is important to recall that it's a sequence type. In short, it means that values of this type can be indexed. In a string, indexing usually allows the programmer to access individual characters from the value, which, in the Bleach programming language, are also values of \texttt{str} type.
+
+    Also, as seen in Figure 4.8, in Bleach, literals values of this type are always enclosed by double quotes (\texttt{""}).
+
+    Finally, as in Python, this type has the following useful methods available:
+
+    \begin{itemize}
+        \item \texttt{empty}: Method responsible for checking whether the \texttt{str} value it was called is equal to \texttt{""} or not. Returns a \texttt{bool} value.
+        \item \texttt{find}: Method responsible for trying to figure out if the provided sub-string (a \texttt{str} value) exists within the \texttt{str} value the method was called on. Returns a \texttt{num} value which denotes the index at which the sub-string appears, otherwise returns \texttt{-1}. 
+        \item \texttt{length}: Method responsible for checking and returning the current amount of characters (which are also values of type \texttt{str}) that the \texttt{str} value it was on called on currently has. Returns a \texttt{num} value.
+        \item \texttt{split}: Method responsible for generating a \texttt{list} where each value is of \texttt{str} type. This method receives as its unique argument a value of \texttt{str} type that works as the separator. Returns a \texttt{list} value.
+        \item \texttt{substr}: Method responsible for retrieving a sub-string from the \texttt{str} value it was called on. The method receives two arguments of \texttt{num} type that work as the start and end delimiters. Returns a \texttt{str} value.
+    \end{itemize}
+
 \end{itemize}
 
 \subsection{Comments}
+Even though it is recommendable that a programmer writes code in a way that is readable and understandable, there are certain scenarios where extra explanation about what certain parts of a program's source code is actually doing is necessary.
+
+In these specific cases, programmers usually leave comments in their code that the compiler/interpreter will ignore but people reading their code may find helpful.
+
+Given this, Bleach takes inspiration from C \cite{kernighan1988c} when it comes to support for single-line comments and multi-line comments.
+
+\begin{itemize}
+    \item \textbf{Single-Line Comments:} In Bleach, a single-line comment starts with two slashes (\texttt{//}), and the comment continues until the end of the line.
+    \item \textbf{Multi-Line Comments:} Bleach also has support for multi-line comments. A multi-line comment has a beginning and an ending. The former is denoted by a (\texttt{/*}), while the later is denoted by a (\texttt{*/}). Everything written in-between is considered a comment and, thus, is ignored by the interpreter at runtime.
+\end{itemize}
+
 \subsection{Variables}
 \subsection{Operators}
+Operators in a programming language are tools responsible for executing an operation on one or more operands in order to produce a result.
+
+Operators are fundamental building blocks in every programming language, since they allow data manipulation, computations execution, values comparison, and much more.
+
+This subsection is dedicated to introduce the operators Bleach grants to its users and how each of such operators behave. In the end, an operator precedence table will be shown.
+
+\begin{itemize}
+    \item \textbf{Unary Operators:}
+        \begin{itemize}
+            \item Arithmetical:
+            \item Logical:
+        \end{itemize}
+    \item \textbf{Binary Operators:}
+        \begin{itemize}
+            \item Arithmetical
+            \item Comparison/Relational
+            \item Equality
+            \item Logical
+        \end{itemize}
+    \item \textbf{Ternary Operator:}
+        A ternary operator is, as its name suggests, an operator that expects three operands. Bleach has just one operator that falls in this class (\texttt{? :}), the one the reader is probably familiar with from C and C++.
+    
+        This operator provide another way of executing conditional operations. It is used to evaluate a condition and return one of two values based on whether the condition evaluates to \texttt{true} or \texttt{false}.
+            
+    \item \textbf{Bleach's Operators Precedence Table:}
+        \begin{table}[H]
+        \centering
+        \begin{tabular}{|c|c|}
+            \hline
+            \textbf{Precedence} & \textbf{Operators} \\  % First row: header
+            \hline
+            1 & \texttt{!}, \texttt{-} (unary) \\  % Start adding data
+            \hline
+            2 & \texttt{*}, \texttt{/} \\
+            \hline
+            3 & \texttt{+}, \texttt{-} (binary) \\
+            \hline
+            4 & \texttt{>}, \texttt{>=}, \texttt{<}, \texttt{<=} \\
+            \hline
+            5 & \texttt{==}, \texttt{!=} \\
+            \hline
+            6 & \texttt{and} \\
+            \hline
+            7 & \texttt{or} \\
+            \hline
+            8 & \texttt{? :} (ternary) \\
+            \hline
+            9 & \texttt{=} (assignment) \\
+            \hline
+        \end{tabular}
+        \caption{Bleach's Operator Precedence Table.}
+        \label{tab:example}
+        \end{table}
+
+\end{itemize}
+
 \subsection{Control-Flow Structures}
+    \subsubsection{4.3.6.1 If Statements}
+    teste
+    \subsubsection{4.3.6.2 Loops}
+
 \subsection{Functions}
+Functions, as is widely known, are fundamental building blocks in programming. They are reusable blocks of code created with the intention of executing a specific job. Therefore, they allow programmers to organize, reuse, and manage code in a more organized manner.
+
+Functions can take inputs, process them and also return a value. As mentioned above, they are very useful because they are helpful when it comes down to breaking complex problems into smaller and simpler chores.
+
+The code snippet below shows an example of a function declaration statement in Bleach:
+
+\begin{figure}[H]
+    \centering
+    \begin{lstlisting}
+    function functionName(parameter1, parameter2, parameter3){
+      // Code to be executed
+      return value;
+    }
+    \end{lstlisting}
+    \caption{Example of function declaration statement in Bleach.}
+\end{figure}
+
+Still regarding function declaration statements, it is relevant to mention that if the programmer omits the \texttt{return} statement from it, then when such function is called at runtime it will, by default, return the \texttt{nil} value.
+
+In Bleach, function calls are no different than in the most famous programming languages. The programmer is expected to call it by its name and provide the necessary arguments, according to its respective declaration statement. The code snippet below shows how to properly call a function in Bleach.
+
+\begin{figure}[H]
+    \centering
+    \begin{lstlisting}
+    function subtract(a, b){
+      return a + b;
+    }
+
+    let x = 5;
+    let y = 3;
+    let answer = subtract(a, b);
+    
+    print answer; // 2
+    \end{lstlisting}
+    \caption{Example of a function call in Bleach.}
+\end{figure}
+
+As happens in most dynamically-typed programming languages, when a function call does not comply with its respective declaration statement, a runtime error is thrown.
+
+It is very important to mention that functions in Bleach have certain limitations: They don't have support optional parameters, nor for default value for its parameters, and also cannot be overloaded. \textbf{("Future Work" Material? Assignment to students?)}
+
+Going further, in Bleach, functions are first-class values. Basically, this means that a function is not different from any other value in Bleach. This fact implies in the consequences listed below:
+
+\begin{itemize}
+    \item Functions can be assigned to variables.
+    \item Functions can be passed as arguments to other functions.
+    \item Functions can be returned from other functions.
+    \item Functions can be stored inside data structures.
+\end{itemize}
+
+Finally, Bleach also has support for anonymous functions, also known as lambda functions. As the name suggests, these are functions that do not have a name attached to them (i.e., they are declared without a name). Usually, famous programming languages have syntax mechanisms that permit such a thing. Bleach opted for taking a mixed approach by using the \texttt{lambda} keyword, used in Python, as well as an "arrow" token (\texttt{->}). When it comes to semantics, anonymous functions are just as powerful as the default ones.
+
+The code snippet shown below demonstrates how to use an anonymous function in Bleach:
+
+\begin{figure}[H]
+    \centering
+    \begin{lstlisting}
+    let add = lambda -> (a, b){ return a + b; }
+    
+    let answer = add(10, 15);
+    
+    print answer; // 25
+    \end{lstlisting}
+    \caption{Example of an anonymous function usage in Bleach.}
+\end{figure}
+
+
 \subsection{OOP in Bleach}
 \subsection{Bleach Native Functions}
 
