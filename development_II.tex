@@ -368,10 +368,44 @@ print y; // 13;
         \end{lstlisting}
         \caption{Example showing the possibility of assigning a value to multiple variable in a single assignment expression.}
     \end{figure}
-
 \end{itemize}
 
+Lastly, the Bleach programming language has support for variable shadowing. In practice, this means that when a variable is declared in an inner scope with the same name of another variable, which was declared in an outer scope, the inner variable "shadows" or hides the variable declared in the outer scope. This means that, until this inner scope ends, every variable reference will "hit" the inner one, not the outer one. In this matter, it is important that in order to create a new scope, the user just needs to use curly braces (\texttt{\{\}}). The two examples presented below show how variable shadowing works in practice in Bleach:
+\begin{figure}[H]
+    \centering
+    \begin{lstlisting}
+let a = 42;
 
+print a; // 42
+
+{
+  let a = "Hello, there!";
+  print a; // "Hello, there!" --> In this scope, the variable a that holds the value "Hello, there!" hides the other one that has the same name but stores a different value: 42.
+}
+
+print a; // 42
+    \end{lstlisting}
+    \caption{First example of variable shadowing in Bleach.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{lstlisting}
+let foo = "hi";
+print foo; // "hi"
+
+function f(){
+  let foo = 42;
+  print foo; // 42;
+
+  return;
+}
+f();
+
+print foo; // "hi"
+    \end{lstlisting}
+    \caption{Second example of variable shadowing in Bleach.}
+\end{figure}
 
 
 \subsection{Operators}
@@ -720,6 +754,8 @@ The code snippet shown below demonstrates how to use an anonymous function in Bl
 
 
 \subsection{OOP in Bleach}
+Bleach not only supports, but also encourages programmers to use the key concepts behind the object-oriented paradigm. Which makes Bleach a multi-paradigm language due to the fact it also follows concepts of the procedural paradigm.
+
 \subsection{Bleach Native Functions}
 
 \section{Bleach Interpreter Components Breakdown}
