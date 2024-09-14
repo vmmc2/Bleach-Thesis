@@ -273,7 +273,103 @@ comment.
 \subsection{Variables}
 A variable, as in most programming languages, can be viewed as just a name associated with a storage location in memory. Such storage location is responsible for holding data that can be changed during the execution of a program.
 
+In Bleach this is not different. Variables still have this main functionality. However, they have some particularities that might differ from variables in other programming languages. Such peculiarities are listed below:
+\begin{itemize}
+    \item In Bleach, all variables are mutable. In other words, once a variable is declared, any amount of assignments are allowed to be performed on this declared variable.
+    
+    \item A direct consequence of the particularity explained above is that there is no concept of constants in Bleach. There are just mutable variables, as previously mentioned.
+    
+    \item In Bleach, to declare a new variable, the \texttt{let} keyword must be used:
+    \begin{figure}[H]
+        \centering
+        \begin{lstlisting}
+let s = "A value of type 'str'";
+        \end{lstlisting}
+        \caption{Example of variable declaration in Bleach.}
+    \end{figure}
+    
+    \item In Bleach, if the declaration of a variable does not have an initializer, then, by default, the variable will store the nil value:
+    \begin{figure}[H]
+        \centering
+        \begin{lstlisting}
+let someVariable;
+print someVariable; // nil
+        \end{lstlisting}
+        \caption{Example of variable declaration without an initializer in Bleach.}
+    \end{figure}
 
+    \item Since Bleach is a dynamically-typed programming language, variables don't have types associated with them. Instead, it's the values stored inside them that have types. The most important consequence of this fact is that a variable can hold a value of different types at different points in time:
+    \begin{figure}[H]
+        \centering
+        \begin{lstlisting}
+let a = "hello";
+print a; // "hello"
+
+a = nil;
+print a; // nil
+
+a = 3.14 + 2.71;
+print a // 5.85
+        \end{lstlisting}
+        \caption{Example demonstrating the fact that, in Bleach, variables do not have types associated.}
+    \end{figure}
+\end{itemize}
+
+Bleach also has support for global variables, those that have been declared outside of all functions, methods or classes, making them accessible from any part of the program's source code. One point that makes Bleach kind of unique is the fact that the programmer is allowed to re-declare a global variable anytime:
+\begin{figure}[H]
+    \centering
+    \begin{lstlisting}
+let pi = 3.14159;
+// Write some code in the global scope.
+let pi = 9.51413;
+    \end{lstlisting}
+    \caption{Example demonstrating re-declaration of global variables in Bleach.}
+\end{figure}
+
+As expected from most programming language, Bleach supports local variables, which are those declared within a specific block of code, such as a function, method, an \texttt{if-elif-else} statement or a loop statement (\texttt{while}, \texttt{do-while}, \texttt{for}). In this regard, it's important to remember the reader that the scope of a local variable is limited to the block in which it is defined, meaning it can only be accessed and used within that block. Furthermore, once the block of code finishes executing, the local variable is normally destroyed, and its memory is released.
+\begin{figure}[H]
+    \centering
+    \begin{lstlisting}
+function foo(){
+  let bar = "This is a local variable";
+  print bar; // "This is a local variable"
+
+  return;
+}
+
+foo();
+    \end{lstlisting}
+    \caption{Example demonstrating the usage of local variables in Bleach.}
+\end{figure}
+
+As previously shown, variables are declared with the usage of the \texttt{let} keyword. Besides, after declaring a variable, the user is allowed to assign different values of different types at different points in time to the declared variable. To do that, the assignment operator (\texttt{=}) comes into play. However, before showing examples of code snippets that make use of this operator, it's very important to mention two semantic details of assignment in Bleach:
+\begin{itemize}
+    \item In Bleach, an assignment is an expression, not a statement. This means that every assignment produces a value.
+    \begin{figure}[H]
+        \centering
+        \begin{lstlisting}
+let foo;
+print foo = 20; // 20
+        \end{lstlisting}
+        \caption{Example showing the behavior of an assignment expression.}
+    \end{figure}
+    
+    \item Bleach allows the user to assign a value to more than one variable in an assignment expression.
+    \begin{figure}[H]
+        \centering
+        \begin{lstlisting}
+let x = 20;
+let y = 42;
+
+x = y = 13;
+
+print x; // 13;
+print y; // 13;
+        \end{lstlisting}
+        \caption{Example showing the possibility of assigning a value to multiple variable in a single assignment expression.}
+    \end{figure}
+
+\end{itemize}
 
 
 
@@ -554,6 +650,8 @@ print 2 == 2 ? "2 is equal to 2" : "2 is not equal to 2"; // "2 is equal to 2"
 
 
 \subsection{Functions}
+\textbf{Falar como ocorre a passagem de valores em chamadas de função: por valor ou por referência.}
+
 Functions, as is widely known, are fundamental building blocks in programming. They are reusable blocks of code created with the intention of executing a specific job. Therefore, they allow programmers to organize, reuse, and manage code in a more organized manner.
 
 Functions can take inputs, process them and also return a value. As mentioned above, they are very useful because they are helpful when it comes down to breaking complex problems into smaller and simpler chores.
@@ -633,5 +731,13 @@ The code snippet shown below demonstrates how to use an anonymous function in Bl
 \subsection{Interpreter/Runtime}
 
 \section{Challenges, Decisions and Trade-Offs}
+\textbf{Falar sobre a decisão de permitir a redeclaração de variáveis globais em Bleach e o porquê disso.}
+
+\textbf{Falar sobre a decisão de usar um Handwritten Lexer/Scanner.}
+
+\textbf{Falar sobre a decisão de usar Recursive-Descent Parsing.}
+
+\textbf{Falar sobre a decisão de usar um Tree-Walk Interpreter ao invés de uma ByteCode VM ou de um Compilador.}
+
 
 \section{What Makes Bleach Shine and How It Can Be Used In a Classroom Environment}
