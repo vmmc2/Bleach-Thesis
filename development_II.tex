@@ -254,7 +254,30 @@ Given this, Bleach takes inspiration from C \cite{kernighan1988c} when it comes 
     \item \textbf{Multi-Line Comments:} Bleach also has support for multi-line comments. A multi-line comment has a beginning and an ending. The former is denoted by a (\texttt{/*}), while the later is denoted by a (\texttt{*/}). Everything written in-between is considered a comment and, thus, is ignored by the interpreter at runtime.
 \end{itemize}
 
+    \begin{figure}[H]
+        \centering
+        \begin{lstlisting}
+// This is a single-line comment.
+
+/*
+This 
+is
+a
+multi-line
+comment.
+*/
+        \end{lstlisting}
+        \caption{Examples of \texttt{str} literals in Bleach.}
+    \end{figure}
+
 \subsection{Variables}
+A variable, as in most programming languages, can be viewed as just a name associated with a storage location in memory. Such storage location is responsible for holding data that can be changed during the execution of a program.
+
+
+
+
+
+
 \subsection{Operators}
 Operators in a programming language are tools responsible for executing an operation on one or more operands in order to produce a result.
 
@@ -295,7 +318,36 @@ print !!b; // true
         \begin{itemize}
             \item \textbf{Arithmetical:}
                 \begin{itemize}
-                    \item \textbf{Addition} (\texttt{+}):
+                    \item \textbf{Addition} (\texttt{+}): This operator expects two operands, which can be of type \texttt{num} or \texttt{str}. However, the action performed by this operator at runtime depends on the types of the operands provided.
+
+                    If both operands are values of type \texttt{num}, then this operator adds the first (left) operand to the second (right) operand and returns the result (a value of type \texttt{num}).
+                    \begin{figure}[H]
+                        \centering
+                        \begin{lstlisting}
+print 2 + 3; // 5
+print 2.71 + 3.14159; // 5.85159
+                        \end{lstlisting}
+                        \caption{First example of usage of the "addition" operator (\texttt{+}).}
+                    \end{figure}
+
+                    If both operands are values of type \texttt{str}, then this operator concatenates the first (left) operand to the second (right) operand and returns the result (a value of type \texttt{str}).
+                    \begin{figure}[H]
+                        \centering
+                        \begin{lstlisting}
+print "hello," + " there!"; // "hello, there!"
+print "a" + "b"; // "ab"
+                        \end{lstlisting}
+                        \caption{Second example of usage of the "addition" operator (\texttt{+}).}
+                    \end{figure}
+
+                    If one operand is a value of type \texttt{num} and the other one is a value of type \texttt{str}, then the one that is a \texttt{num} is converted into its \texttt{str} representation and concatenated to the other operand. The operator then returns the result (a value of type \texttt{str}).
+                    \begin{figure}[H]
+                        \centering
+                        \begin{lstlisting}
+print 2 + "two"; // "2two"
+                        \end{lstlisting}
+                        \caption{Third example of usage of the "addition" operator (\texttt{+}).}
+                    \end{figure}
                     
                     
                     \item \textbf{Subtraction} (\texttt{-}): This operator expects two operands of type \texttt{num}. It subtracts the second (right) operand from the first (left) operand, and returns the result (a value of type \texttt{num}).
@@ -316,7 +368,7 @@ print 1.5 * 4; // 6
                         \caption{Example of usage of the "multiplication" operator (\texttt{*}).}
                     \end{figure}
                     
-                    \item \textbf{Division} (\texttt{/}): This operator expects two operands of type \texttt{num}. It divides the first (left) operand, also called dividend, by the second (right) operand, also called divisor, and returns the result (a value of type \texttt{num}). It is worth mentioning that if the value of the divisor is \texttt{0}, then a runtime error will be thrown.
+                    \item \textbf{Division} (\texttt{/}): This operator expects two operands of type \texttt{num}. It divides the first (left) operand, also called dividend, by the second (right) operand, also called divisor, and returns the result of the division (a value of type \texttt{num}). It is worth mentioning that if the value of the divisor is \texttt{0}, then a runtime error will be thrown.
                     \begin{figure}[H]
                         \centering
                         \begin{lstlisting}
@@ -327,7 +379,16 @@ print 1 / 3; // 0.333333333333333
                     \end{figure}
 
                     
-                    \item \textbf{Remainder} (\texttt{\%}): This operator expects two operands of type \texttt{num}.
+                    \item \textbf{Remainder} (\texttt{\%}): This operator expects two operands of type \texttt{num}. It divides the first (left) operand, also called dividend, by the second (right) operand, also called divisor, and returns the remainder of this division (a value of type \texttt{num}). It is worth mentioning that if the value of the divisor is \texttt{0}, then a runtime error will be thrown. Moreover, a runtime error will also be thrown if both operands are not integer numbers. If the reader wants to computer the remainder of a division between decimal numbers, then he/she/they should use the  \texttt{std::math::fmod} native function, which is presented at section 4.3.9.
+                    \begin{figure}[H]
+                        \centering
+                        \begin{lstlisting}
+print 5 % 2; // 1
+print 1 % 3; // 1
+print -10 % 4 // -2
+                        \end{lstlisting}
+                        \caption{Example of usage of the "remainder" operator (\texttt{\%}).}
+                    \end{figure}
                 
                 
                 \end{itemize}
@@ -430,6 +491,7 @@ print false and nil; // false
                         \end{lstlisting}
                         \caption{Example of usage of the "and" operator (\texttt{and}).}
                     \end{figure}
+                    
                     \item \textbf{Or} (\texttt{or}): This operator returns \texttt{true} if one of its operands is a "truthy" value. Otherwise, it returns \texttt{false}. As the operator above, this one also performs short-circuiting whenever possible.
                                         \begin{figure}[H]
                         \centering
@@ -446,7 +508,17 @@ print false or nil; // false
         A ternary operator is, as its name suggests, an operator that expects three operands. Bleach has just one operator that falls in this class (\texttt{? :}), the one the reader is probably familiar with from C and C++.
     
         This operator provide another way of executing conditional operations. It is used to evaluate a condition and return one of two values based on whether the condition evaluates to \texttt{true} or \texttt{false}.
-            
+
+        The three operands expected by the ternary operator can be of any type (built-in or user-defined). The first one is evaluated by the ternary operator with respect to its truthiness of falseness. If the value is "truthy", then the operator returns the second operand. Otherwise, it returns the third operand.
+
+        \begin{figure}[H]
+            \centering
+            \begin{lstlisting}
+print 2 == 2 ? "2 is equal to 2" : "2 is not equal to 2"; // "2 is equal to 2"
+            \end{lstlisting}
+            \caption{Example of usage of the "ternary" operator (\texttt{? :}).}
+        \end{figure}
+
     \item \textbf{Bleach's Operators Precedence Table:}
         \begin{table}[H]
         \centering
@@ -456,7 +528,7 @@ print false or nil; // false
             \hline
             1 & \texttt{!}, \texttt{-} (unary) \\  % Start adding data
             \hline
-            2 & \texttt{*}, \texttt{/} \\
+            2 & \texttt{*}, \texttt{/}, \texttt{\%} \\
             \hline
             3 & \texttt{+}, \texttt{-} (binary) \\
             \hline
@@ -476,13 +548,10 @@ print false or nil; // false
         \caption{Bleach's Operator Precedence Table.}
         \label{tab:example}
         \end{table}
-
 \end{itemize}
 
 \subsection{Control-Flow Structures}
-    \subsubsection{4.3.6.1 If Statements}
-    teste
-    \subsubsection{4.3.6.2 Loops}
+
 
 \subsection{Functions}
 Functions, as is widely known, are fundamental building blocks in programming. They are reusable blocks of code created with the intention of executing a specific job. Therefore, they allow programmers to organize, reuse, and manage code in a more organized manner.
