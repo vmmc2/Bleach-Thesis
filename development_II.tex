@@ -767,6 +767,7 @@ The rest of this subsection is dedicated to provide a more in-depth overview abo
 \begin{figure}[H]
     \centering
     \begin{lstlisting}
+// The declaration of a class called "Person".
 class Person{
   method init(name, age){
     self.name = name;
@@ -781,9 +782,36 @@ class Person{
     \caption{Example of a class declaration in Bleach.}
 \end{figure}
 
-    \item \textbf{Instances:}
+    \item \textbf{Instances/Objects:} When it comes to instances/objects, Bleach took the same approach that was taken by Lox and Python. An instance/object is a concretization of a class. In other words, an instance is an entity created at runtime that has the structure and behavior defined by its class declaration. However, it is important to remember that each instance of a class can store its own unique data. In essence, an instance of a class has its own copy of the class’s attributes, but they share the class's methods.
+
+    Since Bleach took the same approach to deal with instances/objects as Lox, it is safe to say that the following quote written by Robert Nystrom in \cite{nystrom2021crafting} also applies to Bleach: "Instances are loose bags of data and you can freely add fields to them as you see fit using normal imperative code."
     
-    \item \textbf{The \texttt{self} keyword:}
+    \item \textbf{The \texttt{self} keyword:} The keyword \texttt{self} serves for a very specific purpose inside a class: It's a reference to the current instance/object of the class. This keyword allows methods within a class to access the specific instance's attributes and other methods.
+    
+    In addition to that, the \texttt{self} keyword assists to clarify when local variables (parameters that receive passed arguments in a method call, for example) have the same name as instance variables.
+
+    Finally, this keyword permits methods to return the current instance, which allows method chaining: a scenario where multiple methods can be called in sequence on the same instance.
+
+    The code snippet shown below demonstrates a more sophisticated use of the \texttt{self} keyword:
+\begin{figure}[H]
+    \centering
+    \begin{lstlisting}
+class Counter{
+  method init(){
+    self.count = 0;
+  }
+
+  method increment(){
+    self.count = self.count + 1;
+    return self;
+  }
+}
+let counter = Counter();
+counter.increment().increment().increment();
+print counter.count; // 3;
+    \end{lstlisting}
+    \caption{Example of a more refined use of the \texttt{self} keyword in Bleach.}
+\end{figure}
     
     \item \textbf{Attributes:} As seen in the item above, attributes don't need to have type annotations attached to them. Instead, the attributes' types are determined when values are assigned to them at runtime. On top of that, attributes of a class can store values of different types at different points in time. As in most programming languages that are object-oriented, in order to access the attributes of a class, one must use the "dot" (\texttt{.}) notation, as displayed below:
 \begin{figure}[H]
@@ -807,6 +835,8 @@ print square.perimeter; // 20
     \end{lstlisting}
     \caption{Example that illustrates the usage of attributes of a class in Bleach.}
 \end{figure}
+
+    \textbf{Falar sobre a implicação semântica de ter um método e um atributo com o mesmo nome em uma instância de uma classe.}
 
     \item \textbf{Methods:} In Bleach, methods of a class don't have type annotations in their signature, just like functions. The types are checked during runtime when the method is called, which can potentially throw a runtime error if a value of an unexpected type is passed as an argument. In order to declare a method of a class in Bleach, the programmer can use the same syntax as in a function declaration, just needing to replace the \texttt{function} keyword by the \texttt{method} keyword. To call a method of a class, it is required to use the "dot" notation (\texttt{.}) combined with the function calling convention (\texttt{()}), as exhibited below:
 \begin{figure}[H]
@@ -844,7 +874,9 @@ print dog.louderBark();
 \end{figure}
     
     \textbf{Falar sobre os métodos especiais "init" e "str". Ambos podem ser omitidos na declaração de uma classe. O que acontece quando eles são omitidos? Quais as implicações disso?}
-    \item \textbf{Inheritance:}
+
+    
+    \item \textbf{Inheritance and the \texttt{super} keyword:}
 \end{itemize}
 
 
