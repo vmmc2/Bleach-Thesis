@@ -754,6 +754,8 @@ The code snippet shown below demonstrates how to use an anonymous function in Bl
 
 
 \subsection{The Object-Oriented Paradigm in Bleach}
+\textbf{(Não sei se essa subseção ficou muito bem escrita. Poderia dar uma olhada com mais atenção nela?)}
+
 As previously stated, Bleach is a multi-paradigm programming language, since it has support both the procedural and the object-oriented paradigms.
 
 When it comes to the object-oriented paradigm, Bleach has support to the following features of it, such as: classes, attributes/fields, methods, instances, the \texttt{self} keyword and inheritance. These features allow the reader to build modular, reusable, and maintainable code by organizing software into objects, entities that are capable of representing both data and behavior.
@@ -761,15 +763,89 @@ When it comes to the object-oriented paradigm, Bleach has support to the followi
 The rest of this subsection is dedicated to provide a more in-depth overview about each of the mentioned features:
 
 \begin{itemize}
-    \item \textbf{Classes:} A class is basically a "blueprint" for creating instances/object. Bleach takes the same approach as Python when it comes to classes: when the user a class defines a set of attributes (variables) and methods (functions) that the created objects will have as its disposal.
-    
-    \item \textbf{Attributes/Fields:}
-    \item \textbf{Methods:}
+    \item \textbf{Classes:} As is common knowledge among undergraduate CS students, in the object-oriented paradigm, a class is basically a "blueprint" for creating instances/object. Regarding this, since Bleach is a dynamically-typed language, it made sense for it to take the same route as Python: It does not require explicit type information about attributes and methods. Furthermore, there is a lot of flexibility when it comes to additions, because the programmer can add new attributes and methods at runtime to instances of a class, as will be shown later in this subsection. In order to declare a new class, the user must use the \texttt{class} keyword followed by the name of the declared class and curly braces (\texttt{\{\}}):
+\begin{figure}[H]
+    \centering
+    \begin{lstlisting}
+class Person{
+  method init(name, age){
+    self.name = name;
+    self.age = age;
+  }
+
+  method greet(){
+    return "I am " + self.name + " and I have " + self.age + " years.";
+  }
+}
+    \end{lstlisting}
+    \caption{Example of a class declaration in Bleach.}
+\end{figure}
+
     \item \textbf{Instances:}
+    
     \item \textbf{The \texttt{self} keyword:}
+    
+    \item \textbf{Attributes:} As seen in the item above, attributes don't need to have type annotations attached to them. Instead, the attributes' types are determined when values are assigned to them at runtime. On top of that, attributes of a class can store values of different types at different points in time. As in most programming languages that are object-oriented, in order to access the attributes of a class, one must use the "dot" (\texttt{.}) notation, as displayed below:
+\begin{figure}[H]
+    \centering
+    \begin{lstlisting}
+class Square{
+  method init(length){
+    self.length = length;
+  }
+}
+
+let square = Square(5);
+
+print square.length; // 5
+
+square.area = square.length * square.length;
+print square.area; // 25
+
+square.perimeter = 4 * square.length;
+print square.perimeter; // 20
+    \end{lstlisting}
+    \caption{Example that illustrates the usage of attributes of a class in Bleach.}
+\end{figure}
+
+    \item \textbf{Methods:} In Bleach, methods of a class don't have type annotations in their signature, just like functions. The types are checked during runtime when the method is called, which can potentially throw a runtime error if a value of an unexpected type is passed as an argument. In order to declare a method of a class in Bleach, the programmer can use the same syntax as in a function declaration, just needing to replace the \texttt{function} keyword by the \texttt{method} keyword. To call a method of a class, it is required to use the "dot" notation (\texttt{.}) combined with the function calling convention (\texttt{()}), as exhibited below:
+\begin{figure}[H]
+    \centering
+    \begin{lstlisting}
+class Dog{
+  method bark(){
+    return "Owf Owf!";
+  }
+}
+
+let dog = Dog();
+
+print dog.bark(); // "Owf Owf!"
+    \end{lstlisting}
+    \caption{Example that illustrates the usage of methods of a class in Bleach.}
+\end{figure}
+
+    Last but not least, since default functions and anonymous functions are values in Bleach, it is completely possible to add new methods to an instance of a class by using them, as demonstrated below:
+\begin{figure}[H]
+    \centering
+    \begin{lstlisting}
+class Dog{
+  method bark(){
+    return "Owf Owf!";
+  }
+}
+
+let dog = Dog();
+
+dog.louderBark = lambda -> (){ return "WOOF!"; };
+print dog.louderBark();
+    \end{lstlisting}
+    \caption{Example that illustrates the addition of a new method to an instance of a class during runtime.}
+\end{figure}
+    
+    \textbf{Falar sobre os métodos especiais "init" e "str". Ambos podem ser omitidos na declaração de uma classe. O que acontece quando eles são omitidos? Quais as implicações disso?}
     \item \textbf{Inheritance:}
 \end{itemize}
-
 
 
 \subsection{Bleach Native Functions}
