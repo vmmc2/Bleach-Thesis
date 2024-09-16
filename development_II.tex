@@ -681,7 +681,147 @@ print 2 == 2 ? "2 is equal to 2" : "2 is not equal to 2"; // "2 is equal to 2"
 \end{itemize}
 
 \subsection{Control-Flow Structures}
+Control-Flow structures are entities that allow the programmer to dictate in what order and by how many times instructions or code blocks are executed.
 
+These entities are responsible for allowing branching mechanisms, decision-making and repetition in a program. The main consequence of this is that a program can have a more dynamic and sophisticated behavior.
+
+In Bleach, there are 3 classes of control-flow structures:
+\begin{itemize}
+    \item \textbf{Conditional Statements:} These statements are known to execute a block of code based on the fact that certain condition(s) are satisfied. Bleach has support for \texttt{if} statements, which may be followed by any amount of \texttt{elif} statements and a unique \texttt{else} statement, in this order. Bleach also provides support for nesting \texttt{if} statements, which gives more flexibility to the user.
+\begin{figure}[H]
+    \centering
+    \begin{lstlisting}
+let number = 15;
+
+if(number % 3 and number % 5){
+  print "Fizz Buzz"; // Executes this statement.
+}elif(number % 3){
+  print "Fizz";
+}elif(number % 5){
+  print "Buzz";
+}else{
+  print number;
+}
+    \end{lstlisting}
+    \caption{First example that shows the usage of \texttt{if}, \texttt{elif} and \texttt{else} in Bleach.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{lstlisting}
+let number = 10;
+
+if(number > 0){
+  if(number % 2 == 0){
+    // Executes this block of code.
+    print "The number " + number + " is positive and even!";
+  }else{
+    print "The number " + number + " is positive and odd!";
+  }
+}else{
+  print "The number " + number + " is negative!";
+}
+    \end{lstlisting}
+    \caption{Second example that shows the usage of \texttt{if}, \texttt{elif} and \texttt{else} in Bleach.}
+\end{figure}
+
+    It is important to mention that the \texttt{if}, \texttt{elif} and \texttt{else} statements require a block after it. Otherwise, a syntax error will be thrown by the interpreter. This happens because such statements create a new local scope.
+    
+    \item \textbf{Loop statements:} These ones are used to allow the repetition of a code block based on a certain condition. Bleach has support for 3 different types of loop statements: \texttt{while}, \texttt{do-while} and \texttt{for}. Just as in conditional statements, Bleach also allows the nesting of loop statements.
+\begin{figure}[H]
+    \centering
+    \begin{lstlisting}
+let counter = 10;
+
+while(counter > 0){
+  counter = counter - 1;
+}
+
+print counter; // 0
+    \end{lstlisting}
+    \caption{Example that shows the usage of a \texttt{while} loop in Bleach.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{lstlisting}
+let counter = 1;
+
+do{
+  counter = counter - 1;
+}while(counter > 1);
+
+print counter; // 0
+    \end{lstlisting}
+    \caption{Example that shows the usage of a \texttt{do-while} loop in Bleach.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{lstlisting}
+let number;
+
+for(number = 10; number > 0; number = number - 1){}
+
+print number; // 0
+    \end{lstlisting}
+    \caption{Example that shows the usage of a \texttt{for} loop in Bleach.}
+\end{figure}
+
+    It is important to mention that these statements also require a block after them. Otherwise, a syntax error will be thrown by the interpreter. This happens because they also create a new local scope, just as the conditional statements.
+
+    \item \textbf{Jump statements:} Jump statements are used by the programmer to alter the execution flow of the source code by "jumping" to a different part of it. Bleach has support for 3 types of jump statements: \texttt{break}, \texttt{continue} and \texttt{return}.
+
+\begin{figure}[H]
+    \centering
+    \begin{lstlisting}
+let numbers = [];
+
+for(let i = 0; i < 10; i = i + 1){
+  if(i == 5){
+    break;
+  }
+  numbers.append(i);
+}
+
+print numbers; // [0, 1, 2, 3, 4]
+    \end{lstlisting}
+    \caption{Example that shows the usage of a \texttt{break} statement in Bleach.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{lstlisting}
+let numbers = [];
+
+for(let i = 0; i <= 10; i = i + 1){
+  if(i % 2 == 1){
+    continue;
+  }
+  numbers.append(i);
+}
+
+print numbers; // [0, 2, 4, 6, 8, 10]
+    \end{lstlisting}
+    \caption{Example that shows the usage of a \texttt{continue} statement in Bleach.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{lstlisting}
+function foo(){
+  print "alpha";
+
+  return;
+
+  print "omega"; // Not reachable due to the "return" keyword.
+}
+
+foo(); // "alpha"
+    \end{lstlisting}
+    \caption{Example that shows the usage of a \texttt{return} statement in Bleach.}
+\end{figure}
+\end{itemize}
 
 \subsection{Functions}
 \textbf{Falar como ocorre a passagem de valores em chamadas de função: por valor ou por referência.}
@@ -695,10 +835,10 @@ The code snippet below shows an example of a function declaration statement in B
 \begin{figure}[H]
     \centering
     \begin{lstlisting}
-    function functionName(parameter1, parameter2, parameter3){
-      // Code to be executed
-      return value;
-    }
+function functionName(parameter1, parameter2, parameter3){
+  // Code to be executed
+  return value;
+}
     \end{lstlisting}
     \caption{Example of function declaration statement in Bleach.}
 \end{figure}
@@ -710,15 +850,15 @@ In Bleach, function calls are no different than in the most famous programming l
 \begin{figure}[H]
     \centering
     \begin{lstlisting}
-    function subtract(a, b){
-      return a + b;
-    }
+function subtract(a, b){
+  return a + b;
+}
 
-    let x = 5;
-    let y = 3;
-    let answer = subtract(a, b);
-    
-    print answer; // 2
+let x = 5;
+let y = 3;
+let answer = subtract(a, b);
+
+print answer; // 2
     \end{lstlisting}
     \caption{Example of a function call in Bleach.}
 \end{figure}
@@ -876,7 +1016,44 @@ print dog.louderBark();
     \textbf{Falar sobre os métodos especiais "init" e "str". Ambos podem ser omitidos na declaração de uma classe. O que acontece quando eles são omitidos? Quais as implicações disso?}
 
     
-    \item \textbf{Inheritance and the \texttt{super} keyword:}
+    \item \textbf{Inheritance and the \texttt{super} keyword:} In Bleach, as in other popular languages like C++, Java and Python, inheritance allows the user to create a new class based on an existing class, extending or modifying its functionality.
+
+    Bleach follows a very similar implementation of inheritance to that of Python with just one major difference: For simplicity purposes, Bleach only supports single inheritance whereas Python has support for multiple inheritance.
+
+    In order to create a class that inherits from another, the use of the \texttt{inherits} keyword is required as it will be shown below.
+
+    Lastly, taking inspiration from Python, Bleach also has support for the \texttt{super} keyword. This one is used in order to refer to the methods of a superclass (i.e., the base class) from within a subclass (i.e., the derived class). To put it in another way, the \texttt{super} keyword allows a subclass invoke methods that were defined in its superclass (if any), even if such methods were overridden inside the subclass. 
+
+    The code snippet below shows how to properly use inheritance in Bleach:
+\begin{figure}[H]
+    \centering
+    \begin{lstlisting}
+class Animal{
+  method init(name){
+    self.name = name;
+  }
+  method str(){
+    return self.name + " makes a sound.";
+  }
+}
+class Dog inherits Animal{
+  method init(name, breed){
+    super.init(name);
+    self.breed = breed;
+  }
+  method str(){
+    return self.name + " is a " + self.breed + " and barks.";
+  }
+}
+
+let dog = Dog("Thor", "Rottweiller");
+print dog; // "Thor is a Rottweiller and barks."
+    \end{lstlisting}
+    \caption{Example that shows the usage of inheritance in Bleach.}
+\end{figure}
+
+
+    
 \end{itemize}
 
 
@@ -892,6 +1069,8 @@ print dog.louderBark();
 
 \section{Challenges, Decisions and Trade-Offs}
 \textbf{Falar sobre a decisão de permitir a redeclaração de variáveis globais em Bleach e o porquê disso.}
+
+\textbf{Falar sobre a decisão de implementar single-inheritance ao invés de multiple-inheritance. Isso pode entrar tanto como "Future Work" como ser um assignment para uma turma.}
 
 \textbf{Falar sobre a decisão de usar um Handwritten Lexer/Scanner.}
 
