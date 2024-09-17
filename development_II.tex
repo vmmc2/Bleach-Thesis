@@ -1127,7 +1127,7 @@ First of all, a brief overview of this interpreter will be presented. Such overv
 Then, a comprehensive analysis about each of the introduced components will be made.
 
 \subsection{Bleach Tree-Walk Interpreter Overview}
-First of all, it is important to remember the reader that the implementation of the Bleach language presented in this subsection is a Tree-Walk Interpreter, a type of interpreter that was previously presented in Section 2.2 of this document. The box-diagram exhibited below shows how such sort of interpreter works with more details:
+First of all, it is important to remember the reader that the implementation of the Bleach language presented in this subsection is a Tree-Walk Interpreter, a type of interpreter that was previously presented in Section 2.2 of this document. Also its underlying language is C++. The box-diagram exhibited below shows how such sort of interpreter works with more details:
 
 \begin{figure}[h!]
   \centering
@@ -1156,9 +1156,8 @@ First of all, it is important to remember the reader that the implementation of 
   \caption{Box-Diagram representing the phases of the Bleach Interpreter.}
 \end{figure}
 
-
 \subsection{Lexer/Scanner}
-When it comes to the Lexer/Scanner of the interpreter, it worth remembering the reader that its goal is to transform the received source code (which is viewed by it as a large string of characters) into a sequence of tokens that will be fed to the parser of the interpreter. Such transformation performed by the lexer is known as lexical analysis.
+When it comes to the lexer/scanner, it's worth remembering the reader that its goal is to transform the received source code (which is viewed by it as a large string of characters) into a sequence of tokens that will be fed to the parser of the interpreter. Such transformation performed by the lexer is known as lexical analysis.
 
 When it comes to the possible tokens to be generated during the lexical analysis, these are the following types of tokens recognized by the lexer:
 
@@ -1168,7 +1167,7 @@ When it comes to the possible tokens to be generated during the lexical analysis
     \centering
         \begin{tabular}{|c|c|}
         \hline
-        Token Type & Token \\ \hline
+        \textbf{Token Type} & \textbf{Token} \\ \hline
         LEFT\_PAREN & \texttt{(} \\ \hline
         RIGHT\_PAREN & \texttt{)} \\ \hline
         LEFT\_BRACKET & \texttt{[} \\ \hline
@@ -1198,7 +1197,7 @@ When it comes to the possible tokens to be generated during the lexical analysis
     \centering
         \begin{tabular}{|c|c|}
         \hline
-        Token Type & Token \\ \hline
+        \textbf{Token Type} & \textbf{Token} \\ \hline
         ARROW & \texttt{->} \\ \hline
         EQUAL\_EQUAL & \texttt{==} \\ \hline
         EQUAL\_EQUAL & \texttt{!=} \\ \hline
@@ -1213,23 +1212,82 @@ When it comes to the possible tokens to be generated during the lexical analysis
     \centering
         \begin{tabular}{|c|c|}
         \hline
-        Token Type & Token \\ \hline
+        \textbf{Token Type} & \textbf{Token} \\ \hline
         IDENTIFIER & \texttt{(a-z|A-Z|\_)(a-z|A-Z|0-9|\_)\textsuperscript{*}} \\ \hline
         NUMBER & \texttt{[0-9]\textsuperscript{+}(.[0-9]\textsuperscript{+})?} \\ \hline
-        STRING & \texttt{"[any ASCII character]\textsuperscript{*}"} \\ \hline      
+        STRING & \texttt{"(any ASCII character)\textsuperscript{*}"} \\ \hline      
         \end{tabular}
         \caption{Multi-Character Tokens recognized by the Lexer of Bleach's Interpreter.}
     \end{table}
 
-    \item \textbf{Special Token:}
-    
+    \item \textbf{FILE\_END Token:} This token is a special one that the Bleach interpreter supports. It is responsible for signaling the end of a \texttt{.bch} file. This token has an empty string as its lexeme. Its addition will be discussed on section 4.5.
 \end{itemize}
 
+When talking about tokens, specially identifier tokens, it is important to provide the table of keywords of a programming language. In Bleach's case, this table is shown below:
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+    \hline
+    \texttt{and} & \texttt{break} & \texttt{class}  \\ \hline
+    \texttt{continue} & \texttt{do} & \texttt{elif}  \\ \hline
+    \texttt{else} & \texttt{false} & \texttt{for}  \\ \hline
+    \texttt{function} & \texttt{if} & \texttt{inherits} \\ \hline
+    \texttt{lambda} & \texttt{let} & \texttt{method} \\ \hline
+    \texttt{nil} & \texttt{or} & \texttt{print} \\ \hline
+    \texttt{return} & \texttt{self} & \texttt{super} \\ \hline
+    \texttt{true} & \texttt{while} &  \\ \hline
+    \end{tabular}
+    \caption{Table with all keywords available in Bleach.}
+\end{table}
+
+Regarding the implementation of the lexer itself, the road taken to achieve such goal was to build a hand-written lexer.
+
+The implemented hand-written lexer can successfully recognize string literals and number literals. It can also ignore whitespace characters, single-line comments and multi-line comments. On top of that, the lexer is able to successfully distinguish token that share the same initial characters on their lexemes by using the concept of lookahead and "maximal munch", both previously presented. The "maximal munch" concept is also used to identify tokens that have a keyword as their lexemes from tokens that have just an identifier as their lexemes. 
+
+Lastly, the lexer is capable of identifying invalid characters, unterminated string literals, unterminated multi-line comments and misuse of the \texttt{':'} character.
+
 \subsection{Parser}
+When it comes to the parser, it's worth remembering the reader that its goal is to transform the received sequence of tokens into an Abstract Syntax Tree (AST) that will be fed to the resolver of the interpreter. This conversion executed by the parser is known as syntax analysis.
+
+Regarding the possible AST nodes to be generated during the syntax analysis, they can be divided into two groups of nodes (expressions and statements). These groups are structured as displayed below:
+
+\begin{table}[h!]
+\centering
+    \begin{tabular}{|c|c|}
+    \hline
+    \textbf{Expr} & \textbf{Stmt} \\ \hline
+    Assign & Block \\ \hline
+    Binary & Break \\ \hline
+    Call & Class \\ \hline
+    Get & Continue \\ \hline
+    Grouping & DoWhile \\ \hline
+    LambdaFunction & Expression \\ \hline
+    ListLiteral & For \\ \hline
+    Literal & Function \\ \hline
+    Logical & If \\ \hline
+    Self & Print \\ \hline
+    Set & Return \\ \hline
+    Super & Var \\ \hline  
+    Ternary & While \\ \hline
+    Unary &  \\ \hline
+    Variable &  \\ \hline
+    \end{tabular}
+    \caption{All possible types of AST nodes in the Bleach programming language.}
+\end{table}
+
+
+
 \subsection{Resolver}
+
+
+
 \subsection{Interpreter/Runtime}
 
 \section{Challenges, Decisions and Trade-Offs}
+\textbf{Em Lexer: Falar sobre a decisão de escolher um hand-written lexer, comparar com outras opções. Desafios para lidar com o reconhecimento de strings, identificadores, numeros, comentários, "maximal munch" theorem, e suporte à funções nativas (uso de ':').}
+
+\textbf{Em Parser: Falar sobre a decisão de escolher um hand-written parser que segue a abordagem top-down recursive.}
+
 \textbf{Falar sobre a decisão de permitir a redeclaração de variáveis globais em Bleach e o porquê disso.}
 
 \textbf{Falar sobre a decisão de implementar single-inheritance ao invés de multiple-inheritance. Isso pode entrar tanto como "Future Work" como ser um assignment para uma turma.}
