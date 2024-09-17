@@ -1008,7 +1008,7 @@ class Dog{
 let dog = Dog();
 
 dog.louderBark = lambda -> (){ return "WOOF!"; };
-print dog.louderBark();
+print dog.louderBark(); // "WOOF!"
     \end{lstlisting}
     \caption{Example that illustrates the addition of a new method to an instance of a class during runtime.}
 \end{figure}
@@ -1058,6 +1058,61 @@ print dog; // "Thor is a Rottweiller and barks."
 
 
 \subsection{Bleach Native Functions}
+In case the reader is not familiar with this concept: native functions (built-in functions, intrinsic functions) are functions that are implemented in the underlying language (C++ in this particular case) of the platform or runtime environment rather that in the programming language itself (Bleach).
+
+Native functions are often organized in as a part of the language's standard library and can also perform tasks in a more efficient way than user-defined functions.
+
+As a way of achieving clarity and organization, the native functions of Bleach are organized into namespaces. A namespace is a concept that allows the logical grouping of functions, variables and other identifiers to prevent naming conflicts.
+
+Before getting to an overview of these functions, it is important to recall the reader that any misuse of them will result in a runtime error being thrown.
+
+Bleach's native functions are organized into the following namespaces:
+
+\begin{itemize}
+    \item \texttt{std::chrono}
+        \begin{itemize}
+            \item \texttt{std::chrono::clock}:
+        \end{itemize}
+    \item \texttt{std::io}
+        \begin{itemize}
+            \item \texttt{std::io::fileRead}:
+            
+            \item \texttt{std::io::fileWrite}:
+            
+            \item \texttt{std::io::readLine}: Native function responsible for receiving user input from the terminal. It returns such input as a value of type \texttt{str}.
+            
+            \item \texttt{std::io::print}:
+        \end{itemize}
+    \item \texttt{std::math}
+        \begin{itemize}
+            \item \texttt{std::math::abs}: Native function responsible for receiving a value of type \texttt{num} and returning the absolute value of the received one, which is also of type \texttt{num}.
+            
+            \item \texttt{std::math::fmod}: Native function responsible for calculating the remainder of the division between decimal numbers. This function receives two values of type \texttt{num} and also returns a value of type \texttt{num}. Passing the number \texttt{0} as the second argument will result in a runtime error.
+            
+            \item \texttt{std::math::log}: Native function responsible for receiving two values of type \texttt{num} and computing the logarithm of the second argument with respect to the base represented by the first argument. The basis of the logarithm (the first argument) must be a positive number different than \texttt{1}, while the argument (the second argument) must be a positive number. If these conditions are not met, then a runtime error will be thrown.
+            
+            \item \texttt{std::math::pow}: Native function responsible for receiving two values of type \texttt{num} and computing the exponential function where the first argument is the base and the second argument is the exponent. This function returns a value of type \texttt{num}.
+            
+            \item \texttt{std::math::sqrt}: Native function responsible for receiving a value of type \texttt{num} and computing its square root. This function returns a value of type \texttt{num}. Passing a negative number as an argument will result in a runtime error.
+            
+        \end{itemize}
+    \item \texttt{std::random}
+        \begin{itemize}
+            \item \texttt{std::random::random}:
+        \end{itemize}
+    \item \texttt{std::utils}
+        \begin{itemize}
+            \item \texttt{std::utils::ord}: Native function responsible for receiving a value of type \texttt{str} of length \texttt{1} and returning its respective ASCII number. This functions returns a value of type \texttt{num}. Passing a string with length different than \texttt{1} will result in a runtime error.
+            
+            \item \texttt{std::utils::numToStr}: \textbf{(Refletir se faz sentido essa função existir)}
+            \item \texttt{std::utils::strToNum}:
+
+            \item \texttt{std::utils::strToBool}:
+
+
+            \item \texttt{std::utils::strToNil}:
+        \end{itemize}
+\end{itemize}
 
 \section{Bleach Interpreter Components Breakdown}
 
