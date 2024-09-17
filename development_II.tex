@@ -1120,9 +1120,111 @@ Bleach's native functions are organized into the following namespaces:
 \end{itemize}
 
 \section{Bleach Interpreter Components Breakdown}
+This section is dedicated to provide a detailed breakdown of each component that is part of the first interpreter for the Bleach programming language presented here.
+
+First of all, a brief overview of this interpreter will be presented. Such overview's purpose is to show how each of its components interact with each other when interpreting a \texttt{.bch} file.
+
+Then, a comprehensive analysis about each of the introduced components will be made.
 
 \subsection{Bleach Tree-Walk Interpreter Overview}
+First of all, it is important to remember the reader that the implementation of the Bleach language presented in this subsection is a Tree-Walk Interpreter, a type of interpreter that was previously presented in Section 2.2 of this document. The box-diagram exhibited below shows how such sort of interpreter works with more details:
+
+\begin{figure}[h!]
+  \centering
+  \begin{tikzpicture}
+    % Draw the boxes
+    \draw[thick] (-4.5, 0) rectangle (-2.5, 2);
+    \draw[thick] (-0.75, 0) rectangle (1.25, 2);
+    \draw[thick] (2.75, 0) rectangle (4.75, 2);
+    \draw[thick] (6.50, 0) rectangle (8.50, 2);
+    
+    % Labels inside the boxes
+    \node at (-3.5, 1) {Lexer};
+    \node at (0.25, 1) {Parser};
+    \node at (3.75, 1) {Resolver};
+    \node at (7.5, 1) {Runtime};
+    
+    % Arrows and labels between boxes
+    \draw[->, thick] (-2.5, 1) -- (-0.75, 1) node[midway, above] {Tokens};
+    \draw[->, thick] (1.25, 1) -- (2.75, 1) node[midway, above] {AST};
+    \draw[->, thick] (4.75, 1) -- (6.50, 1) node[midway, above] {\shortstack{Resolved \\ AST}};
+    
+    % Input and output arrows
+    \draw[->, thick] (-6, 1) -- (-4.5, 1) node[midway, above] {\shortstack{Source \\ Code}};
+    \draw[->, thick] (8.50, 1) -- (11, 1) node[midway, above] {Final Output};
+  \end{tikzpicture}
+  \caption{Box-Diagram representing the phases of the Bleach Interpreter.}
+\end{figure}
+
+
 \subsection{Lexer/Scanner}
+When it comes to the Lexer/Scanner of the interpreter, it worth remembering the reader that its goal is to transform the received source code (which is viewed by it as a large string of characters) into a sequence of tokens that will be fed to the parser of the interpreter. Such transformation performed by the lexer is known as lexical analysis.
+
+When it comes to the possible tokens to be generated during the lexical analysis, these are the following types of tokens recognized by the lexer:
+
+\begin{itemize}
+    \item \textbf{Single-Character Tokens:}
+    \begin{table}[h]
+    \centering
+        \begin{tabular}{|c|c|}
+        \hline
+        Token Type & Token \\ \hline
+        LEFT\_PAREN & \texttt{(} \\ \hline
+        RIGHT\_PAREN & \texttt{)} \\ \hline
+        LEFT\_BRACKET & \texttt{[} \\ \hline
+        RIGHT\_BRACKET & \texttt{]} \\ \hline
+        LEFT\_BRACE & \texttt{\{} \\ \hline
+        RIGHT\_BRACE & \texttt{\}} \\ \hline
+        COMMA & \texttt{,} \\ \hline
+        DOT & \texttt{.} \\ \hline
+        COLON & \texttt{:} \\ \hline
+        SEMICOLON & \texttt{;} \\ \hline
+        QUESTION\_MARK & \texttt{?} \\ \hline
+        PLUS & \texttt{+} \\ \hline
+        MINUS & \texttt{-} \\ \hline
+        STAR & \texttt{*} \\ \hline
+        SLASH & \texttt{/} \\ \hline
+        REMAINDER & \texttt{\%} \\ \hline
+        BANG & \texttt{!} \\ \hline
+        EQUAL & \texttt{=} \\ \hline
+        GREATER & \texttt{>} \\ \hline
+        LESS & \texttt{<} \\ \hline
+        \end{tabular}
+        \caption{Single-Character Tokens recognized by the Lexer of Bleach's Interpreter. \newline \newline \newline}
+    \end{table}
+
+    \item \textbf{Double-Character Tokens:}
+    \begin{table}[H]
+    \centering
+        \begin{tabular}{|c|c|}
+        \hline
+        Token Type & Token \\ \hline
+        ARROW & \texttt{->} \\ \hline
+        EQUAL\_EQUAL & \texttt{==} \\ \hline
+        EQUAL\_EQUAL & \texttt{!=} \\ \hline
+        GREATER\_EQUAL & \texttt{>=} \\ \hline
+        LESS\_EQUAL & \texttt{<=} \\ \hline        
+        \end{tabular}
+        \caption{Double-Character Tokens recognized by the Lexer of Bleach's Interpreter.}
+    \end{table}
+
+    \item \textbf{Multi-Character Tokens:}
+    \begin{table}[H]
+    \centering
+        \begin{tabular}{|c|c|}
+        \hline
+        Token Type & Token \\ \hline
+        IDENTIFIER & \texttt{(a-z|A-Z|\_)(a-z|A-Z|0-9|\_)\textsuperscript{*}} \\ \hline
+        NUMBER & \texttt{[0-9]\textsuperscript{+}(.[0-9]\textsuperscript{+})?} \\ \hline
+        STRING & \texttt{"[any ASCII character]\textsuperscript{*}"} \\ \hline      
+        \end{tabular}
+        \caption{Multi-Character Tokens recognized by the Lexer of Bleach's Interpreter.}
+    \end{table}
+
+    \item \textbf{Special Token:}
+    
+\end{itemize}
+
 \subsection{Parser}
 \subsection{Resolver}
 \subsection{Interpreter/Runtime}
