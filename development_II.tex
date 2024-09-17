@@ -1053,6 +1053,7 @@ print dog; // "Thor is a Rottweiller and barks."
 \end{figure}
 
 
+
     
 \end{itemize}
 
@@ -1071,21 +1072,25 @@ Bleach's native functions are organized into the following namespaces:
 \begin{itemize}
     \item \texttt{std::chrono}
         \begin{itemize}
-            \item \texttt{std::chrono::clock}:
+            \item \texttt{std::chrono::clock}: Native function that does not take any arguments and calculates the current time in seconds as a \texttt{num} value since the epoch (which usually is 00:00:00 UTC on January 1, 1970) and returns that value.
         \end{itemize}
     \item \texttt{std::io}
         \begin{itemize}
-            \item \texttt{std::io::fileRead}:
+            \item \texttt{std::io::fileRead}: Native function responsible for receiving a \texttt{str} value that represents the path (absolute or relative) to a \texttt{.txt} file, reading its contents and returning them as a \texttt{str} value.
             
-            \item \texttt{std::io::fileWrite}:
+            \item \texttt{std::io::fileWrite}: Native function that receives a \texttt{str} value representing a path (absolute or relative) to a \texttt{.txt} file, a \texttt{str} value representing the opening mode of the file to be read (which can be "a" for append or "w" for write), another \texttt{str} value representing the content to be written to the file and a \texttt{bool} value signaling whether or not a newline must be inserted at the end of such content in the file.
             
             \item \texttt{std::io::readLine}: Native function responsible for receiving user input from the terminal. It returns such input as a value of type \texttt{str}.
             
-            \item \texttt{std::io::print}:
+            \item \texttt{std::io::print}: Native function responsible for receiving a variable number of arguments and outputting them to the console/terminal. Such arguments can be of any type (built-in or user-defined). This function returns \texttt{nil}.
         \end{itemize}
     \item \texttt{std::math}
         \begin{itemize}
             \item \texttt{std::math::abs}: Native function responsible for receiving a value of type \texttt{num} and returning the absolute value of the received one, which is also of type \texttt{num}.
+
+            \item \texttt{std::math::ceil}:
+
+            \item \texttt{std::math::floor}:
             
             \item \texttt{std::math::fmod}: Native function responsible for calculating the remainder of the division between decimal numbers. This function receives two values of type \texttt{num} and also returns a value of type \texttt{num}. Passing the number \texttt{0} as the second argument will result in a runtime error.
             
@@ -1098,19 +1103,19 @@ Bleach's native functions are organized into the following namespaces:
         \end{itemize}
     \item \texttt{std::random}
         \begin{itemize}
-            \item \texttt{std::random::random}:
+            \item \texttt{std::random::random}: Native function responsible for receiving two values of type \texttt{num} as its arguments and returning a random \texttt{num} value that is between the two provided values. If the first argument is bigger than the second one, then a runtime error will be thrown.
         \end{itemize}
     \item \texttt{std::utils}
         \begin{itemize}
             \item \texttt{std::utils::ord}: Native function responsible for receiving a value of type \texttt{str} of length \texttt{1} and returning its respective ASCII number. This functions returns a value of type \texttt{num}. Passing a string with length different than \texttt{1} will result in a runtime error.
             
             \item \texttt{std::utils::numToStr}: \textbf{(Refletir se faz sentido essa função existir)}
-            \item \texttt{std::utils::strToNum}:
+            
+            \item \texttt{std::utils::strToNum}: Native function responsible for receiving a value of type \texttt{str} that represents a number as its unique argument. The function converts the \texttt{str} value into its respective \texttt{num} value and, then, returns such value of type \texttt{num}. If the \texttt{str} value does not represent a number, a runtime error is thrown.
 
-            \item \texttt{std::utils::strToBool}:
+            \item \texttt{std::utils::strToBool}: Native function responsible for receiving a value of type \texttt{str} that represents a boolean as its unique argument. The function converts the \texttt{str} value into its respective \texttt{bool} value and, then, returns such value of type \texttt{bool}. If the \texttt{str} value does not represent a boolean, a runtime error is thrown.
 
-
-            \item \texttt{std::utils::strToNil}:
+            \item \texttt{std::utils::strToNil}: Native function responsible for receiving a value of type \texttt{str} that represents the \texttt{nil} value as its unique argument. The function converts the \texttt{str} value into this value and, then, returns it. If the \texttt{str} value does not represent \texttt{nil}, a runtime error is thrown.
         \end{itemize}
 \end{itemize}
 
