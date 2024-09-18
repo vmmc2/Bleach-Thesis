@@ -1277,14 +1277,62 @@ Regarding the possible AST nodes to be generated during the syntax analysis, the
 
 With respect to the parsing technique that is behind the parser component of the implemented Bleach interpreter, the chosen one was the Recursive-Descent parsing technique.
 
+Regarding parsing, it's important to present the BNF-grammar of Bleach: \newline
+
+\scalebox{0.75}{
+\[
+\begin{array}{rcl}
+\texttt{program}   & ::= & \texttt{statement\textsuperscript{*} EOF} \\[1pt]
+\texttt{statement} & ::= & \texttt{block | breakStmt | classDeclStmt | continueStmt | doWhileStmt} \\
+                     &     & \texttt{| exprStmt | forStmt | funcDeclStmt | ifStmt | printStmt} \\
+                     &     & \texttt{| returnStmt | varStmt | whileStmt} \\[1pt]
+\texttt{block} & ::= & \texttt{"\{" statement\textsuperscript{*} "\}"} \\
+\texttt{breakStmt} & ::= & \texttt{"break" ";"} \\[1pt]
+\texttt{classDeclStmt} & ::= & \texttt{"class" IDENTIFIER ( "inherits" IDENTIFIER )? "\{" methodDeclStmt\textsuperscript{*} "\}"} \\[1pt]
+\texttt{methodDeclStmt} & ::= & \texttt{"method" method} \\[1pt]
+\texttt{method} & ::= & \texttt{IDENTIFIER "(" parameters? ")" block} \\[1pt]
+\texttt{continueStmt} & ::= & \texttt{"continue" ";"} \\[1pt]
+\texttt{doWhileStmt} & ::= & \texttt{"do" block "while" "(" expression ")" ";"} \\[1pt]
+\texttt{exprStmt} & ::= & \texttt{expression ";"} \\[1pt]
+\texttt{forStmt} & ::= & \texttt{"for" "(" ( varDecl | exprStmt | ";" ) expression? ";" expression? ")" block} \\[1pt]
+\texttt{funcDeclStmt} & ::= & \texttt{"function" function} \\[1pt]
+\texttt{function} & ::= & \texttt{IDENTIFIER "(" parameters? ")" block} \\[1pt]
+\texttt{parameters} & ::= & \texttt{IDENTIFIER ( "," IDENTIFIER )\textsuperscript{*}} \\[1pt]
+\texttt{ifStmt} & ::= & \texttt{"if" "(" expression ")" statement ("elif" "(" expression ")" statement )*} \\[1pt]
+\texttt{} & & \texttt{( "else" statement )? } \\[1pt]
+\texttt{printStmt} & ::= & \texttt{"print" expression ";"} \\[1pt]
+\texttt{returnStmt} & ::= & \texttt{"return" expression? ";"} \\[1pt]
+\texttt{varDeclStmt} & ::= & \texttt{"let" IDENTIFIER ("=" expression )? ";"} \\[1pt]
+\texttt{whileStmt} & ::= & \texttt{"while" "(" expression ")" block} \\[1pt]
+\texttt{expression} & ::= & \texttt{assignment} \\[1pt]
+\texttt{assignment} & ::= & \texttt{( call "." )? IDENTIFIER "=" assignment | ternary} \\[1pt]
+\texttt{ternary} & ::= & \texttt{logic\_or ( "?" expression ":" expression )*} \\[1pt]
+\texttt{logic\_or} & ::= & \texttt{logic\_and ( "or" logic\_and )*} \\[1pt]
+\texttt{logic\_and} & ::= & \texttt{equality ( "and" equality )*} \\[1pt]
+\texttt{equality} & ::= & \texttt{comparison ( ( "==" | "!=" ) comparison )*} \\[1pt]
+\texttt{comparison} & ::= & \texttt{term ( ( ">" | ">=" | "<" | "<=" ) term )*} \\[1pt]
+\texttt{term} & ::= & \texttt{factor ( ( "+" | "-" ) factor )*} \\[1pt]
+\texttt{factor} & ::= & \texttt{unary ( ( "*" | "/" | "\%" ) unary )*} \\[1pt]
+\texttt{unary} & ::= & \texttt{( "!" | "-" ) unary | call} \\[1pt]
+\texttt{call} & ::= & \texttt{primary ( "(" arguments? ")" | "." IDENTIFIER )*} \\[1pt]
+\texttt{arguments} & ::= & \texttt{expression ( "," expression )*} \\[1pt]
+\texttt{primary} & ::= & \texttt{"true" | "false" | "nil" | NUMBER | STRING | IDENTIFIER | "super" "." IDENTIFIER }  \\[1pt]
+\texttt{} &  & \texttt{| "(" expression ")" | "[" ( expression ( "," expression )* )? "]"} \\[1pt]
+\texttt{lambdaFunctionExpr} & ::= & \texttt{"lambda" "->"  "(" parameters? ")" block} \\[1pt]
+\end{array}
+\]
+}
+
+In other words, the grammar of Bleach is defined by the set of rules that have been just presented. Such rules are the entities that control how expressions and statements are formed in this particular programming language.
+
+Going further, as mentioned previously, the parser is implemented through a top-down approach called Recursive-Descent parsing. In the case of the implemented interpreter, this parser is hand-written, since, as explained in Chapter 2, this particular parsing technique is basically a direct translation of a grammar to code that makes use of recursive functions.
 
 \subsection{Resolver}
-
-
 
 \subsection{Interpreter/Runtime}
 
 \section{Challenges, Decisions and Trade-Offs}
+upeaaa 
 \textbf{Em Lexer: Falar sobre a decisão de escolher um hand-written lexer, comparar com outras opções. Desafios para lidar com o reconhecimento de strings, identificadores, numeros, comentários, "maximal munch" theorem, e suporte à funções nativas (uso de ':').}
 
 \textbf{Falar sobre implementação de funções nativas: permissão do uso do caracter ':' em certos casos (restritos pelo Lexer.hpp e pelo Parser.hpp). Falar sobre a implementação das funções nativas em si dentro do arquivo "NativeFunctions.hpp'. Falar sobre o binding feito em escopo global do interpretador para permitir o acesso às funções nativas e no método VisitCallExpr do arquivo 'Interpreter.hpp'.}
