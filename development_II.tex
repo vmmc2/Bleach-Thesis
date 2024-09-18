@@ -1272,9 +1272,10 @@ Regarding the possible AST nodes to be generated during the syntax analysis, the
     Unary &  \\ \hline
     Variable &  \\ \hline
     \end{tabular}
-    \caption{All possible types of AST nodes in the Bleach programming language.}
+    \caption{All possible types of AST nodes in the Bleach programming language. \newline}
 \end{table}
 
+With respect to the parsing technique that is behind the parser component of the implemented Bleach interpreter, the chosen one was the Recursive-Descent parsing technique.
 
 
 \subsection{Resolver}
@@ -1285,6 +1286,8 @@ Regarding the possible AST nodes to be generated during the syntax analysis, the
 
 \section{Challenges, Decisions and Trade-Offs}
 \textbf{Em Lexer: Falar sobre a decisão de escolher um hand-written lexer, comparar com outras opções. Desafios para lidar com o reconhecimento de strings, identificadores, numeros, comentários, "maximal munch" theorem, e suporte à funções nativas (uso de ':').}
+
+\textbf{Falar sobre implementação de funções nativas: permissão do uso do caracter ':' em certos casos (restritos pelo Lexer.hpp e pelo Parser.hpp). Falar sobre a implementação das funções nativas em si dentro do arquivo "NativeFunctions.hpp'. Falar sobre o binding feito em escopo global do interpretador para permitir o acesso às funções nativas e no método VisitCallExpr do arquivo 'Interpreter.hpp'.}
 
 \textbf{Em Parser: Falar sobre a decisão de escolher um hand-written parser que segue a abordagem top-down recursive.}
 
