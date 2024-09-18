@@ -1088,9 +1088,9 @@ Bleach's native functions are organized into the following namespaces:
         \begin{itemize}
             \item \texttt{std::math::abs}: Native function responsible for receiving a value of type \texttt{num} and returning the absolute value of the received one, which is also of type \texttt{num}.
 
-            \item \texttt{std::math::ceil}:
+            \item \texttt{std::math::ceil}: Native function responsible for receiving a value of type \texttt{num} and returning the smallest integer number that is bigger than the provided value. This function returns a value of type \texttt{num}.
 
-            \item \texttt{std::math::floor}:
+            \item \texttt{std::math::floor}: Native function responsible for receiving a value of type \texttt{num} and returning the largest integer that is smaller than the provided value. This function returns a value of type \texttt{num}.
             
             \item \texttt{std::math::fmod}: Native function responsible for calculating the remainder of the division between decimal numbers. This function receives two values of type \texttt{num} and also returns a value of type \texttt{num}. Passing the number \texttt{0} as the second argument will result in a runtime error.
             
@@ -1151,7 +1151,7 @@ First of all, it is important to remember the reader that the implementation of 
     
     % Input and output arrows
     \draw[->, thick] (-6, 1) -- (-4.5, 1) node[midway, above] {\shortstack{Source \\ Code}};
-    \draw[->, thick] (8.50, 1) -- (11, 1) node[midway, above] {Final Output};
+    \draw[->, thick] (8.50, 1) -- (10, 1) node[midway, above] {Output};
   \end{tikzpicture}
   \caption{Box-Diagram representing the phases of the Bleach Interpreter.}
 \end{figure}
@@ -1163,7 +1163,7 @@ When it comes to the possible tokens to be generated during the lexical analysis
 
 \begin{itemize}
     \item \textbf{Single-Character Tokens:}
-    \begin{table}[h]
+    \begin{table}[H]
     \centering
         \begin{tabular}{|c|c|}
         \hline
@@ -1189,7 +1189,7 @@ When it comes to the possible tokens to be generated during the lexical analysis
         GREATER & \texttt{>} \\ \hline
         LESS & \texttt{<} \\ \hline
         \end{tabular}
-        \caption{Single-Character Tokens recognized by the Lexer of Bleach's Interpreter. \newline \newline \newline}
+        \caption{Single-Character Tokens recognized by the Lexer of Bleach's Interpreter.}
     \end{table}
 
     \item \textbf{Double-Character Tokens:}
@@ -1275,9 +1275,7 @@ Regarding the possible AST nodes to be generated during the syntax analysis, the
     \caption{All possible types of AST nodes in the Bleach programming language. \newline}
 \end{table}
 
-With respect to the parsing technique that is behind the parser component of the implemented Bleach interpreter, the chosen one was the Recursive-Descent parsing technique.
-
-Regarding parsing, it's important to present the BNF-grammar of Bleach: \newline
+With respect to the parsing technique that is behind the parser component of the implemented Bleach interpreter, the chosen one was the Recursive-Descent parsing technique. With this in mind, it's important to present the BNF-grammar of Bleach: \newline
 
 \scalebox{0.75}{
 \[
@@ -1325,9 +1323,18 @@ Regarding parsing, it's important to present the BNF-grammar of Bleach: \newline
 
 In other words, the grammar of Bleach is defined by the set of rules that have been just presented. Such rules are the entities that control how expressions and statements are formed in this particular programming language.
 
-Going further, as mentioned previously, the parser is implemented through a top-down approach called Recursive-Descent parsing. In the case of the implemented interpreter, this parser is hand-written, since, as explained in Chapter 2, this particular parsing technique is basically a direct translation of a grammar to code that makes use of recursive functions.
+For example, by analyzing the BNF-Grammar presented, it becomes clear to the reader the precedence of the binary arithmetical operators. The operators \texttt{"*"}, \texttt{"/"} and \texttt{"\%"} have the same precedence among them, but have more precedence when compared to the operators \texttt{"+"} and \texttt{"-"}, which also have the same precedence among them.
+
+Going further, as mentioned previously, the parser is implemented with a top-down approach called Recursive-Descent parsing. In the case of the implemented interpreter, this parser is hand-written, since, as explained in Chapter 2, this particular parsing technique is basically a direct translation of a grammar to code that makes use of recursive functions, which makes its implementation straight-forward.
+
+Concerning the parsing phase and the AST generation, as explained in Chapter 2, a recursive-descent parser starts the parsing process from the outermost grammar rule, which in Bleach's case is the \texttt{program} rule, and executes the process already explained when it comes to a top-down recursive descent parsing strategy.
+
+One of the most important aspects of parsing is error reporting. In the parsing phase, the kind of error that is reported is commonly know as syntax error.
+
+Following the guidelines presented in Chapter 2, to deal with syntax errors, the parser component of the implemented interpreter implements the ideas of "panic mode" and "error recovery". When a parser enters such mode, it needs to keep parsing process going until and continue to report more valid syntax errors until it reaches the end of the tokens sequence. To achieve this goal, the parser has a synchronization mechanism that looks for "synchronization points" from which the parser can continue the parsing process without issues. When in synchronization the parser ignores any tokens until it finds one that is a "synchronization point" and, in Bleach's case, such points are between statements.
 
 \subsection{Resolver}
+The resolver is a component of the interpreter responsible for performing naming resolution.
 
 \subsection{Interpreter/Runtime}
 
