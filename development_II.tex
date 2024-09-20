@@ -14,7 +14,7 @@
 This chapter is dedicated to provide a detailed explanation about the Bleach programming language. Firstly, a brief overview of Bleach's features will be presented by showcasing a few programs written in the language. Then, a detailed breakdown of each of its components and features will be shown to the reader. Afterwards, the challenges encountered during the development of this project will be presented, as well as decisions and trade-offs made. Finally, a comparison between Bleach and the previous languages introduced will be made, as well as a discussion about how Bleach can be properly used to its fullest in an undergraduate Compilers course.
 
 \section{Bleach Overview}
-As previously mentioned, this section is dedicated to showcase a few of Bleach's features through the exposition of simple, yet useful, programs to the reader. It's expected that the reader has some familiarity programming with another languages, such as C \cite{kernighan1988c}, C++ \cite{strousrup2000c++}, JavaScript, Lox \cite{nystrom2021crafting}, Python \cite{python_language} and Ruby, so the similarities between Bleach and these languages make themselves more evident. \newline
+As previously mentioned, this section is dedicated to showcase a few of Bleach's features through the exposition of simple, yet useful, programs to the reader. It's expected that the reader has some familiarity programming with another languages, such as C \cite{kernighan1988c}, C++ \cite{strousrup2000c++}, JavaScript \cite{javascript_language}, Lox \cite{nystrom2021crafting}, Python \cite{python_language} and Ruby \cite{ruby_language}, so the similarities between Bleach and these languages make themselves more evident. \newline
 
 \begin{figure}
     \centering
@@ -1272,6 +1272,7 @@ Regarding the possible AST nodes to be generated during the syntax analysis, the
     Unary &  \\ \hline
     Variable &  \\ \hline
     \end{tabular}
+    \label{tab:AST_nodes}  % Label for referencing the table
     \caption{All possible types of AST nodes in the Bleach programming language. \newline}
 \end{table}
 
@@ -1359,7 +1360,57 @@ On top of that, the resolver component of the Bleach interpreter is capable of c
 \end{itemize}
 
 \subsection{Runtime}
-The runtime is the last component of the interpreter. The runtime is responsible for...
+The runtime is the last component of the interpreter. In short, this component is responsible for executing statements, evaluating expressions, performing control-flow, managing environments/scopes with their variables and respective values and also throwing runtime errors whenever required. From a different point of view, the runtime can be viewed as the engine responsible for executing code accordingly with the semantics of the implemented programming language.
+
+As previously explained the implemented interpreter for the Bleach programming language presented in this document is a Tree-Walk one. This type of interpreter works, as earlier explained in Chapter 2, by executing a recursive traversal on the AST and performing different actions depending on the type of the AST's node that is currently being visited. All types of AST's node were also previously presented in Table~\ref{tab:AST_nodes}.
+
+Dealing with the first group of AST nodes, the ones that represent expressions, the behavior of the runtime will fundamentally be the same: it will visit the node that represents an expression, then evaluate the expression, finally it will produce the value from said expression and will move on to continue the recursive traversal of the abstract syntax tree. 
+However, the evaluation of these AST expression nodes consistently varies accordingly with the specific expression in question. A rundown of these specific behaviors regarding each type of expression node is presented beneath:
+\begin{itemize}
+    \item \textbf{Assign:} When visiting this kind of expression node, the interpreter first evaluates the RHS (right-hand side) of this expression node. This evaluation will produce a value that must be assigned to the LHS (left-hand side) of this very same node. However, the evaluation of the LHS is a bit different than the one made with respect to the RHS. This one evaluates to a location in-memory in which the value obtained through the evaluation of the RHS will be stored. In order to find out the correct memory location, the runtime makes use of information previously computed by the resolver about variable resolution and environments. By default, this visiting returns the value from the RHS evaluation.
+    \item \textbf{Binary:} When visiting this type of expression node, the interpreter first evaluates its left operand and, then, the right one. Finally, it performs the operation depending on the type of operator that this node stores and returns the result of such operation.
+    \item \textbf{Call:} When visiting this sort of expression node, the interpreter first evaluates the callee of this node in order to figure out if it is a valid one (a function, an anonymous/function, a native function, a method, a class, or a method from the \texttt{list} and \texttt{str} built-in types). Once this is done, the interpreter evaluates each of the expressions that represent the arguments of the call and store such values appropriately. Finally, it makes the call to the callee passing the evaluated arguments. This sort of expression node returns the same thing the function that has been called returns.
+    \item \textbf{Get:} When visiting this kind of expression node, the interpreter first evaluates the expression representing the entity on which the property is trying to be accessed. If such expression evaluates to an instance of a class, a value of type \texttt{list} or a value of type \texttt{str}, then the interpreter tries to find the value associated to the property and, finally, returns it.
+    \item \textbf{Grouping:} When visiting this type of expression node, the interpreter just evaluates and, ultimately, returns the produced value by the nested expression within this type of node, since a Grouping node essentially represents a pair of parentheses.
+    \item \textbf{LambdaFunction:} When visiting this kind of expression node, the interpreter just creates a runtime representation of the anonymous/lambda function by using the visited expression itself along with the current environment/scope that is in, since it will serve as the closure of such anonymous function.
+    \item \textbf{ListLiteral:} When visiting this sort of expression node, the interpreter creates the runtime representation of a list. Then it evaluates each expression present inside the ListLiteral expression and appends the result to the runtime portrayal of the mentioned list. In the end, it returns such list.
+    \item \textbf{Literal:} When visiting this type of expression node, the interpreter just evaluates the value associated with the literal and returns it.
+    \item \textbf{Logical:} This expression node is a basically a specialization of the "Binary" node because it can only perform the following operations: \texttt{and}, \texttt{or}. Still, it evaluates the left operand first and, according to the left value and the operator itself, tries to perform a short-circuiting. If that's not possible, it evaluates the right operand, produces the corresponding value by following the rules of Boolean Algebra and, finally, returns the produced value.
+    \item \textbf{Self:} When visiting this kind of expression node, the interpreter uses it and the token that represents that particular \texttt{self} keyword to figure out at which environment the required variable is at (remember that the \texttt{self} is a name that references the current instance of a class, making it, in practice a variable). Once at such environment, the interpreter returns the instance bound to such name.
+    \item \textbf{Set:} The visiting process of this expression node is very similar to that of the "Get" node. In this particular expression node, the interpreter first evaluates the expression representing the value that works as the RHS. Then, the interpreter evaluates the expression that represents the entity that contains the attribute that is about to receive the generated RHS value. If the evaluation of the expression that represents an entity results in a valid value (an instance of a class), then the interpreter searches for the attribute inside such value (which will result in a LHS value) in order to perform the binding between them. Finally, this visiting process returns the RHS value.
+    \item \textbf{Super:} When visiting this sort of expression node, the interpreter first retrieves the superclass of the class whose "Super" node is being currently visited. Once this is finished, the interpreter then retrieves the instance of the class whose "Super" node is being visited. Finally, the interpreter searches and returns the superclass version of the method required in the "Super" expression node.    
+    \item \textbf{Ternary:} When visiting this particular expression node, the interpreter first evaluates its first operand, known as condition. If the result produced by such evaluation is \texttt{true}, then the ternary operator evaluates and returns its second operand, the one between \texttt{"?"} and \texttt{":"}. Otherwise, this operator evaluates and returns its third operand, the one that appears after \texttt{":"}.
+    \item \textbf{Unary:} When visiting this type of expression node, the interpreter first evaluates its unique operand, commonly known as right operand. After this, it performs the operation, given the operator, on the operand, produces and, at last, returns the corresponding value.
+    \item \textbf{Variable:} When visiting this type of expression node, the interpreter uses the expression node itself, which represents a variable usage, combined with the variable's token to figure out at which environment the required variable is at. Then, the runtime accesses that environment, retrieves and returns the value associated to the required variable. 
+\end{itemize}
+
+Now analyzing the second group of AST nodes, the one that contains nodes representing different kinds of statement, which can be called statement nodes:
+\begin{itemize}
+    \item \textbf{Block:} When visiting this kind of statement node, the interpreter first stores the current environment (the implementation of the concept of lexical scope). Then, sets the current environment of the interpreter to another that has been created and whose enclosing one is the one that has been on use before the interpreter started the visit to this statement node. On this new environment current environment, the interpreter executes the statements present in the "Block" node one-by-one from top to bottom. After finishing this, it restore the environments to the initial configuration before starting the visit of this type of statement node.
+    \item \textbf{Break:} When visiting this sort of statement node, the interpreter just throws an instance of a "Break" entity that will be caught by the runtime when visiting any loop statement node (\texttt{do-while}, \texttt{for}, \texttt{while}) and dealt with by it. This entity is responsible for simulating the behavior of loop interruption at runtime caused by the use of a \texttt{break} statement.
+    
+    \item \textbf{Class:} When visiting this type of statement node, the interpreter first checks whether the node has an expression that might evaluate to a superclass. If that's the case, such expression is properly evaluated and its result is stored for later use. After this, the interpreter creates a binding at the current environment it is in between the class name and the \texttt{nil} value. If the "Class" statement node indeed has a superclass associated to it, a nesting environment is created and a binding between the name \texttt{super} and the runtime representation of the superclass is generated. Then, for each method declared inside this statement node, its respective runtime representation is generated and stored inside the runtime representation of the class in a way that associates the name of the method and its respective runtime depiction. At last, the runtime portrayal of the class is populated with the needed information.
+    
+    \item \textbf{Continue:} When visiting this kind of statement node, the interpreter just throws an instance of a "Continue" entity that will be caught by the runtime when visiting any loop statement node (\texttt{do-while}, \texttt{for}, \texttt{while}) and dealt with by it. This entity is responsible for simulating the behavior of interrupting an iteration of a loop and going to the next iteration by the use of a \texttt{continue} statement.
+    \item \textbf{DoWhile:} When visiting this sort
+    
+    \item \textbf{Expression:} When visiting this type
+    
+    \item \textbf{For:} When visiting this kind 
+    
+    \item \textbf{Function:} When visiting this sort
+    
+    \item \textbf{If:} When visiting this type
+    
+    \item \textbf{Print:} When visiting this kind
+    
+    \item \textbf{Return:} When visiting this sort
+    
+    \item \textbf{Var:} When visiting this type
+    
+    \item \textbf{While:} When visiting this kind
+
+\end{itemize}
 
 \section{Challenges, Decisions and Trade-Offs}
 upeaaa 
