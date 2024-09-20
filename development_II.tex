@@ -1414,22 +1414,37 @@ Now the focus is turned to the second group of AST nodes, the one that contains 
 \end{itemize}
 
 \section{Challenges, Decisions and Trade-Offs}
-upeaaa 
-\textbf{Em Lexer: Falar sobre a decisão de escolher um hand-written lexer, comparar com outras opções. Desafios para lidar com o reconhecimento de strings, identificadores, numeros, comentários, "maximal munch" theorem, e suporte à funções nativas (uso de ':').}
+This section is dedicated to report the challenges faced when designing Bleach and implementing its Tree-Walk Interpreter as well as the decisions made, the reasoning behind them and trade-offs that rose from such decisions.
 
-\textbf{Falar sobre implementação de funções nativas: permissão do uso do caracter ':' em certos casos (restritos pelo Lexer.hpp e pelo Parser.hpp). Falar sobre a implementação das funções nativas em si dentro do arquivo "NativeFunctions.hpp'. Falar sobre o binding feito em escopo global do interpretador para permitir o acesso às funções nativas e no método VisitCallExpr do arquivo 'Interpreter.hpp'.}
+For structuring purposes, this section is organized as a list of challenges. The first group of challenges is all about language design while the second one is about interpreter implementation challenges.
 
-\textbf{Em Parser: Falar sobre a decisão de escolher um hand-written parser que segue a abordagem top-down recursive.}
+\begin{itemize}
+    \item \textbf{Language Design Challenges, Decisions and Trade-Offs:}
+    \begin{itemize}
+        \item \textbf{Concept of "Truthy" and "Falsey" values}: Since popular programming languages like Ruby, Python, JavaScript and TypeScript started adopting this idea that every value has an associated notion of truthiness or falseness, it felt right to also adopt this philosophy in order to make Bleach modern and flexible. The question that rose from this adoption was: Which values should be considered 'truthy' and which should be considered 'falsey'? For the sake of design's simplicity and easiness when it came down to Bleach's implementation, the road taken by Ruby was also followed: the values \texttt{false} and \texttt{nil} are considered "falsey", while every other one is considered "truthy".
+        
+        \item \textbf{Inserting the concept of \texttt{nil} in Bleach:} This is undoubtedly an idea that may raise questions, specially since the creator of the concept itself, Tony Hoare, regrets inventing it, calling such a thing "a billion dollar mistake" \cite{hoare_billion_dollar_mistake}. However, since Bleach and its interpreter implementation are heavily inspired by the "Crafting Interpreters" book \cite{nystrom2021crafting}, it took the same road as the language presented in that book simply because in a dynamically-typed language, which is Bleach's case, trying to exclude the idea of \texttt{nil} is more annoying than just allowing it. Thus, due to simplicity, it was adopted.
+        
+        \item \textbf{Absence of a \texttt{char} type:} The reader might have questions about the absence of this built-in data type in Bleach. The answer is: simplicity and familiarity. By not adding a new data type to the language, its type system becomes smaller. Moreover, the \texttt{str} type is enough to represent a such a type, since values of the \texttt{char} type can be viewed as values of the \texttt{str} that have length equal to \texttt{1}. In addition, it is important to remember that Bleach is dynamically-typed, which means that types are determined at runtime. Therefore, having a smaller type system reduces the amount of checks the runtime system must perform. Ultimately, popular dynamically-typed languages such as Python, Ruby and JavaScript adopted this same approach, thus, following it seems reasonable since this is a familiar pattern for students that had already contact with the mentioned languages.
+        
+        \item \textbf{A unique type (\texttt{num}) to represent numbers:} This design decision was taken having in mind simpleness and ease of use. One could argue that having a single numerical type has several disadvantages, like loss of integer precision, reduced performance and floating-point arithmetic issues. Even though all of these claims are correct, it is very important to remember that precision and optimized performance are not the main goals of Bleach. The main goal of the language proposed in this document is simplicity and easiness. Therefore, having just the \texttt{num} type reinforces this philosophy since having this unique type enables: consistency, unified arithmetic operations and unneeded type coercion or conversion.
+        
+        \item \textbf{Permission to re-declare global variables:} This decision has both pros and cons but, in the end, the pros seem to have a bigger impact than the cons. The major con is the visible inconsistency between local and global variables, since the local ones cannot be re-declared while global ones can. However, it is worth remembering the reader that the interpreter implemented for this language has two operating modes (one that activates an interactive session, a REPL, and another that reads and executes the content present inside a \texttt{.bch} file). Usually, in a REPL, the user might have difficulties on keeping track of which variable have been already declared and which have not. Following this reasoning, in order to make the user experience better when using the REPL, global variable re-declaration has been allowed.
+        
+        \item \textbf{Adoption of single inheritance instead of multiple inheritance:} This design decision was mainly motivated by clarity, simplicity and maintainability. Bleach was designed to be an educational tool, thus, there is encouragement to make it beginner-friendly and more accessible for students. With this in mind, dealing with single inheritance is much easier than with multiple inheritance. In this vein, it is valuable explaining to the reader that single inheritance makes the whole hierarchy of classes less complicated to understand. A class can only have one "parent" class, with the exception of the base class. This structure makes inheritance more predictable and avoids the complexities of multiple inheritance, such as the "Diamond Problem" \cite{wikipedia_the_diamond_problem}.
+    \end{itemize}
 
-\textbf{Falar sobre a decisão de permitir a redeclaração de variáveis globais em Bleach e o porquê disso.}
 
-\textbf{Falar sobre a decisão de implementar single-inheritance ao invés de multiple-inheritance. Isso pode entrar tanto como "Future Work" como ser um assignment para uma turma.}
-
-\textbf{Falar sobre a decisão de usar um Handwritten Lexer/Scanner.}
-
-\textbf{Falar sobre a decisão de usar Recursive-Descent Parsing.}
-
-\textbf{Falar sobre a decisão de usar um Tree-Walk Interpreter ao invés de uma ByteCode VM ou de um Compilador.}
+    \item \textbf{Tree-Walk Interpreter Implementation Challenges, Decisions and Trade-Offs:}
+    \begin{itemize}
+    
+        \item \textbf{Lexer Implementation:}
+        \item \textbf{Implementation of native functions in Bleach:}
+        \item \textbf{Parser Implementation:}
+        \item \textbf{Implementing the runtime behavior of \texttt{break} and \texttt{continue} statements:}
+        \item \textbf{Interpreter or Compiler? Why specifically a Tree-Walk Interpreter?}
+    \end{itemize}
+\end{itemize}
 
 
 \section{What Makes Bleach Shine and How It Can Be Used In a Classroom Environment}
