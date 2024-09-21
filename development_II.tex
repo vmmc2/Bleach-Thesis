@@ -1438,11 +1438,25 @@ For structuring purposes, this section is organized as a list of challenges. The
     \item \textbf{Tree-Walk Interpreter Implementation Challenges, Decisions and Trade-Offs:}
     \begin{itemize}
     
-        \item \textbf{Lexer Implementation:}
+        \item \textbf{Lexer Implementation:} When it came to the building of the Lexer component of the interpreter implementation, different strategies could have been adopted. In particular, a hand-written Lexer was the preferred one. The rationale behind this decision is that, even though there are tools capable of automatically generate a lexer given a set of rules defined by regular expressions (such as: Flex \cite{Flex} \cite{wiki_Flex}, JFLex \cite{klein2010jflex}), implementing one from scratch is not a hard task. Basically, all the programmer needs to do is deal with basic string processing and conditional logic, knowledge that is expected from CS students that are taking their undergraduate Compilers course. Moreover, demanding the students to implement the lexer themselves might be better a better approach to put their theoretical knowledge to practice instead of asking them to use semi-transparent automated tool solutions like Flex or JFlex, that abstract the nitty-gritty details of a lexer implementation.
+        
+        
         \item \textbf{Implementation of native functions in Bleach:}
-        \item \textbf{Parser Implementation:}
+        
+        \textbf{Devo explicar isso aqui na monografia ou deixar para a apresentação? Me parece um abstrato explicar o desafio e a solução apenas com palavras.}
+
+        
+        \item \textbf{Parser Implementation:} Regarding the choice of which way to follow when implementing the parser component, the most important factor taken into account was accessibility, easiness and simplicity. With these reasons in sight, the parser was implemented as a Top-Down Recursive Descent Parser. According to Nystrom \cite{nystrom2021crafting}, this kind of parser is intuitive and easy to understand, since it works as direct translation of the programming language grammar rules into functions/methods, easy to implement given the reason presented before and also simple to debug. The combination of these aspects make it a good choice for educational purposes, which is Bleach's main goal. One could argument that there are other kinds of parsers that could be used, such as LL(0) parser, LL(K) parser, LR(0) parser, LR(1) parser, LALR parser, among others. However, none of these approaches has a focus on education and learning. Besides, Nystrom affirms in \cite{nystrom2021crafting} that, even though, Recursive-Descent parsers are simple, they should not be underestimated since they are widely used in several popular programming language implementations: GCC, V8 (A JavaScript Runtime present in the Chrome browser) and the Roslyn Compiler (A C\# compiler written in C\#). Last but not least, there are tools that allow the automatic creation of parsers thanks to the use of tools like: ANTLR \cite{ANTLR}, Bison \cite{Bison} or Yacc \cite{johnson1975yacc} \cite{Yacc}. However, the use of such instruments might abstract important theoretical concepts of parsing theory. Therefore, the avoidance of such methodology.
+
+        
         \item \textbf{Implementing the runtime behavior of \texttt{break} and \texttt{continue} statements:}
-        \item \textbf{Interpreter or Compiler? Why specifically a Tree-Walk Interpreter?}
+
+        \textbf{Devo explicar isso aqui na monografia ou deixar para a apresentação? Me parece um abstrato explicar o desafio e a solução apenas com palavras.}
+
+        
+        \item \textbf{Interpreter or Compiler? Why specifically a Tree-Walk Interpreter?} The decision to implement an interpreter instead of a compiler for Bleach was again influenced by simplicity and easiness of learning for the students.
+
+        
     \end{itemize}
 \end{itemize}
 
