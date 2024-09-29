@@ -319,22 +319,44 @@ The mentioned comparison is illustrated below:
 
 \begin{table}[h!]
     \centering
-    \begin{tabular}{|c|c|c|c|c|}
+    \begin{tabular}{|p{3.2cm}|p{3cm}|p{3cm}|p{3cm}|p{3cm}|p{3cm}|}
         \hline
         \textbf{Feature} & \textbf{Bleach} & \textbf{ChocoPy} & \textbf{Cool} & \textbf{MiniJava} \\  % First row: header
         \hline
-        \textbf{Type System} & Row 1, Col 2 & Row 1, Col 3 & Row 1, Col 4 & Row 1, Col 5 \\  % Data rows
+        \textbf{Type System} & Dynamically-Typed & Statically-Typed & Statically-Typed & Statically-Typed \\  % Data rows
         \hline
-        Row 2, Col 1 & Row 2, Col 2 & Row 2, Col 3 & Row 2, Col 4 & Row 2, Col 5 \\
+        \textbf{Built-In Types} & \texttt{bool}, \texttt{nil}, \texttt{num}, \newline \texttt{list}, \texttt{str} & \texttt{int}, \texttt{bool}, \texttt{None}, \texttt{list}, \texttt{str} & \texttt{Int}, \texttt{Bool}, \texttt{String} & \texttt{int}, \texttt{int[ ]} \texttt{boolean}, \texttt{void} \\
         \hline
-        Row 3, Col 1 & Row 3, Col 2 & Row 3, Col 3 & Row 3, Col 4 & Row 3, Col 5 \\
+        \textbf{Arithmetical Operators} & \texttt{+}, \texttt{-}, \texttt{*}, \texttt{/}, \texttt{\%} & \texttt{+}, \texttt{-}, \texttt{*}, \texttt{//}, \texttt{\%} & \texttt{+}, \texttt{-}, \texttt{*}, \texttt{/} & \texttt{+}, \texttt{-}, \texttt{*} \\
         \hline
-        Row 4, Col 1 & Row 4, Col 2 & Row 4, Col 3 & Row 4, Col 4 & Row 4, Col 5 \\
+        \textbf{Comparison Operators} & \texttt{>}, \texttt{>=}, \texttt{<}, \texttt{<=} & \texttt{>}, \texttt{>=}, \texttt{<}, \texttt{<=} & \texttt{<}, \texttt{<=} & \texttt{<} \\
         \hline
-        Row 5, Col 1 & Row 5, Col 2 & Row 5, Col 3 & Row 5, Col 4 & Row 5, Col 5 \\
+        \textbf{Equality Operators} & \texttt{==}, \texttt{!=} & \texttt{==}, \texttt{!=}, \texttt{is} & \texttt{=} & No support \\
+        \hline
+        \textbf{Logical Operators} & \texttt{and}, \texttt{or}, \texttt{!} & \texttt{and}, \texttt{or}, \texttt{not} & \texttt{not} & \texttt{\&\&}, \texttt{!} \\
+        \hline
+        \textbf{Assignment Operator} & \texttt{=} & \texttt{=} & \texttt{<-} & \texttt{=} \\
+        \hline
+        \textbf{Ternary Operator Support} & Yes & Yes & No & No \\
+        \hline
+        \textbf{If Statement Support} & \texttt{if}, \texttt{elif}, \texttt{else} & \texttt{if}, \texttt{elif}, \texttt{else} & \texttt{if}, \texttt{else} & \texttt{if}, \texttt{else} \\
+        \hline
+        \textbf{Loops Support} & \texttt{for}, \texttt{do-while}, \texttt{while} & \texttt{while}, \texttt{for in} (only in lists and strings) & \texttt{while} & \texttt{while} \\
+        \hline
+        \textbf{Break/Continue Statements Support} & Yes, Yes & No, No & No, No & No, No \\
+        \hline
+        \textbf{Function Declaration Support} & Yes (with the \texttt{function} keyword) & Yes (with the \texttt{def} keyword) & Yes (only method declaration within classes) & Yes (only method declaration within classes) \\
+        \hline
+        \textbf{Anonymous Function Support} & Yes (with the \texttt{lambda} keyword) & No & No & No \\
+        \hline
+        \textbf{Comments} & Single-line (\texttt{//}) and Multi-line (\texttt{/**/}) & Single-Line (\texttt{\#}) & Single-line (\texttt{---}) and Multi-line (\texttt{**}) & Single-line (\texttt{//}) and Multi-line (\texttt{/**/}) \\
+        \hline
+        \textbf{Language Paradigm} & Object-Oriented and Interpreted & Object-Oriented and Compiled & Object-Oriented and Compiled & Object-Oriented and Compiled \\
+        \hline
+        \textbf{Inheritance} & Single & Single & Single & Single \\
         \hline
     \end{tabular}
-    \caption{Example of a 5x5 table.}
+    \caption{Comparison between Bleach, ChocoPy, Cool and MiniJava.}
     \label{tab:example5x5}
 \end{table}
 
