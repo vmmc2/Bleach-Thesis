@@ -244,7 +244,107 @@ function insertionSort(l){
 }
         \end{lstlisting}
     \item Merge Sort
+        \begin{lstlisting}
+/*
+Code that implements the Merge Sort algorithm.
+Assumes it is a list where every value is of type 'num'.
+*/
+
+function merge(a, b){
+  let n = a.size();
+  let m = b.size();
+
+  let i = 0;
+  let j = 0;
+  let k = 0;
+  
+  let c = [];
+  c.fill(nil, m + n);
+
+  while(i < n or j < m){
+    if(j == m or (i < n and a.getAt(i) < b.getAt(j))){
+      c.setAt(k, a.getAt(i));
+      k = k + 1;
+      i = i + 1;  
+    }else{
+      c.setAt(k, b.getAt(j));
+      k = k + 1;
+      j = j + 1;
+    }
+  }
+
+  return c;
+}
+
+function mergeSort(a){
+  if(a.size() <= 1){
+    return a;
+  }else{
+    let b = [];
+    let c = [];
+    let n = a.size();
+    let mid = std::math::floor(n/2 - 1);
+
+    for(let i = 0; i <= mid; i = i + 1){
+      b.append(a.getAt(i));
+    }
+
+    for(let i = mid + 1; i <= n - 1; i = i + 1){
+      c.append(a.getAt(i));
+    }
+
+    b = mergeSort(b);
+    c = mergeSort(c);
+
+    return merge(b, c);
+  }
+}
+        \end{lstlisting}
+    
+    
     \item Quick Sort
+        \begin{lstlisting}
+/*
+Code that implements the Quick Sort algorithm.
+Assumes it is a list where every value is of type 'num'.
+*/
+
+function swap(list, a, b){
+  let temp = list.getAt(a);
+  list.setAt(a, list.getAt(b));
+  list.setAt(b, temp);
+
+  return;
+}
+
+function partition(list, low, high){
+  let pivot = list.getAt(high);
+  let i = low - 1;
+
+  for(let j = low; j <= high - 1; j = j + 1){
+    if(list.getAt(j) <= pivot){
+      i = i + 1;
+      swap(list, i, j);
+    }
+  }
+  swap(list, i + 1, high);
+
+  return i + 1;
+}
+
+function quickSort(list, low, high){
+  if(low < high){
+    let q = partition(list, low, high);
+    quickSort(list, low, q - 1);
+    quickSort(list, q + 1, high);
+  }
+
+  return;
+}
+        \end{lstlisting}
+    
+    
+    
     \item Binary Search
         \begin{lstlisting}
 function binarySearch(list, target){
@@ -266,7 +366,225 @@ function binarySearch(list, target){
 }
         \end{lstlisting}
     \item Binary Search Tree (BST)
+        \begin{lstlisting}
+/*
+Code that implements the Binary Search Tree data-structure by using a pointers approach.
+*/
+
+class TreeNode{
+  method init(key, value){
+    self.key = key;
+    self.value = value;
+    self.left = nil;
+    self.right = nil;
+  }
+
+  method str(){
+    return "Node Key: " + self.key + " - Node Value: " + self.value;
+  }
+}
+
+class BST{
+  method init(){
+    self.root = nil;
+    self.length = 0;
+  }
+
+  method insert(key, value){
+    if(self.root == nil){
+      self.root = TreeNode(key, value);
+    }else{
+      let curr = self.root;
+      while(true){
+        if(key < curr.key and curr.left == nil){
+          curr.left = TreeNode(key, value);
+          break;
+        }elif(key < curr.key and curr.left != nil){
+          curr = curr.left;
+        }elif(curr.key < key and curr.right == nil){
+          curr.right = TreeNode(key, value);
+          break;
+        }else{
+          curr = curr.right;
+        }
+      }
+    }
+
+    self.length = self.length + 1;
+
+    return;
+  }
+
+  method aux_delete(root, key){
+    if(root == nil){
+      return root;
+    }
+
+    if(key < root.key){
+      root.left = self.aux_delete(root.left, key);
+    }elif(key > root.key){
+      root.right = self.aux_delete(root.right, key);
+    }else{
+      // Scenario where the node to be deleted has one child or no child.
+      if(root.left == nil){
+        return root.right;
+      }elif(root.right == nil){
+        return root.left;
+      }
+
+      // Scenario where the node to be deleted has two children.
+      // In this case, the inorder sucessor of the node to be deleted is retrieved:
+      let temp = self.findMinimum(root.right);
+
+      // Replacing the root's key and value with its inorder successor's key and value:
+      root.key = temp.key;
+      root.value = temp.value;
+
+      // Deleting the inorder successor:
+      root.right = self.aux_delete(root.right, temp.key);
+    }
+
+    return root;
+  }
+
+  method delete(key){
+    self.root = self.aux_delete(self.root, key);
+    self.length = self.length - 1;
+
+    return;
+  }
+
+  method find(key){
+    let curr = self.root;
+
+    while(curr != nil and curr.key != key){
+      if(key < curr.key){
+        curr = curr.left;
+      }else{
+        curr = curr.right;
+      }
+    }
+
+    return curr == nil ? "Could not find the key inside the BST" : curr;
+  }
+
+  method size(){
+    return self.length;
+  }
+
+  method findMinimum(node){
+    let curr = node;
+
+    while(curr.left != nil){
+      curr = curr.left;
+    }
+
+    return curr;
+  }
+
+  method inorderTraversal(curr){
+    if(curr == nil){
+      return;
+    }
+    self.inorderTraversal(curr.left);
+    std::io::print(curr);
+    self.inorderTraversal(curr.right);
+  
+    return;
+  }
+}
+        \end{lstlisting}
+
+    
     \item Binary Heap
+        \begin{lstlisting}
+/*
+Code that implements the Binary Min Heap data-structure.
+*/
+
+class MinBinaryHeap{
+  method init(){
+    self.heap = [];
+  }
+
+  method empty(){
+    return self.size() == 0 ? true : false;
+  }
+
+  method size(){
+    return self.heap.size();
+  }
+
+  method top(){
+    if(self.size() == 0){
+      return "The Binary Heap is empty!";
+    }else{
+      return self.heap.getAt(0);
+    }
+  }
+
+  method pop(){
+    if(self.size() == 0){
+      return "The Binary Heap is empty!";
+    }else{
+      self.swap(0, self.size() - 1);
+
+      let minValue = self.heap.pop();
+      self.bubbleDown(0);
+
+      return minValue;
+    }
+  }
+
+  method push(value){
+    self.heap.append(value);
+    self.bubbleUp(self.size() - 1);
+
+    return;
+  }
+
+  method swap(i, j){
+    let temp = self.heap.getAt(i);
+    self.heap.setAt(i, self.heap.getAt(j));
+    self.heap.setAt(j, temp);
+
+    return;
+  }
+
+  method bubbleDown(index){
+    let smallest = index;
+    let leftChild = 2 * index + 1;
+    let rightChild = 2 * index + 2;
+
+    if(leftChild < self.heap.size() and self.heap.getAt(leftChild) < self.heap.getAt(smallest)){
+      smallest = leftChild;
+    }
+
+    if(rightChild < self.heap.size() and self.heap.getAt(rightChild) < self.heap.getAt(smallest)){
+      smallest = rightChild;
+    }
+
+    if(smallest != index){
+      self.swap(index, smallest);
+      self.bubbleDown(smallest);
+    }
+
+    return;
+  }
+
+  method bubbleUp(index){
+    let parentIndex = std::math::floor((index - 1) / 2);
+    if(index > 0 and self.heap.getAt(index) < self.heap.getAt(parentIndex)){
+      self.swap(index, parentIndex);
+      self.bubbleUp(parentIndex);
+    }
+
+    return;
+  }
+}
+        \end{lstlisting}
+
+
     \item Depth First Search (DFS)
         \begin{lstlisting}
 function dfs(source, adjacencyList, visitingOrder, visited){
@@ -283,6 +601,8 @@ function dfs(source, adjacencyList, visitingOrder, visited){
   return;
 }
         \end{lstlisting}
+
+        
     \item Breadth First Search (BFS)
         \begin{lstlisting}
 function bfs(source, adjacencyList, visited, distance){
@@ -310,7 +630,34 @@ function bfs(source, adjacencyList, visited, distance){
 }
         \end{lstlisting}
     \item Dijkstra's Shortest Path Algorithm
+        \begin{lstlisting}
+function dijkstraAlgorithm(source, adjacencyList, distance){
+  let minHeap = MinBinaryHeap(); // Modified to receive lists of 2 elements.
+  distance.setAt(source, 0);
+
+  minHeap.push([0, source]);
+
+  while(!minHeap.empty()){
+    let currNodeInfo = minHeap.pop();
+    let minPath = currNodeInfo.getAt(0);
+    let currNode = currNodeInfo.getAt(1);
+
+    for(let i = 0; i < adjacencyList.getAt(currNode).size(); i = i + 1){
+      let neighbour = adjacencyList.getAt(currNode).getAt(i).getAt(0);
+      let edge = adjacencyList.getAt(currNode).getAt(i).getAt(1);
+      if(distance.getAt(currNode) + edge < distance.getAt(neighbour)){
+        distance.setAt(neighbour, distance.getAt(currNode) + edge);
+        minHeap.push([distance.getAt(neighbour), neighbour]);
+      }
+    }
+  }
+
+  return;
+}
+        \end{lstlisting}
 \end{itemize}
+
+\newpage
 
 \section{Comparing Bleach with ChocoPy, Cool and MiniJava}
 In this section, a comparison between Bleach, ChocoPy, Cool and MiniJava is made in terms of the features available in each of these programming languages.
