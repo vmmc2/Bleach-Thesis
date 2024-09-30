@@ -151,7 +151,7 @@ writeToFile();
 
 \section{Bleach Features}
 \subsection{Introduction}
-This section, as its name suggests, is dedicated to provide to the reader a more extensive and exhausting walkthrough the features available in Bleach. 
+Bleach is a high-level and dynamically-typed programming language designed with the intent to be used as a teaching tool in undergraduate Compilers course. The motivation behind its creation lies in the fact that according to the studies mentioned in section 3 and in my personal experience, a more incremental and practice-oriented approach when teaching this course is also more rewarding to the teaching staff and to the students, especially when it comes to grasp the core concepts of it. Last but not least, as it will be shown in this chapter and in the next one, Bleach is a more complete language when compared to Cool and MiniJava, which might capture students' interest in implementing a programming language that resembles those they are use to utilizing in their daily lives.
 
 \subsection{Data Types}
 Bleach has 5 built-in data types made available to the user. Such types are divided into scalar types  and compound types.
@@ -1015,7 +1015,6 @@ print dog.louderBark(); // "WOOF!"
     
     \textbf{Falar sobre os métodos especiais "init" e "str". Ambos podem ser omitidos na declaração de uma classe. O que acontece quando eles são omitidos? Quais as implicações disso?}
 
-    
     \item \textbf{Inheritance and the \texttt{super} keyword:} In Bleach, as in other popular languages like C++, Java and Python, inheritance allows the user to create a new class based on an existing class, extending or modifying its functionality.
 
     Bleach follows a very similar implementation of inheritance to that of Python with just one major difference: For simplicity purposes, Bleach only supports single inheritance whereas Python has support for multiple inheritance.
@@ -1051,12 +1050,8 @@ print dog; // "Thor is a Rottweiller and barks."
     \end{lstlisting}
     \caption{Example that shows the usage of inheritance in Bleach.}
 \end{figure}
-
-
-
     
 \end{itemize}
-
 
 \subsection{Bleach Native Functions}
 In case the reader is not familiar with this concept: native functions (built-in functions, intrinsic functions) are functions that are implemented in the underlying language (C++ in this particular case) of the platform or runtime environment rather that in the programming language itself (Bleach).
@@ -1092,8 +1087,6 @@ Bleach's native functions are organized into the following namespaces:
 
             \item \texttt{std::math::floor}: Native function responsible for receiving a value of type \texttt{num} and returning the largest integer that is smaller than the provided value. This function returns a value of type \texttt{num}.
             
-            \item \texttt{std::math::fmod}: Native function responsible for calculating the remainder of the division between decimal numbers. This function receives two values of type \texttt{num} and also returns a value of type \texttt{num}. Passing the number \texttt{0} as the second argument will result in a runtime error.
-            
             \item \texttt{std::math::log}: Native function responsible for receiving two values of type \texttt{num} and computing the logarithm of the second argument with respect to the base represented by the first argument. The basis of the logarithm (the first argument) must be a positive number different than \texttt{1}, while the argument (the second argument) must be a positive number. If these conditions are not met, then a runtime error will be thrown.
             
             \item \texttt{std::math::pow}: Native function responsible for receiving two values of type \texttt{num} and computing the exponential function where the first argument is the base and the second argument is the exponent. This function returns a value of type \texttt{num}.
@@ -1108,8 +1101,6 @@ Bleach's native functions are organized into the following namespaces:
     \item \texttt{std::utils}
         \begin{itemize}
             \item \texttt{std::utils::ord}: Native function responsible for receiving a value of type \texttt{str} of length \texttt{1} and returning its respective ASCII number. This functions returns a value of type \texttt{num}. Passing a string with length different than \texttt{1} will result in a runtime error.
-            
-            \item \texttt{std::utils::numToStr}: \textbf{(Refletir se faz sentido essa função existir)}
             
             \item \texttt{std::utils::strToNum}: Native function responsible for receiving a value of type \texttt{str} that represents a number as its unique argument. The function converts the \texttt{str} value into its respective \texttt{num} value and, then, returns such value of type \texttt{num}. If the \texttt{str} value does not represent a number, a runtime error is thrown.
 
