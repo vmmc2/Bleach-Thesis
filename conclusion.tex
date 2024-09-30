@@ -13,21 +13,24 @@
 \section{Conclusion}
 
 \section{Future Work}
--> Permitir que o tipo \texttt{str} possa ser passado como referência para funções. \textbf{Refletir se essa escolha faz sentido...}
+This section is dedicated to present directions for future development and research that build upon the work presented in this thesis.
 
--> Permitir a declaração de constantes usando a palavra-chave \texttt{const} no lugar da palavra-chave \texttt{let}.
+First of all, it is important to recognize that, even though Bleach solved the problem it was designed to, it must not be considered, by no means, a silver bullet to it. Instead, unfortunately, Bleach has some limitations that could be object of improvement and research in order to extend it and make it even more robust, so it can better solve the problem it was proposed to.
 
--> Implementar um REPL parecido com o de Python, que permite quebra de linha ao declarar funções, criar if-statements, for loops, etc.
+With this in mind, the aspects below are limitations that could be worked on as a means to deliver a more fruitful and pleasant experience to both professors and students:
 
--> Fazer uma passagem de Resolver mais complexa a fim de reportar uma maior variedade e quantidade de erros estáticos.
+\begin{itemize}
+    \item \textbf{Allowance of constants through the use of the \texttt{const} keyword}: JavaScript, a famous dynamically-typed programming language allows the user to define constants in their programs so that they don't support assignments after the declaration of this constant. Adding such feature might be an interesting idea in order to make students think more about the concept of environments/scopes and resolving.
 
--> Não consegui fazer indexing para os tipos 'list' e 'str'.
+    \item \textbf{Extension of Bleach so it can support indexing on values of type \texttt{list} and \texttt{str}:} Unfortunately, the implementation of this feature could not be properly achieved given the deadline to deliver this thesis. On the other hand, a workaround was the usage of the built-in methods for both of these types: \texttt{setAt} (which works as an assignment to a certain index of a \texttt{list} or \texttt{str} value) and \texttt{getAt} (which works as a way to retrieve the element stored at a certain index of a \texttt{list} or \texttt{str} value). Although, the behavior is exactly the same, it is important to recognize the syntax may not have the best taste when compared to an indexing option. This might be a good gap in Bleach's implementation that can taught the students more about concepts of parsing, resolving, runtime execution and runtime errors.
 
--> Adicionar métodos estáticos a uma classe declarada.
+    \item \textbf{Addition of a \texttt{for ... in ...} structure, similar to Python:} The addition of such loop structure in Bleach can be fruitful, since it can used to teach students about syntactic sugar in the programming languages they are already familiar with, as well as about the desugaring process, common in several languages.
 
--> Aumentar a quantidade de testes presentes na suite de testes (atualmente são 42).
+    \item \textbf{Enhancement of the Resolver component of the Bleach Interpreter:}
 
--> Implementar um for do tipo \texttt{for ... in ... list}.
+    \item \textbf{Increasement of the quantity of test cases present in Bleach's Test Suite:} At the moment this thesis was delivered, Bleach's Test Suite was composed of 44 test cases that covered every single type of AST node, as well as some native function from Bleach's standard library. However, there is still more room to cover. For example, all of these mentioned tests deal with cases where the Bleach programs are correct and produce an output that is compared to expected ones. It is desirable to implement a battery of test cases that deal with incorrect Bleach programs and check whether the errors being thrown by the interpreter are indeed the expected ones.
 
--> Realizar uma pesquisa de opinião com professores, instrutores e monitores a respeito da opinião deles sobre Bleach. É possível utilizá-la em um ambiente de sala de aula?
+    \item \textbf{Improvement of Bleach's REPL in order to make it more user-friendly:} In order to provide a better user experience when it comes to Bleach's REPL, it would be a great idea to allow line breaks when declaring functions, classes, anonymous functions, if statements and loops, so the readability of the written code could be improved.
 
+    \item \textbf{Spreading of an opinion survey about Bleach to the target audience:} aimed at professors, instructors and teaching assistants regarding the viability of Bleach as a teaching tool in introductory Compiler courses:
+\end{itemize}
