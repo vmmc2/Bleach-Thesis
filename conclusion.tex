@@ -26,11 +26,17 @@ With this in mind, the aspects below are limitations that could be worked on as 
 
     \item \textbf{Addition of a \texttt{for ... in ...} structure, similar to Python:} The addition of such loop structure in Bleach can be fruitful, since it can used to teach students about syntactic sugar in the programming languages they are already familiar with, as well as about the desugaring process, common in several languages.
 
-    \item \textbf{Enhancement of the Resolver component of the Bleach Interpreter:}
+    \item \textbf{Enhancement of the Resolver component of the Bleach Interpreter:} Despite the fact that the Resolver component is already able to detect certain static errors, it could be augmented in order to detect new kinds of static errors, such as:
+        \begin{itemize}
+            \item Detection of unused variables.
+            \item Detection of function overloading or re-declaration.
+            \item Detection of unreachable code.
+        \end{itemize}
 
     \item \textbf{Increasement of the quantity of test cases present in Bleach's Test Suite:} At the moment this thesis was delivered, Bleach's Test Suite was composed of 44 test cases that covered every single type of AST node, as well as some native function from Bleach's standard library. However, there is still more room to cover. For example, all of these mentioned tests deal with cases where the Bleach programs are correct and produce an output that is compared to expected ones. It is desirable to implement a battery of test cases that deal with incorrect Bleach programs and check whether the errors being thrown by the interpreter are indeed the expected ones.
 
     \item \textbf{Improvement of Bleach's REPL in order to make it more user-friendly:} In order to provide a better user experience when it comes to Bleach's REPL, it would be a great idea to allow line breaks when declaring functions, classes, anonymous functions, if statements and loops, so the readability of the written code could be improved.
 
-    \item \textbf{Spreading of an opinion survey about Bleach to the target audience:} aimed at professors, instructors and teaching assistants regarding the viability of Bleach as a teaching tool in introductory Compiler courses:
+    \item \textbf{Spreading of an opinion survey about Bleach to the target audience:} Since Bleach is a tool created to help the teaching and learning process in an undergraduate Compilers course, it seems reasonable to get feedback from those involved in this scenario. With this in mind, an opinion pool could be created as a means to get input from professors, instructors and teaching assistants regarding the viability, upsides and drawbacks from using Bleach as a teaching tool in introductory Compiler courses.
 \end{itemize}
+
