@@ -13,10 +13,23 @@
 \section{Introduction}
 This chapter is dedicated to provide a literature review about the Programming Language Design and Compiler/Interpreter Implementation fields. The conceptual content presented here is heavily influenced by \cite{aho1986compilers}, \cite{cooper2022engineering} and \cite{nystrom2021crafting}.
 
+\section{What is a Compiler and How does it work?}
+To simply put it simple, a compiler is a software whose responsibility is to translate a program written in a certain programming language into a another program written in another one, without modifying the meaning of the original program, that is, its semantics. However, despite this simple description, compilers are usually complex and large software systems composed of several components which interact with each other during the mentioned translation process, commonly known as compiling.
 
-\section{Compilers and Interpreters}
+The importance of compilers in both computer science and real-world applications is immeasurable. The key points below illustrate some of the most prominent impacts of this creation:
 
-\section{Steps to Implement a Programming Language}
+\begin{itemize}
+    \item \textbf{Bridging High-Level Languages to Machine Code:} As previously mentioned, the purpose of a compiler is the translation between programs written in different programming languages. Usually, in practice, such translation happens from a high-level programming language, commonly more human-readable and that provides several abstractions, into a programming language that is closer to the hardware and, therefore, more machine-readable. Given this fact, it is safe to say that a compiler provides several layers of abstractions that allow developers to build complex software that impact people's life around the world since its conception.
+    
+    \item \textbf{Impact on Portability:} One of the major features of compilers is their portability. In practice, this means that code once a program, written in a high-level programming language, passes through the compiling process, the resulting machine-code can be used in different hardware platforms by simply targeting different machine architectures, such as: x86, ARM, RISC-V, MIPS and others. This allows the same code base to be re-used in independent systems without the need to rewrite the code base in order to target each different architecture.
+    
+    \item \textbf{Programming Languages Evolution:} In the current context, it is crucial to reiterate that compilers and programming languages are deeply tied. In practice, the evolution of one serves as a trigger to the evolution of the other and vice-versa. Compilers permit language designers to experiment on new ideas that cross different programming paradigms, such as the procedural, object-oriented, functional, aspect-oriented, concurrent and several others. Furthermore, the evolution of existing programming languages and creation of new ones may allow the enhancement of existing compilers and creation of new ones for niche areas.
+    
+    \item \textbf{Impact on Software Development:}
+    
+\end{itemize}
+
+\section{Pieces of a Programming Language Implementation}
 
 \subsection{Lexing}
 The Lexing phase of a compiling/interpreting process, also know as Lexical Analysis, 
@@ -56,4 +69,6 @@ A Transpiler
 
 \subsection{Ahead-of-Time Compilers}
 An Ahead-of-Time Compiler, also known as AOT Compiler, is a type of compiler
+
+\section{Compilers and Interpreters}
 
