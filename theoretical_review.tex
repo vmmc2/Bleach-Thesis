@@ -42,8 +42,7 @@ Shifting the focus of compilers' implementation to a classroom environment, it i
 
 \begin{figure}[H]  
   \centering
-  \includegraphics[width=1.0
-  \textwidth]{Figures/Arquiteturas/CompilersDetailedPipeline.png}  
+  \includegraphics[width=\textwidth, height=0.8\textheight, keepaspectratio]{Figures/Arquiteturas/CompilersDetailedPipeline.png}  
   \caption{A detailed compiler structure}
   \label{fig:comp}
 \end{figure}
@@ -53,8 +52,7 @@ It is also completely plausible to simplify this task by asking the students to 
 
 \begin{figure}[H]  
   \centering
-  \includegraphics[width=1.0
-  \textwidth]{Figures/Arquiteturas/CompilersSimplifiedPipeline.png}  
+  \includegraphics[width=\textwidth, height=0.8\textheight, keepaspectratio]{Figures/Arquiteturas/CompilersSimpliefiedPipeline.png}  
   \caption{A simplified compiler structure}
   \label{fig:Fluxograma}
 \end{figure}
@@ -65,7 +63,24 @@ The next section is dedicated to provide an in-depth overview of each of the com
 \section{Detailed Overview of Compiler's Components}
 
 \subsection{Lexer}
-The lexer is the first component present in the compiling process of a compiler. It is responsible for executing a process called lexing, also know as lexical analysis. 
+The lexer is the first component present in the compiling process of a compiler. It is responsible for executing a process called lexing, which is also known as lexical analysis.
+
+As earlier elucidated, the input of a compiler is the source code of a program written in a specific programming language. The content present inside the source code is viewed by the compiler as a large string, a linear sequence of characters, that has no meaning for it at all at this stage. The lexer's goal is to transform this sequence of characters that is the source code into a new representation that is more abstract from the compiler's perspective, so it can be passed on to the next component, the parser.
+
+To perform such procedure, the lexer takes in this stream of characters and group them together forming a sequence of entities that convey the idea of a "word". These entities are called tokens.
+
+Making an analogy to linguistics, one can say that the lexer's purpose is to group letters (characters) into words (tokens). Given this analogy, it is essential to inform the reader that, like words, tokens can have different lengths and different meanings. Some examples are listed below to better illustrate a few cases:
+\begin{itemize}
+    \item Single-Character Tokens: \texttt{(}, \texttt{\{}, \texttt{+}, \texttt{-}, \texttt{*}, \texttt{/}, etc.
+    \item Double-Character Tokens: \texttt{==}, \texttt{!=}, \texttt{>=}, \texttt{<=}, etc.
+    \item Multi-Character Tokens: \texttt{123} (a number literal), \texttt{"hello"} (a string literal), \texttt{true} (a boolean literal), \texttt{aVariable} (an identifier), etc.
+\end{itemize}
+
+It is also important to mention that certain characters have no meaning for the lexer during the lexical analysis and, therefore, are completely ignore in the process, such as: whitespace characters and characters that represent comments in the programming language in which the source file was written.
+
+By the end of the lexical analysis, the sequence of characters is transformed into a sequence of tokens by following the syntax rules of the source programming language.
+
+The figure below shows, in an simple way, the input and the output of this component:
 
 \subsection{Parser}
 The Parsing phase of a compiling/interpreting process, also known as Syntax Analysis,
