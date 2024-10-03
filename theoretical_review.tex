@@ -80,7 +80,67 @@ It is also important to mention that certain characters have no meaning for the 
 
 By the end of the lexical analysis, the sequence of characters is transformed into a sequence of tokens by following the syntax rules of the source programming language.
 
-The figure below shows, in an simple way, the input and the output of this component:
+The figure below shows, in an simple example, the input and the output of this component:
+
+\newpage
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+        l & e & t &  & a & v & g &  & = & ( & m & i & n & + & m & a & x & ) & / & 2 & ; \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{figure}[h!]
+  \centering
+  \begin{tikzpicture}
+    % Draw the boxes
+    \draw[thick] (0, 0) rectangle (4, 2);
+    
+    % Labels inside the boxes
+    \node at (2, 1) {Lexer};
+
+    % Input and output arrows
+    \draw[->, thick] (2, 4) -- (2, 2) node[midway, left] {\shortstack{Sequence\\ of\\ Chars}};
+    \draw[->, thick] (2, 4) -- (2, 2) node[midway, right] {\shortstack{Source Code}};
+    \draw[->, thick] (2, 0) -- (2, -2) node[midway, left] {\shortstack{Sequence\\ of\\ Tokens}};
+    \draw[->, thick] (2, 0) -- (2, -2) node[midway, left] {\shortstack{ }};
+  \end{tikzpicture}
+\end{figure}
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+        let & avg & = & ( & min & + & max & ) & / & 2 & ; \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{figure}[H]  
+  \caption{Input and Output of a Lexer}
+  \label{fig:lexer}
+\end{figure}
+
+As seen in the example above, the lexer receives a sequence of characters, which represents the raw source code, and gives as the result a series of chunks of characters called tokens. Making another analogy with linguistics, one can think of tokens as the "words" and  the "punctuation" that constitutes a programming language.
+
+Going further, it is also possible to say that the lexer's job is execute a traversal through the sequence of characters received and group such characters into the smallest sequences that represent something in the source programming language. Each of these resulting sequences of grouped characters is called a lexeme.
+
+Therefore, in the example presented above, the sequence of lexemes produced from analyzing the sequence of characters received as input was: \texttt{let}, \texttt{avg}, \texttt{=}, \texttt{(}, \texttt{min}, \texttt{+}, \texttt{max}, \texttt{)}, \texttt{/}, \texttt{2}, \texttt{;}
+
+In conclusion, lexemes are just raw substrings presented in the source code.
+
+However, a token is much more than a lexeme. It generally contains other pieces of information that are useful in further stages of the compiling process and also in error report.
+
+Usually, each token has a token type associated. For example, the lexeme \texttt{2} usually has \texttt{NUMBER} as its token type, while \texttt{+} often has \texttt{PLUS} as its token type. In this context, it is relevant to highlight that the amount of token types in a programming language basically depends on the amount of keywords (reserved words) that the language has, the amount of operators at the user's disposal, possibilities of literal values of different data types and, finally, the quantity of delimiters and separators.
+
+Certain types of lexemes have literal values associated with them. numbers, booleans and strings, for example, fall into this category. In these cases, the lexer is able to convert the textual representation of the value into the living runtime entity that might be used by the compiler on later stages of the compiling process.
+
+Last but not least, a compiler must also report errors when it encounters a lexical error during the lexing process, such as: an invalid number literal, an unterminated string, an invalid character that does not follow certain rules of the programming language. In order to report these errors, it is desired that the compiler display as much information as possible to the user about what went and, most importantly, where things went wrong. Having this in mind it is essential to store information about the location of each lexeme in the source code (the line it has appeared and, if possible, its column also).
+
+Now it is time to analyze the functioning of a lexer from an implementation perspective.
 
 \subsection{Parser}
 The Parsing phase of a compiling/interpreting process, also known as Syntax Analysis,
@@ -95,7 +155,7 @@ After the previous phases have been executed
 The Optimization phase of a compiling/interpreting process
 
 \subsection{Code Generator}
-The Code Generation phase of a compiling/interpreting process
+The Code Generation phase of a compiling process
 
 
 \subsection{Virtual Machines}
@@ -109,14 +169,13 @@ This section is dedicated to present an overview of a few ad-hoc strategies that
 
 \subsection{Single-Pass Compilers}
 A Single-Pass Compiler
+
 \subsection{Tree-Walk Interpreters}
 A Tree-Walk Interpreter
 
 \subsection{Transpilers}
 A Transpiler
 
-\subsection{Ahead-of-Time Compilers}
-An Ahead-of-Time Compiler, also known as AOT Compiler, is a type of compiler
 
 \section{Compilers and Interpreters}
 
