@@ -142,17 +142,45 @@ Last but not least, a compiler must also report errors when it encounters a lexi
 
 Now it is time to analyze the functioning of a lexer from an implementation perspective.
 
+The main part of a lexer's code is a loop and variables that are used as "pointers" to keep track of the beginning and ending of each lexeme present in the raw source code file. The lexer then starts working at the first character from the source code and, by using the mentioned "pointers" along with the lexical rules of the source programming language. For the reader that may not be familiar with it, the term "lexical rules" denotes a set of rules that define how characters are grouped to form lexemes in a programming language .Then, it discovers to which lexeme the current character belongs to and consumes any other following characters that also are part of the lexeme. When the end of such lexeme is found, information about its location and literal value are generated and grouped along with the lexeme in order to build and yield the token itself.
+
+This process starts again, in the next iteration of the loop, at the first character that has not been consumed in the generation of the previous token and continues to traverse the source code and generate the corresponding tokens. The lexer continues to do this until it reaches the end of the file. When this happens, it sends the sequence of produced tokens to the next component of the compiler, the parser.
+
+And that is it for lexers. As explained above its implementation is fairly simple and can be done by the programmer without much trouble. In spite of that, it is possible to delegate this task to certain tools, such as: Lex \cite{lesk1975lex} and Flex \cite{Flex}. For the sake of exposition and learning, they work in the following way:
+
+\begin{enumerate}
+    \item \textbf{Rule Writing:} When using such tools, the first step is to write the acceptable patters of characters of the source programming language through the use of regular expressions. These regular expressions define the lexemes that are useful and will be used to generate tokens. One example of rule could be "A sequence of digits must be treated as an integer number."
+    
+    \item \textbf{Lexer Generation and Execution in the C programming language:} Once the rules mentioned in the previous step have been written, the user can run Lex/Flex and the output will be a C program, the lexer that scans the input source code, identifies lexemes and generates the corresponding tokens based on the rules provided.
+    
+\end{enumerate}
+
 \subsection{Parser}
 The Parsing phase of a compiling/interpreting process, also known as Syntax Analysis,
 
 \subsection{Static Analyzer}
-The Static Analysis phase of a compiling/interpreting process
+The Static Analyzer is the third component present in the compiling process of a compiler. It is responsible for performing a task called static analysis. Static analysis essentially means examining the source code without executing it, hence the name. Delving into it, the static analyzer's task is certify that the source code stick to correctness rules defined by the source programming language design and principles.
+
+Such correctness rules include and are not limited to:
+\begin{itemize}
+    \item \textbf{Scope and Name Resolution:} This set of rules is responsible for ensuring that variables, functions and classes/types are declared before they are used. In addition, it is also in charge of making the correct bindings between an identifier use and its corresponding declaration, considering the scopes presented in the program's source code.
+    
+    \item \textbf{Type Checking:} Is an action performed by the static analyzer responsible for ensuring that functions, expressions and variables are properly used. For example: a value of type \texttt{int} cannot be multiplied by a value of type \texttt{bool}, if in a certain function with one parameters expects a value of type \texttt{string}, a value of type \texttt{int} cannot be passed as an argument in a call to such function.
+    
+    \item \textbf{Detection of Syntax Errors:} Although the parser is responsible for detecting such class of errors, some of these are easier detected during the static analysis stage. For example, a static analyzer can easily detect the misuse of the \texttt{return} keyword outside of a function (default or anonymous) or method. It can also detect the misuse of the \texttt{break} and \texttt{continue} keywords outside of loop statements. There are more examples related to these types of scenarios, but the two mentioned above are good and common examples.
+    
+    \item \textbf{Detection of Undeclared Variables and Functions:} As the rule's name suggests, a static analyzer is capable of recognizing the usage of variables and functions that have not been previously declared by the developer. It is also worth mentioning, that certain static analyzers take a step beyond and warn the user about variables and functions that have been declared but were never used in the program's source code.
+\end{itemize}
+
+Moreover, it is very important to remember the reader that the enforcement of such rules are performed on the Abstract Syntax Tree (AST) provided by the parser in the previous compiling stage, and the output of the static analyzer component is the same, the Abstract Syntax Tree (AST).
+
+Finally, yet importantly, it is important to highlight the fact that in mature compilers (Clang, GCC, javac, Roslyn, rustc, etc.) there is usually more than one static analyzer component. Each of them is responsible for receiving different representations of the program's source code and, consequently, enforce different types of rules according to the philosophy of the source language.
 
 \subsection{Intermediate Representation (IR) Generator}
 After the previous phases have been executed
 
 \subsection{Optimizer}
-The Optimization phase of a compiling/interpreting process
+The Optimization phase of a compiling process
 
 \subsection{Code Generator}
 The Code Generation phase of a compiling process
@@ -164,8 +192,18 @@ Virtual Machines are
 \subsection{Runtimes}
 Runtimes are
 
+
+\section{Interpreters}
+\subsection{What is an Interpreter?}
+
+\subsection{Compilers and Interpreters}
+
+
+
 \section{Shortcuts and Alternate Routes}
-This section is dedicated to present an overview of a few ad-hoc strategies that might be used when implementing a programming language.
+This section is dedicated to present an overview of a few alternate ways of implementing a programming language besides the structured route exposed in the previous section. 
+
+This is by no means an exhaustive list of possible approaches to be taken. Instead, it provides an overview of the most common and simple ones.
 
 \subsection{Single-Pass Compilers}
 A Single-Pass Compiler
@@ -175,7 +213,4 @@ A Tree-Walk Interpreter
 
 \subsection{Transpilers}
 A Transpiler
-
-
-\section{Compilers and Interpreters}
 
