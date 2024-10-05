@@ -7,7 +7,7 @@
 \end{displayquote}
 
 \begin{flushright}
-   \textit{-- TITE KUBO}
+   \textit{-- NORIAKI KUBO}
 \end{flushright}
 
 \section{Introduction}
@@ -184,7 +184,9 @@ Last but not least, there are static analyzers that only operate on certain repr
 After the previous phases have been executed
 
 \subsection{Optimizer}
-The Optimization phase of a compiling process
+After the previous component emits the code in the intermediate representation (IR) format, it is time for the compiler to make the program more efficient both in terms of execution time and memory usage. For that purpose, the optimizer component comes in.
+
+Before providing an overview of a few optimization types, it is important to inform the reader that this subfield of programming languages design and compilers implementation is still very active, with new discoveries and improvements being made in a regular basis. Given this, it is important to notify the reader that, in this subsection, only a brief overview of the most famous types of optimizations will be exposed.
 
 \subsection{Code Generator}
 The Code Generation phase of a compiling process
@@ -228,5 +230,10 @@ In this scenario, a tree-walk interpreter runs the user's source code by executi
 Due to its simplicity, this kind of programming language implementation is very common in student projects and toy languages. However, it is not often used in general-purpose language, since the nature of the code execution makes it slow, with one exception, according to \cite{nystrom2021crafting}, being the earlier versions of Ruby, which were implemented as tree-walk interpreters up to version 1.9, when the language implementation was changed to a bytecode virtual machine.
 
 \subsection{Transpilers}
-A Transpiler
+A transpiler, also known as source-to-source compiler or transcompiler, is special type of compiler. The idea behind it is very simple: Instead of translating the program written in a source programming language to some kind of intermediate representation (AST, IR, CFG, etc), it translates the program to another source programming language.
 
+Going further into its functioning, the developer writes the front-end components of a compiler as usual. Nevertheless, in the compiler's back-end, the programmer generates a string of valid code in another programming language that is as high-level as the source language, while preserving the meaning and semantics of the original program.
+
+Finally, the programmer can use the compiler for the chosen high-level target language in order to delegate the heavy lifting of the back-end stage to this compiler. 
+
+One of the most common use cases of a transpiler occurs in the context of web browsers. Nowadays, JavaScript is, by far, the most common choice to run code in it. However, JavaScript might not provide the best coding experience from certain developers' point of view. Due to that, a growing increase in the number of transpilers that have JavaScript as their target language has been observed, as can be seen in \cite{coffeescriptCompileToJS}.
