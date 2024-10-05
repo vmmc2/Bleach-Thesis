@@ -174,7 +174,11 @@ Such correctness rules include and are not limited to:
 
 Moreover, it is very important to remember the reader that the enforcement of such rules are performed on the Abstract Syntax Tree (AST) provided by the parser in the previous compiling stage, and the output of the static analyzer component is the same, the Abstract Syntax Tree (AST).
 
-Finally, yet importantly, it is important to highlight the fact that in mature compilers (Clang, GCC, javac, Roslyn, rustc, etc.) there is usually more than one static analyzer component. Each of them is responsible for receiving different representations of the program's source code and, consequently, enforce different types of rules according to the philosophy of the source language.
+Finally, yet importantly, it is essential to highlight the fact that in mature compilers (Clang, GCC, javac, Roslyn, rustc, etc.) there is usually more than one static analyzer component where each one of them is responsible for receiving different representations of the program's source code and, consequently, enforcing different types of rules according to the philosophy of the source language.
+
+For instance, there are static analyzers that are able to identify unused variables from just traversing the generated AST from the parser.
+
+Last but not least, there are static analyzers that only operate on certain representations of the user's source code. Some static analyzers operate on Intermediate Representation (IR), which is a different type of representation of the source code. It is worth mentioning that this one is more abstract and it is designed to be easier to analyze compared to an AST as it removes details that are too specific of the source programming language. Analyzers that act on this type of representation can perform more complex analysis, such as Control Flow Analysis (whose focus is on detecting unreachable code and ensuring the non existence of infinite loops) and Data Flow Analysis (whose focus is on tracking how values flow between variables).
 
 \subsection{Intermediate Representation (IR) Generator}
 After the previous phases have been executed
@@ -206,10 +210,22 @@ This section is dedicated to present an overview of a few alternate ways of impl
 This is by no means an exhaustive list of possible approaches to be taken. Instead, it provides an overview of the most common and simple ones.
 
 \subsection{Single-Pass Compilers}
-A Single-Pass Compiler
+A single-pass compiler is simple type of compiler that operates by interleaving the parsing, static analysis and code generation steps inside the parser component in order to generate the output code.
+
+These kinds of compilers function without ever needing to use an AST or another sort of IR.
+
+This simplicity, however, comes with a cost. The language design becomes severely restricted due to the way a single-pass compiler works. The developer does not have any kind of data structure to store information about the program and once some part of the code is parsed, it won't be re-visited later on, hence the name single-pass compiler. Essentially, this means that every time a statement or expression is parsed, the compiler needs to have enough information in order to correctly compile it.
+
+The technique that enables single-pass compilers is known as "syntax-directed translation". In this approach, the developer establishes a link between a component of the programming language's grammar, one that outputs code, and an action to be executed. Then, when the parser starts its job, as soon as it identifies a piece of grammar that has an action associated, it executes such action, emitting the output code, step by step.
+
+According to \cite{nystrom2021crafting}, both C and Pascal were firstly designed with the mentioned limitation in mind. It is worth remembering the reader that, at the time of these languages' conception, memory was very scarce. At certain times, compilers were not even able to deal with a single source file, let alone an entire program.
 
 \subsection{Tree-Walk Interpreters}
-A Tree-Walk Interpreter
+A tree-Walk interpreter is a simple kind of interpreter that usually works by executing code right after the parser generates the AST.
+
+In this scenario, a tree-walk interpreter runs the user's source code by executing a traversal on the received AST and performing different types of actions by taking into account the type of node that it is currently on.
+
+Due to its simplicity, this kind of programming language implementation is very common in student projects and toy languages. However, it is not often used in general-purpose language, since the nature of the code execution makes it slow, with one exception, according to \cite{nystrom2021crafting}, being the earlier versions of Ruby, which were implemented as tree-walk interpreters up to version 1.9, when the language implementation was changed to a bytecode virtual machine.
 
 \subsection{Transpilers}
 A Transpiler
