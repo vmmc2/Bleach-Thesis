@@ -184,9 +184,47 @@ Last but not least, there are static analyzers that only operate on certain repr
 After the previous phases have been executed
 
 \subsection{Optimizer}
-After the previous component emits the code in the intermediate representation (IR) format, it is time for the compiler to make the program more efficient both in terms of execution time and memory usage. For that purpose, the optimizer component comes in.
+After the previous component emits the code in the intermediate representation (IR) format, it is time for the compiler to make the program more efficient in terms of execution time and memory usage without changing the meaning of the program (i.e., its semantics). For that purpose, the optimizer component comes in.
 
-Before providing an overview of a few optimization types, it is important to inform the reader that this subfield of programming languages design and compilers implementation is still very active, with new discoveries and improvements being made in a regular basis. Given this, it is important to notify the reader that, in this subsection, only a brief overview of the most famous types of optimizations will be exposed.
+Before providing an overview of optimization techniques, it is important to inform the reader that this subfield of programming languages design and compilers implementation is still very active, with new discoveries and improvements being made in a regular basis. Therefore, this subsection will focus on the most well-known and popular optimization techniques.
+
+Optimization techniques can be divided into two different groups: Machine-Independent Optimization Techniques and Machine-Dependent Optimization Techniques. The first group consists of techniques that can be applied to the user's program in the IR format, this is why they are called machine-independent. The second group is made of optimization techniques that require information about the target hardware architecture in order to be applied, hence the name machine-dependent.
+
+Now, it is time to take a look at these two groups in more details:
+
+\begin{itemize}
+    \item \textbf{Machine-Independent Optimization Techniques:}
+        \begin{enumerate}
+            \item \textbf{Constant Folding:} This optimization consists of checking whether there is an expression in the code that always evaluate to the same value. If that is the case, then, the compiler can perform such evaluation at this stage and replace the code related of the expression with the computed resulting value.
+            
+            \item \textbf{Constant Propagation:} This technique is responsible for identifying constants in the code and then replacing the use of such constants with their respective values throughout the code.
+            
+            \item \textbf{Common Subexpression Elimination (CSE):} The aim of this optimization is identify expressions that are computed several times with the exact same operands inside the code and, then, replace all of them with a single computation, making the program faster by not requiring the computation of the same expression multiple times.
+            
+            \item \textbf{Dead-Code Elimination:} This optimization technique aims to eliminate code that has no effect on the behavior of the program, such as: declared variables that are not used and code placed after a \texttt{return} statement. 
+            
+            \item \textbf{Inlining:} This one's goal is to remove function calls from the program and include the body of the function where the call to such function was made. By doing this, the overhead related to a function call is reduced, making the program faster.
+            
+            \item \textbf{Loop Invariant Code Motion:} This optimization technique, as the name suggests, move operations that generate the same result in every iteration of a loop to the outside of it. By performing this action, redundant computations are eliminated, making the program run faster.
+            
+            \item \textbf{Strength Reduction:} Such optimization approach is responsible for replacing expensive operations, from a computation point of view, with cheaper ones that do not alter the program's behavior.
+        \end{enumerate}
+    \item \textbf{Machine-Dependent Optimization Techniques:}
+        \begin{enumerate}
+            \item \textbf{Instruction Scheduling:} This optimization consists of 
+            
+            \item \textbf{Register Allocation:}
+            
+            \item \textbf{Instruction Selection:}
+            
+            \item \textbf{Branch Prediction Optimization:}
+            
+            \item \textbf{Vectorization:}
+        
+        \end{enumerate}
+\end{itemize}
+
+\textbf{Mention the possible presence of a second optimizer after the code generator if there is need to perform machine-dependent optimizations.}
 
 \subsection{Code Generator}
 The Code Generation phase of a compiling process
