@@ -57,7 +57,17 @@ It is also completely plausible to simplify this task by asking the students to 
   \label{fig:Fluxograma}
 \end{figure}
     
-The next section is dedicated to provide an in-depth overview of each of the compiler's components from the simplified structure presented in the image above.
+Section 2.4 is dedicated to provide an in-depth overview of each of the compiler's components from the simplified structure presented in the image above.
+
+
+\section{What is an Interpreter and How Does it Distinguishes Itself From a Compiler?}
+In order to explain what is an interpreter, it is necessary to recall the reader what is a compiler and what constitutes the compiling process.
+
+A compiler is a program that takes as input a specific programming language and translates it to another, but without executing it. This step is delegated to the users, who must execute it by themselves.
+
+In essence, compiling means translating code written in a source programming language to a target programming language (that is usually in a lower level, when compared to the source one). Whether the compiler generates machine code or bytecode, it is still performing a compiling process.
+
+Once the reader has remembered what a compiler does and what compiling is, an interpreter is a program that takes as input a specific programming language and immediately executes it.
 
 
 \section{Detailed Overview of Compiler's Components}
@@ -82,9 +92,7 @@ By the end of the lexical analysis, the sequence of characters is transformed in
 
 The figure below shows, in an simple example, the input and the output of this component:
 
-\newpage
-
-\begin{table}[h!]
+\begin{table}[H]
     \centering
     \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
         \hline
@@ -93,7 +101,7 @@ The figure below shows, in an simple example, the input and the output of this c
     \end{tabular}
 \end{table}
 
-\begin{figure}[h!]
+\begin{figure}[H]
   \centering
   \begin{tikzpicture}
     % Draw the boxes
@@ -110,7 +118,7 @@ The figure below shows, in an simple example, the input and the output of this c
   \end{tikzpicture}
 \end{figure}
 
-\begin{table}[h!]
+\begin{table}[H]
     \centering
     \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
         \hline
@@ -211,37 +219,65 @@ Now, it is time to take a look at these two groups in more details:
         \end{enumerate}
     \item \textbf{Machine-Dependent Optimization Techniques:}
         \begin{enumerate}
-            \item \textbf{Instruction Scheduling:} This optimization consists of 
+            \item \textbf{Instruction Scheduling:} This optimization consists of reordering instructions of a particular CPU architecture in order to make a better usage of its instruction pipeline and avoid possible stalls. This sort of optimization takes into account the latency of each instruction and also the availability of finite physical resources, such as registers.
             
-            \item \textbf{Register Allocation:}
+            \item \textbf{Register Allocation:} This optimization is responsible for improving the assignment process of variables and produced temporary values to the limited amount of registers from a CPU. Since a CPU has a limited number of registers, this optimization tries to find out which variables and values should be kept in registers and which should be stored in memory, with the purpose of enhancing the performance of the program (it is worth remembering the reader that an access to a register is faster than the access to the memory). Therefore, it is essential to find out which variables and values are more used in the program and store them in registers instead of the memory.
             
-            \item \textbf{Instruction Selection:}
+            \item \textbf{Instruction Selection:} The goal of this optimization technique is, given the IR representation of the source code, choose the most efficient set of instructions from the target hardware architecture to perform the required operations.
             
-            \item \textbf{Branch Prediction Optimization:}
+            \item \textbf{Branch Prediction Optimization:} This optimization's objective is alter the code configuration in order to minimize the probability of a branch misprediction occurs. Normally, this is achieved by rearranging the code in such way that execution paths that are frequently executed are placed closer and also in a way that matches the CPU's prediction policy.
             
-            \item \textbf{Vectorization:}
+            \item \textbf{Vectorization:} This technique's purpose is convert scalar instruction into vector instructions in order to leverage the SIMD (Single-Instruction, Multiple Data) capabilities of modern CPUs. By doing this, the execution time of the user's program is usually reduced.
         
         \end{enumerate}
 \end{itemize}
 
-\textbf{Mention the possible presence of a second optimizer after the code generator if there is need to perform machine-dependent optimizations.}
+Finally, as seen above, there are two different groups of optimizations that a compiler can perform. Therefore, it is very common that the pipeline of a compiler has two different optimizers, one right after the IR Generator (that deals with machine-independent optimizations) and another right after the Code Generator (responsible for machine-dependent optimizations).
 
 \subsection{Code Generator}
-The Code Generation phase of a compiling process
+Once the compiler has performed the machine-independent optimizations to the adopted IR, it is time to generate code for the target CPU architecture. This task is executed by the Code Generator component.
+
+In this context, it is important to highlight to the reader that the generated code is just Assembly code of a specific hardware architecture, whether it is x86, ARM, MIPS, RISC-V or another.
+
+When it comes down to the implementation of this component, two possible paths can be taken by the implementer: one can generate code for an existing architecture, that is a real CPU, or for a virtual one.
+
+If the first way is taken, then the compiler generates machine code for a real CPU and, after that, an executable is yielded and, finally, can be load into the memory of the system by the operating system. The advantage of this approach is that the native code generated is extremely fast since it leverages the most of the architecture that it is targeting. However, the downsides might be intimidating, in order to achieve such speed, one often needs to have a deep knowledge about the architecture that the implemented compiler has selected. Also, once the selection is made, the compiler is tied to such architecture. This means that, if the compiler targets the RISC-V architecture, then it cannot work on a x86 or ARM device.
+
+According to \cite{nystrom2021crafting}, as a mean to deal with these disadvantages, Martin Richards and Niklaus Wirth developed their compilers to generate code for a virtual machine, instead of a real one. In practice, this means that their compilers produced code for an hypothetical and idealized machine rather than for a specific real CPU chip.
+
+Advancing into this topic, the intention behind designing these synthetic instructions of a virtual machine is very clever: It allows the compiler developer to create instructions that are linked to the semantics of the source programming language without needing to worry about the peculiarities of any CPU architecture.
 
 
 \subsection{Virtual Machines}
-Virtual Machines are 
+As seen above, a virtual machine is one of the possible approaches when it comes to the code generation phase of a compiler.
+
+If the developer has chosen to built a compiler that emits bytecode, then there is still one task left to be done. Since, the compiler yields bytecode, no CPU architecture is able to understand what this representation actually means.
+
+In this case, there are two options available again:
+\begin{itemize}
+    \item Implement a "mini-compiler" that performs a translation between the generate bytecode and the target machine architecture. In this scenario, it is important to pay attention to two facts: First, the produced bytecode will be essentially acting as a sort of intermediate representation since a translation between it and the target chip will need to happen. Second, the developer is again tied to the underlying hardware architecture. For each computer architecture, a new "mini-compiler" will have to be constructed.
+    
+    \item Implement a Virtual Machine (VM). In simple words, this is a program that emulates a chip that is able to fully understand the bytecode generated by the compiler. As one can already infer, virtual machines have their own trade-offs. Executing bytecode in a virtual machine is slower than directly executing native code in a computer architecture, due to the fact that each bytecode instruction must be simulated in software every time it executes instead of being executed by the hardware itself. On the other hand, by implementing a virtual machine, one gains a lot in terms of simplicity and portability. The need to translate the bytecode generated by the compiler to the machine code of a certain architecture is eliminated and say that the virtual machine was implemented in C or C++, then the implemented programming language can run in any platform that has a C or C++ compiler installed in it.
+\end{itemize}
+
 
 \subsection{Runtimes}
-Runtimes are
+If the developer has opted to make the code generator directly produce machine code for a certain computer architecture, then the last step is tell the underlying operating system of the computer to load the executable file in the memory and execute it.
 
+On the other hand, if the developer has opted to make the code generator yield bytecode, than the last step is start up the virtual machine, send the generated bytecode to it and execute the VM program.
 
-\section{Interpreters}
-\subsection{What is an Interpreter?}
+In both of the mentioned cases, there is usually a need to have an environment that whose responsibility is provide support while the program has started its execution. Such piece of software is an essential part of the programming language implementation called Runtime.
 
-\subsection{Compilers and Interpreters}
+The amount and type of responsibilities assigned to a runtime often varies according to the nature of the implemented programming language. However, some responsibilities are the same across different types of 
+programming languages:
 
+\begin{itemize}
+    \item Interface with the Operating System.
+    \item Memory Management.
+    \item Execution of Built-In Functions.
+    \item Process and Thread Management.
+    \item Type Checking (for Dynamically-Typed Languages).
+\end{itemize}
 
 
 \section{Shortcuts and Alternate Routes}
