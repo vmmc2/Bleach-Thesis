@@ -205,21 +205,84 @@ Therefore, the core roles of a parser can be summarized as shown below:
 
 When it comes down to the implementation of this component, there two main classes of techniques responsible for grouping different algorithms that employ different ideas. Such classes are commonly called Top-Down and Bottom-Up:
 \begin{itemize}
-    \item \textbf{Top-Down:}
+    \item \textbf{Top-Down:} The techniques that are in this category function with the same principle: Start the parsing process from the topmost rule present in the CFG of the source programming language and attempt to break down the input (token stream) into smaller substructures, by following the CFG rules.
         \begin{itemize}
-            \item Recursive Descent parsing:
-            \item LL parsing:
+            \item \textbf{Recursive Descent parsing:} This technique is considered to be the most simple and intuitive one compared to all the others presented here. Nevertheless, it is relevant to mention recursive descent parsers are fast, robust and can handle error reporting very well. Furthermore, according to Nystrom in \cite{nystrom2021crafting}, this technique is applied in several famous programming language implementations, such as: GCC, V8 (Google Chrome's JavaScript Runtime) and Roslyn (Microsoft's C\# compiler written in C\#).
+            
+            Since it is a technique that belongs to the Top-Down class of parsing techniques, this approach starts the parsing procedure from the topmost (or outermost) rule from the source language's CFG. Then, it starts "traversing" the CFG, navigating through subexpressions all the way down until it reaches the leaves of the AST (that is, until it reaches a sequence only composed of tokens or it finds a syntax error).
+
+            The simplicity and intuitiveness of the recursive descent parsing comes from the fact that when implementing it, every rule of the language's CFG becomes a function and the body of the rule can be easily translate into code as shown in the table below:
+
+            \begin{table}[h!]
+                \centering
+                \begin{tabular}{|c|c|}
+                    \hline
+                    \textbf{Grammar notation} & \textbf{Code representation} \\
+                    \hline
+                    Non-Terminal Symbol & Call to the function that represents that rule \\
+                    Terminal Symbol & Code to match and consume a token \\
+                    \texttt{|} & \texttt{if}, \texttt{switch} statement  \\
+                    \texttt{*}, \texttt{+} & \texttt{for}, \texttt{while} loop \\
+                    \texttt{?} & \texttt{if} statement \\
+                    \hline
+                \end{tabular}
+                \caption{Translation between CFG's notation and its equivalent code implementation.}
+            \end{table}
+
+            The "recursive" term in recursive-descent parsing comes from the fact that if the non-terminal symbol of a rule's head is also present in the same rule's body, then when the translation to code happens, recursive function calls will happen depending on the source code provided as input to the compiler.
+
+            Its advantages are the easiness and simplicity to implement it by hand and, due to that it is an excellent option to deal with programming languages that have simple CFGs and also for educational purposes.
+
+            On the other hand, its disadvantages are the fact that it cannot handle left-recursive CFGs (those which have rules where non-terminal refers to itself at the start of the same rule) and it can become increasingly more complex to extend and maintain as the CFG of the programming language becomes larger and more complex.
+
+
+            \item \textbf{LL parsing:} This technique is considered to be more methodical when compared to the previous one. Such approach reads the token stream from left to right and produces a leftmost derivation of the input by using K tokens of lookahead. Thus, if a parser is called LL(1), then it means that it has 1 token of lookahead. If it is LL(2), it has 2, and so on.
+            
+            The advantages of this procedure is that it is predictive parsing, hence there is no need to execute backtracking, which would slow down the parsing process as a whole, and it is more than enough to deal with programming languages whose grammars are simple and have no left-right recursion, which makes it a good candidate when implementing a project for a Compilers course at college.
+
+            The disadvantages of it is that this technique is, unfortunately, limited to CFGs that are LL(k). Which means that, in these scenarios, there is a necessity of first rewriting the grammar to be LL(k) and, only then, implementing the parser itself with this approach.
         \end{itemize}
-    \item \textbf{Bottom-Up:}
+    \item \textbf{Bottom-Up:} The techniques that are in this category function with the same principle: Start the parsing process by examining the received token stream and trying to construct the AST by working from the terminal symbols of the language's CFG all the way up to the start symbol of the topmost CFG rule.
         \begin{itemize}
-            \item LR parsing:
-            \item LALR parsing:
-            \item SLR parsing:
+            \item \textbf{LR parsing:} This technique is very similar to the previously explained LL parsing. It starts out by processing the received sequence of tokens from left to right, however it produces at rightmost derivation (instead of the leftmost one) in reverse using K tokens of lookahead.
+
+            The advantages of this procedure is that it is more robust and powerful when compared to LL parsing, due to the fact that it can deal with a wider variety of CFGs, including those that are left-recursive. Moreover, such approach is considered to be a good choice when implementing machine-yielded parsers.
+
+            The only downsides of this approach are the its complexity of implementation when compared to the Recursive-Descent and the LL approaches, and its defying nature when it comes to debugging.
+            
         \end{itemize}
 \end{itemize}
 
+In \cite{nystrom2021crafting}, Nystrom mentions other exotic parsing techniques, such as: LALR parsing, SLR parsing, Earley parsers, Pratt parsing, packrat parsing, parser combinators and the Shunting-Yard algorithm.
 
-\textbf{In order to better illustrate what a parser does, the image below shows what the parser generates for a very simple program:}
+There are also tools that automate the process of building a parser. A few examples are: ANTLR \cite{ANTLR}, Bison \cite{Bison} and Yacc \cite{Yacc}. All of these tools operate, in essence, in the same way, with a few peculiarities and twists for each one. Basically, they take the CFG of the source programming language as input and produces as output a parser that can recognize valid and invalid programs written in that language. Such tools are very useful because they automate the burdening process of writing a parser by hand, especially when dealing with large CFGs.
+
+Lastly, in order to better illustrate what a parser does, the image below shows what the parser might generate for a very simple program:
+
+First, consider the following sequence of tokens received from the lexer:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+        \hline
+        let & seven & = & 2 & * & 3 & + & 1 & ; \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{figure}[H]  
+  \caption{Example of token sequence provided as input to the parser.}
+  \label{fig:inputParser}
+\end{figure}
+
+The output generated by the parser would be something very similar to the following AST:
+
+\begin{figure}[H]  
+  \centering
+  \includegraphics[width=0.6\textwidth, height=0.6\textheight, keepaspectratio]{Figures/Arquiteturas/ParserOutput.png}  
+  \caption{Example of AST generated as output by the parser.}
+  \label{fig:CompilersAndInterpreters}
+\end{figure}
 
 \subsection{Static Analyzer}
 The Static Analyzer is the third component present in the compiling process of a compiler. It is responsible for performing a task called static analysis. Static analysis essentially means examining the source code without executing it, hence the name. Delving into it, the static analyzer's task is certify that the source code stick to correctness rules defined by the source programming language design and principles.
@@ -244,7 +307,22 @@ For instance, there are static analyzers that are able to identify unused variab
 Last but not least, there are static analyzers that only operate on certain representations of the user's source code. Some static analyzers operate on Intermediate Representation (IR), which is a different type of representation of the source code. It is worth mentioning that this one is more abstract and it is designed to be easier to analyze compared to an AST as it removes details that are too specific of the source programming language. Analyzers that act on this type of representation can perform more complex analysis, such as Control Flow Analysis (whose focus is on detecting unreachable code and ensuring the non existence of infinite loops) and Data Flow Analysis (whose focus is on tracking how values flow between variables).
 
 \subsection{Intermediate Representation (IR) Generator}
-After the previous phases have been executed
+After the previous phases, it is time for the IR generator comes into play. This component receives as the AST from the Static Analyzer and transforms it into another representation of the user's source code that is generally closer to machine-code or bytecode, which, by consequence, makes it also closer to the hardware.
+
+Before explaining with more details what an IR really is and how it works it is essential to remind the reader that the compiler is divided into two big components: the front-end (responsible for dealing with the source programming language) and the back-end (responsible for dealing with the target computer architecture).
+
+Given this structure, there usually exist some kind of code representation that works as a bridge between the front-end and the back-end. Given this motivation, the IR normally is not tied neither to the source programming language and nor to the machine-code of the target architecture or bytecode. By using an IR to link the front and back-ends, the user can implement multiple compilers targeting different architectures with less effort.
+
+The image below shows the huge different that the use of an IR generator component makes inside a compiler:
+
+\begin{figure}[H]  
+  \centering
+  \includegraphics[width=\textwidth, height=\textheight, keepaspectratio]{Figures/Arquiteturas/IRImpact.png}  
+  \caption{Impact of IR in multiple compilers implementations.}
+  \label{fig:IRImpact}
+\end{figure}
+
+Basically, the developer implements only one front-end for each source language that produces the IR. Then only one back-end for each target architecture. Now, one is able to combine those to get every possible combination of source language and target architecture.
 
 \subsection{Optimizer}
 After the previous component emits the code in the intermediate representation (IR) format, it is time for the compiler to make the program more efficient in terms of execution time and memory usage without changing the meaning of the program (i.e., its semantics). For that purpose, the optimizer component comes in.
