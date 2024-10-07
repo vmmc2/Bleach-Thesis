@@ -1466,6 +1466,90 @@ For structuring purposes, this section is organized as a list of challenges. The
 
 
 \section{What Makes Bleach Shine and How It Can Be Used In a Classroom Environment}
+First of all, to extract Bleach's full potential, it is important to understand the conditions imposed in a classroom environment. In this context, highlighting the period of time allocated to an academic semester in Compilers courses is essential.
+
+Given the fact that, normally, an academic semester spans through 10 to 16 weeks depending on the internal organization of the university, for the sake of simplicity, it will be assumed that the academic semester spans through 14 weeks.
+
+Now, below it is defined a proposal of how Compilers courses that opt to use Bleach could be structured considering the assumed time frame:
+\begin{itemize}
+    \item \textbf{Weeks 1 - 2 (Introduction to Programming Languages and Interpreters):}
+        \begin{itemize}
+            \item Provides an overview of programming languages design and implementation, by making a comparison between compilers and interpreters.
+            \item Offers a review from certain topics related to Theory of Computation, for instance: Regular Expressions, Finite Automata (DFA and NFA) and Context-Free Grammars (CFG).
+            \item Introduction of the Bleach programming language to the students.
+        \end{itemize}
+    
+    \item \textbf{Weeks 3 - 4 (Lexing):}
+        \begin{itemize}
+            \item Provides an explanation about what is the purpose behind a lexer and what exactly lexical analysis is, while exposing related concepts, like: lexemes and tokens. Takes a deep dive into how a lexer actually works, supplying the theoretical baggage needed to implement one later on.
+            \item Proposes the implementation of a lexer for the Bleach programming language. 
+        \end{itemize}
+
+    \newpage
+    
+    \item \textbf{Weeks 5 - 6 (Parsing):} 
+        \begin{itemize}
+            \item Provides an explanation about what is the purpose behind a parser and what exactly syntax analysis is, while exposing related concepts, like: ASTs, Bottom-Up and Top-Down parsing. Later on, explains the most important types of parsing (Recursive-Descent, LL(k) and LR(k)), while focusing in the first one, since it is the simplest of them all, but also robust, fast and reliable.
+            \item Provides a more in-depth explanation about CFGs, if the need arises.
+        \end{itemize}
+    
+    \item \textbf{Weeks 7 - 8 (Tree-Walk Interpretation):}
+        \begin{itemize}
+            \item 
+        \end{itemize}
+
+    
+    \item \textbf{Week 9 (Scopes and Environments):}
+        \begin{itemize}
+            \item Provides an explanation about scopes (a conceptual idea), blocks (its visual representation) and environments (its respective implementation). 
+            \item Explains how to manage variables that are stored in different scopes and the concept of variable shadowing.
+            \item Proposition of a practice assignment to extend Bleach, so it can support the taught concepts.
+        \end{itemize}
+
+    \item \textbf{Week 10 (Control Flow Structures):}
+        \begin{itemize}
+            \item Provides an explanation about how control flow structures work behind the scenes. Explanation of how implement the most basic of these structures (\texttt{if} statement and \texttt{while} loop).
+            \item Proposition of a programming assignment to extend Bleach in order for it support such structures.
+            \item Proposition of bonus challenges that make the students think about concepts that have not been directly taught but can be learned through different types of references, such as: Addition of support for \texttt{for} and \texttt{while} loops and also for \texttt{else if} and \texttt{else} clauses as a mean to make the \texttt{if} statement more robust.
+        \end{itemize}
+
+    \newpage
+
+    \item \textbf{Week 11 (Functions):}
+        \begin{itemize}
+            \item Provides explanation about how function declaration statements and function calls work behind the scenes. As well as how one can implement such concepts.
+            \item Proposition of an assignment to extend Bleach to support function declaration statements as well as function calls.
+            \item Proposition of a bonus challenge where students need to implement anonymous/lambda functions.
+        \end{itemize}
+
+    \item \textbf{Week 12 (Resolving):}
+        \begin{itemize}
+            \item 
+        \end{itemize}
+    
+    \item \textbf{Week 13 (Object-Oriented Features):}
+        \begin{itemize}
+            \item 
+        \end{itemize}
+
+    \item \textbf{Week 14 (Projects Presentation and Final Exam):}
+        \begin{itemize}
+            \item In the last week of the academic semester, the students must present their tree-walk interpreters, as well as the extra challenge assignment that they were able to solve.
+            \item Finally, apply final assessments and conduct project discussions.
+        \end{itemize}
+
+\end{itemize}
+
+Teaching a Bleach implementation that employs the idea of Tree-Walk Interpreters can provide several benefits to the students, such as:
+\begin{itemize}
+    \item \textbf{Simplicity:}
+    \item \textbf{Fast Execution and Iteration:}
+    \item \textbf{Hands-On Experience:}
+    \item \textbf{Flexibility for Future Modifications:}
+    \item \textbf{Solid Foundation for Future Learning:}
+\end{itemize}
+
+\begin{comment}
 
 Complexities of type systems. They are usually taught after compilers and are a complex topic. Usually, such courses require an introductory compilers course first as a pre-requisite. Examples:
 
@@ -1478,3 +1562,6 @@ Complexities of type systems. They are usually taught after compilers and are a 
     \item https://www.mccormick.northwestern.edu/computer-science/academics/courses/descriptions/396-496-8.html (Northwestern University)
     \item http://lampwww.epfl.ch/teaching/archive/type\_systems/2004/ (EPFL)
 \end{itemize}
+
+\end{comment}
+
