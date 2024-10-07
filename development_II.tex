@@ -160,7 +160,7 @@ Scalar types are types that can represent a single value. In Bleach, there are 3
 \begin{itemize}
     \item \texttt{bool}: This data type is used to represent one of two possible values: \texttt{true} or \texttt{false}. Such values are used to express logical conditions and to control the execution of certain parts of a program's source code.
     
-    In this context, it's important to mention that Bleach takes inspiration from Ruby and other modern programming languages and implements the concept of "truthy" and "falsey" values in order to evaluate the truthiness or the falseness of values when they are being evaluated inside \texttt{if} statements, loops (\texttt{while}, \texttt{do-while}, \texttt{for}) and ternary operators (\texttt{? :}).
+    In this context, it's important to mention that Bleach takes inspiration from Ruby and other modern programming languages and implements the concept of "truthy" and "falsey" values in order to evaluate the truthiness or the falseness of values when they are being evaluated inside \texttt{if} statements, loops (\texttt{while}, \texttt{do-while}, \texttt{for}) and ternary operators (\texttt{condition ? expression\_1 : expression\_2}).
 
     Essentially, this means that, in Bleach, values of any type (built-in or user-defined) can be used in places where a value of type \texttt{bool} is expected. Moreover, Bleach opted to follow the same convention of Ruby in this matter, which says:
 
@@ -217,7 +217,7 @@ let l3 = [false, "Brazil", 9.98, nil];
         \centering
         \begin{lstlisting}
 let s0 = "Ichigo Kurosaki";
-let s1 = "Byakuya Kuchiki";
+let s1 = "Grimmjow Jaegerjaquez";
 let s2 = "Bazzard Black";
 let s3 = "Jugram Haschwalth";
         \end{lstlisting}
@@ -260,10 +260,8 @@ Given this, Bleach takes inspiration from C \cite{kernighan1988c} when it comes 
 // This is a single-line comment.
 
 /*
-This 
-is
-a
-multi-line
+This  is
+a multi-line
 comment.
 */
         \end{lstlisting}
@@ -375,14 +373,12 @@ Lastly, the Bleach programming language has support for variable shadowing. In p
     \centering
     \begin{lstlisting}
 let a = 42;
-
 print a; // 42
 
 {
   let a = "Hello, there!";
-  print a; // "Hello, there!" --> In this scope, the variable a that holds the value "Hello, there!" hides the other one that has the same name but stores a different value: 42.
+  print a; // "Hello, there!" --> Variable Shadowing in action.
 }
-
 print a; // 42
     \end{lstlisting}
     \caption{First example of variable shadowing in Bleach.}
@@ -430,6 +426,7 @@ print -n; // -42
                         \caption{Example of usage of the "negation" operator (\texttt{-}).}
                     \end{figure}
                 \end{itemize}
+                \newpage
             \item \textbf{Logical:}
                 \begin{itemize}
                     \item \textbf{Not} (\texttt{!}): Inverts the value of an operand of type \texttt{bool}.
@@ -460,7 +457,7 @@ print 2.71 + 3.14159; // 5.85159
                         \caption{First example of usage of the "addition" operator (\texttt{+}).}
                     \end{figure}
 
-                    If both operands are values of type \texttt{str}, then this operator concatenates the first (left) operand to the second (right) operand and returns the result (a value of type \texttt{str}).
+                    If both operands are values of type \texttt{str}, then this operator concatenates the second (right) operand to the first (left) operand and returns the result (a value of type \texttt{str}).
                     \begin{figure}[H]
                         \centering
                         \begin{lstlisting}
@@ -475,6 +472,15 @@ print "a" + "b"; // "ab"
                         \centering
                         \begin{lstlisting}
 print 2 + "two"; // "2two"
+                        \end{lstlisting}
+                        \caption{Third example of usage of the "addition" operator (\texttt{+}).}
+                    \end{figure}
+
+                    If both operands are values of type \texttt{list}, then this operator concatenates the second (right) operand to the first (left) operand and returns the result (a value of type \texttt{list}).
+                    \begin{figure}[H]
+                        \centering
+                        \begin{lstlisting}
+print [1, 2, 3] + [4, 5, 6]; // [1, 2, 3, 4, 5, 6]
                         \end{lstlisting}
                         \caption{Third example of usage of the "addition" operator (\texttt{+}).}
                     \end{figure}
@@ -509,7 +515,7 @@ print 1 / 3; // 0.333333333333333
                     \end{figure}
 
                     
-                    \item \textbf{Remainder} (\texttt{\%}): This operator expects two operands of type \texttt{num}. It divides the first (left) operand, also called dividend, by the second (right) operand, also called divisor, and returns the remainder of this division (a value of type \texttt{num}). It is worth mentioning that if the value of the divisor is \texttt{0}, then a runtime error will be thrown. Moreover, a runtime error will also be thrown if both operands are not integer numbers. If the reader wants to computer the remainder of a division between decimal numbers, then he/she/they should use the  \texttt{std::math::fmod} native function, which is presented at section 4.3.9.
+                    \item \textbf{Remainder} (\texttt{\%}): This operator expects two operands of type \texttt{num}. It divides the first (left) operand, also called dividend, by the second (right) operand, also called divisor, and returns the remainder of this division (a value of type \texttt{num}). It is worth mentioning that if the value of the divisor is \texttt{0}, then a runtime error will be thrown.
                     \begin{figure}[H]
                         \centering
                         \begin{lstlisting}
@@ -635,7 +641,7 @@ print false or nil; // false
                 \end{itemize}
         \end{itemize}
     \item \textbf{Ternary Operator:}
-        A ternary operator is, as its name suggests, an operator that expects three operands. Bleach has just one operator that falls in this class (\texttt{? :}), the one the reader is probably familiar with from C and C++.
+        A ternary operator is, as its name suggests, an operator that expects three operands. Bleach has just one operator that falls in this class (\texttt{condition ? expression\_1: expression\_2}), the one the reader is probably familiar with from C and C++.
     
         This operator provide another way of executing conditional operations. It is used to evaluate a condition and return one of two values based on whether the condition evaluates to \texttt{true} or \texttt{false}.
 
@@ -646,7 +652,7 @@ print false or nil; // false
             \begin{lstlisting}
 print 2 == 2 ? "2 is equal to 2" : "2 is not equal to 2"; // "2 is equal to 2"
             \end{lstlisting}
-            \caption{Example of usage of the "ternary" operator (\texttt{? :}).}
+            \caption{Example of usage of the "ternary" operator (\texttt{condition ? expr\_1: expr\_2}).}
         \end{figure}
 
     \item \textbf{Bleach's Operators Precedence Table:}
@@ -776,14 +782,12 @@ print number; // 0
     \centering
     \begin{lstlisting}
 let numbers = [];
-
 for(let i = 0; i < 10; i = i + 1){
   if(i == 5){
     break;
   }
   numbers.append(i);
 }
-
 print numbers; // [0, 1, 2, 3, 4]
     \end{lstlisting}
     \caption{Example that shows the usage of a \texttt{break} statement in Bleach.}
@@ -824,8 +828,6 @@ foo(); // "alpha"
 \end{itemize}
 
 \subsection{Functions}
-\textbf{Falar como ocorre a passagem de valores em chamadas de função: por valor ou por referência.}
-
 Functions, as is widely known, are fundamental building blocks in programming. They are reusable blocks of code created with the intention of executing a specific job. Therefore, they allow programmers to organize, reuse, and manage code in a more organized manner.
 
 Functions can take inputs, process them and also return a value. As mentioned above, they are very useful because they are helpful when it comes down to breaking complex problems into smaller and simpler chores.
@@ -865,7 +867,7 @@ print answer; // 2
 
 As happens in most dynamically-typed programming languages, when a function call does not comply with its respective declaration statement, a runtime error is thrown.
 
-It is very important to mention that functions in Bleach have certain limitations: They don't have support optional parameters, nor for default value for its parameters, and also cannot be overloaded. \textbf{("Future Work" Material? Assignment to students?)}
+It is very important to mention that functions in Bleach have certain limitations: They don't have support optional parameters, nor for default value for its parameters, and also cannot be overloaded.
 
 Going further, in Bleach, functions are first-class values. Basically, this means that a function is not different from any other value in Bleach. This fact implies in the consequences listed below:
 
@@ -894,8 +896,6 @@ The code snippet shown below demonstrates how to use an anonymous function in Bl
 
 
 \subsection{The Object-Oriented Paradigm in Bleach}
-\textbf{(Não sei se essa subseção ficou muito bem escrita. Poderia dar uma olhada com mais atenção nela?)}
-
 As previously stated, Bleach is a multi-paradigm programming language, since it has support both the procedural and the object-oriented paradigms.
 
 When it comes to the object-oriented paradigm, Bleach has support to the following features of it, such as: classes, attributes/fields, methods, instances, the \texttt{self} keyword and inheritance. These features allow the reader to build modular, reusable, and maintainable code by organizing software into objects, entities that are capable of representing both data and behavior.
@@ -1154,61 +1154,80 @@ When it comes to the possible tokens to be generated during the lexical analysis
 
 \begin{itemize}
     \item \textbf{Single-Character Tokens:}
-    \begin{table}[H]
-    \centering
-        \begin{tabular}{|c|c|}
-        \hline
-        \textbf{Token Type} & \textbf{Token} \\ \hline
-        LEFT\_PAREN & \texttt{(} \\ \hline
-        RIGHT\_PAREN & \texttt{)} \\ \hline
-        LEFT\_BRACKET & \texttt{[} \\ \hline
-        RIGHT\_BRACKET & \texttt{]} \\ \hline
-        LEFT\_BRACE & \texttt{\{} \\ \hline
-        RIGHT\_BRACE & \texttt{\}} \\ \hline
-        COMMA & \texttt{,} \\ \hline
-        DOT & \texttt{.} \\ \hline
-        COLON & \texttt{:} \\ \hline
-        SEMICOLON & \texttt{;} \\ \hline
-        QUESTION\_MARK & \texttt{?} \\ \hline
-        PLUS & \texttt{+} \\ \hline
-        MINUS & \texttt{-} \\ \hline
-        STAR & \texttt{*} \\ \hline
-        SLASH & \texttt{/} \\ \hline
-        REMAINDER & \texttt{\%} \\ \hline
-        BANG & \texttt{!} \\ \hline
-        EQUAL & \texttt{=} \\ \hline
-        GREATER & \texttt{>} \\ \hline
-        LESS & \texttt{<} \\ \hline
-        \end{tabular}
-        \caption{Single-Character Tokens recognized by the Lexer of Bleach's Interpreter.}
+
+    \begin{table}[h!]
+        \centering
+        \begin{minipage}{0.45\textwidth}
+            \centering
+            \begin{tabular}{|c|c|}
+                \hline
+                \textbf{Token Type} & \textbf{Token} \\
+                \hline
+                LEFT\_PAREN & \texttt{(} \\ \
+                RIGHT\_PAREN & \texttt{)} \\ 
+                LEFT\_BRACKET & \texttt{[} \\ 
+                RIGHT\_BRACKET & \texttt{]} \\ 
+                LEFT\_BRACE & \texttt{\{} \\ 
+                RIGHT\_BRACE & \texttt{\}} \\ 
+                COMMA & \texttt{,} \\ 
+                DOT & \texttt{.} \\ \
+                COLON & \texttt{:} \\ \
+                SEMICOLON & \texttt{;} \\ 
+                \hline
+            \end{tabular}
+            \caption{Single-Character Tokens - Pt. 1}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.45\textwidth}
+            \centering
+            \begin{tabular}{|c|c|}
+                \hline
+                \textbf{Token Type} & \textbf{Token} \\
+                \hline
+                QUESTION\_MARK & \texttt{?} \\ 
+                PLUS & \texttt{+} \\ 
+                MINUS & \texttt{-} \\ 
+                STAR & \texttt{*} \\ 
+                SLASH & \texttt{/} \\ 
+                REMAINDER & \texttt{\%} \\ 
+                BANG & \texttt{!} \\ 
+                EQUAL & \texttt{=} \\ 
+                GREATER & \texttt{>} \\ 
+                LESS & \texttt{<} \\ 
+                \hline
+            \end{tabular}
+            \caption{Single-Character Tokens - Pt. 2}
+        \end{minipage}
     \end{table}
 
     \item \textbf{Double-Character Tokens:}
-    \begin{table}[H]
+    \begin{table}[h!]
     \centering
         \begin{tabular}{|c|c|}
         \hline
         \textbf{Token Type} & \textbf{Token} \\ \hline
-        ARROW & \texttt{->} \\ \hline
-        EQUAL\_EQUAL & \texttt{==} \\ \hline
-        EQUAL\_EQUAL & \texttt{!=} \\ \hline
-        GREATER\_EQUAL & \texttt{>=} \\ \hline
-        LESS\_EQUAL & \texttt{<=} \\ \hline        
+        ARROW & \texttt{->} \\
+        EQUAL\_EQUAL & \texttt{==} \\
+        EQUAL\_EQUAL & \texttt{!=} \\
+        GREATER\_EQUAL & \texttt{>=} \\
+        LESS\_EQUAL & \texttt{<=} \\ \hline     
         \end{tabular}
-        \caption{Double-Character Tokens recognized by the Lexer of Bleach's Interpreter.}
+        \caption{Double-Character Tokens recognized by the lexer of Bleach's Interpreter.}
     \end{table}
 
+    \newpage
+
     \item \textbf{Multi-Character Tokens:}
-    \begin{table}[H]
+    \begin{table}[h!]
     \centering
         \begin{tabular}{|c|c|}
         \hline
         \textbf{Token Type} & \textbf{Token} \\ \hline
-        IDENTIFIER & \texttt{(a-z|A-Z|\_)(a-z|A-Z|0-9|\_)\textsuperscript{*}} \\ \hline
-        NUMBER & \texttt{[0-9]\textsuperscript{+}(.[0-9]\textsuperscript{+})?} \\ \hline
+        IDENTIFIER & \texttt{(a-z|A-Z|\_)(a-z|A-Z|0-9|\_)\textsuperscript{*}} \\
+        NUMBER & \texttt{[0-9]\textsuperscript{+}(.[0-9]\textsuperscript{+})?} \\
         STRING & \texttt{"(any ASCII character)\textsuperscript{*}"} \\ \hline      
         \end{tabular}
-        \caption{Multi-Character Tokens recognized by the Lexer of Bleach's Interpreter.}
+        \caption{Multi-Character Tokens recognized by the lexer of Bleach's Interpreter.}
     \end{table}
 
     \item \textbf{FILE\_END Token:} This token is a special one that the Bleach interpreter supports. It is responsible for signaling the end of a \texttt{.bch} file. This token has an empty string as its lexeme. Its addition will be discussed on section 4.5.
@@ -1263,11 +1282,13 @@ Regarding the possible AST nodes to be generated during the syntax analysis, the
     Unary &  \\ \hline
     Variable &  \\ \hline
     \end{tabular}
-    \label{tab:AST_nodes}  % Label for referencing the table
+    \label{tab:ASTNodes}  % Label for referencing the table
     \caption{All possible types of AST nodes in the Bleach programming language. \newline}
 \end{table}
 
-With respect to the parsing technique that is behind the parser component of the implemented Bleach interpreter, the chosen one was the Recursive-Descent parsing technique. With this in mind, it's important to present the BNF-grammar of Bleach: \newline
+\newpage
+
+With respect to the parsing technique that is behind the parser component of the implemented Bleach interpreter, the chosen one was the Recursive-Descent parsing technique. With this in mind, it's important to present the BNF-grammar of Bleach: 
 
 \scalebox{0.75}{
 \[
@@ -1313,6 +1334,8 @@ With respect to the parsing technique that is behind the parser component of the
 \]
 }
 
+\newpage
+
 In other words, the grammar of Bleach is defined by the set of rules that have been just presented. Such rules are the entities that control how expressions and statements are formed in this particular programming language.
 
 For example, by analyzing the BNF-Grammar presented, it becomes clear to the reader the precedence of the binary arithmetical operators. The operators \texttt{"*"}, \texttt{"/"} and \texttt{"\%"} have the same precedence among them, but have more precedence when compared to the operators \texttt{"+"} and \texttt{"-"}, which also have the same precedence among them.
@@ -1353,7 +1376,7 @@ On top of that, the resolver component of the Bleach interpreter is capable of c
 \subsection{Runtime}
 The runtime is the last component of the interpreter. In short, this component is responsible for executing statements, evaluating expressions, performing control-flow, managing environments/scopes with their variables and respective values and also throwing runtime errors whenever required. From a different point of view, the runtime can be viewed as the engine responsible for executing code accordingly with the semantics of the implemented programming language.
 
-As previously explained the implemented interpreter for the Bleach programming language presented in this document is a Tree-Walk one. This type of interpreter works, as earlier explained in Chapter 2, by executing a recursive traversal on the AST and performing different actions depending on the type of the AST's node that is currently being visited. All types of AST's node were also previously presented in Table~\ref{tab:AST_nodes}.
+As previously explained the implemented interpreter for the Bleach programming language presented in this document is a Tree-Walk one. This type of interpreter works, as earlier explained in Chapter 2, by executing a recursive traversal on the AST and performing different actions depending on the type of the AST's node that is currently being visited. All types of AST's node were also previously presented in Table~\ref{tab:ASTNodes}.
 
 Dealing with the first group of AST nodes, the ones that represent expressions, the behavior of the runtime will fundamentally be the same: it will visit the node that represents an expression, then evaluate the expression, finally it will produce the value from said expression and will move on to continue the recursive traversal of the abstract syntax tree. 
 However, the evaluation of these AST expression nodes consistently varies accordingly with the specific expression in question. A rundown of these specific behaviors regarding each type of expression node is presented beneath:
@@ -1430,20 +1453,8 @@ For structuring purposes, this section is organized as a list of challenges. The
     \begin{itemize}
     
         \item \textbf{Lexer Implementation:} When it came to the building of the Lexer component of the interpreter implementation, different strategies could have been adopted. In particular, a hand-written Lexer was the preferred one. The rationale behind this decision is that, even though there are tools capable of automatically generate a lexer given a set of rules defined by regular expressions (such as: Flex \cite{Flex} \cite{wiki_Flex}, JFLex \cite{klein2010jflex}), implementing one from scratch is not a hard task. Basically, all the programmer needs to do is deal with basic string processing and conditional logic, knowledge that is expected from CS students that are taking their undergraduate Compilers course. Moreover, demanding the students to implement the lexer themselves might be better a better approach to put their theoretical knowledge to practice instead of asking them to use semi-transparent automated tool solutions like Flex or JFlex, that abstract the nitty-gritty details of a lexer implementation.
-        
-        
-        \item \textbf{Implementation of native functions in Bleach:}
-        
-        \textbf{Devo explicar isso aqui na monografia ou deixar para a apresentação? Me parece um abstrato explicar o desafio e a solução apenas com palavras.}
 
-        
         \item \textbf{Parser Implementation:} Regarding the choice of which way to follow when implementing the parser component, the most important factor taken into account was accessibility, easiness and simplicity. With these reasons in sight, the parser was implemented as a Top-Down Recursive Descent Parser. According to Nystrom \cite{nystrom2021crafting}, this kind of parser is intuitive and easy to understand, since it works as direct translation of the programming language grammar rules into functions/methods, easy to implement given the reason presented before and also simple to debug. The combination of these aspects make it a good choice for educational purposes, which is Bleach's main goal. One could argument that there are other kinds of parsers that could be used, such as LL(0) parser, LL(K) parser, LR(0) parser, LR(1) parser, LALR parser, among others. However, none of these approaches has a focus on education and learning. Besides, Nystrom affirms in \cite{nystrom2021crafting} that, even though, Recursive-Descent parsers are simple, they should not be underestimated since they are widely used in several popular programming language implementations: GCC, V8 (A JavaScript Runtime present in the Chrome browser) and the Roslyn Compiler (A C\# compiler written in C\#). Last but not least, there are tools that allow the automatic creation of parsers thanks to the use of tools like: ANTLR \cite{ANTLR}, Bison \cite{Bison} or Yacc \cite{johnson1975yacc} \cite{Yacc}. However, the use of such instruments might abstract important theoretical concepts of parsing theory. Therefore, the avoidance of such methodology.
-
-        
-        \item \textbf{Implementing the runtime behavior of \texttt{break} and \texttt{continue} statements:}
-
-        \textbf{Devo explicar isso aqui na monografia ou deixar para a apresentação? Me parece um abstrato explicar o desafio e a solução apenas com palavras.}
-
         
         \item \textbf{Interpreter or Compiler? Why specifically a Tree-Walk Interpreter?} The decision to implement an interpreter instead of a compiler for Bleach was again influenced by simplicity and easiness of learning for the students. Implementing Bleach as a compiler instead of an interpreter makes the students invest their time in topics that, although important in this area, could be skipped, due to their intrinsic complexity and breadth and richness, such as: Intermediate-Representation (IR) transformation, code generation, optimization and type systems. On top of that, both the optimization and the type systems topics are still objects of current research when it comes to the Programming Languages field. Given this, it is important to consider if it is really worth to address these topics when teaching an undergraduate Compilers course. And even if that is the case, it is essential to reflect which concepts of these topics could be taught to undergraduate CS students without compromising their learning experience.
 
@@ -1455,3 +1466,15 @@ For structuring purposes, this section is organized as a list of challenges. The
 
 
 \section{What Makes Bleach Shine and How It Can Be Used In a Classroom Environment}
+
+Complexities of type systems. They are usually taught after compilers and are a complex topic. Usually, such courses require an introductory compilers course first as a pre-requisite. Examples:
+
+\begin{itemize}
+    \item https://home.ttic.edu/~dreyer/course/ (ttic? - 2006)
+    \item https://www.doc.ic.ac.uk/~svb/TSfPL/ (Imperial College London)
+    \item https://stanford-cs242.github.io/f18/lectures/02-1-type-systems.html (Stanford)
+    \item https://homepages.dcc.ufmg.br/~camarao/type-systems.html (UFMG)
+    \item https://www.classes.cs.uchicago.edu/archive/2003/winter/33600-1/ (University of Chicago)
+    \item https://www.mccormick.northwestern.edu/computer-science/academics/courses/descriptions/396-496-8.html (Northwestern University)
+    \item http://lampwww.epfl.ch/teaching/archive/type\_systems/2004/ (EPFL)
+\end{itemize}
