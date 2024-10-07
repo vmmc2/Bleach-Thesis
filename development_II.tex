@@ -1468,7 +1468,7 @@ For structuring purposes, this section is organized as a list of challenges. The
 \section{What Makes Bleach Shine and How It Can Be Used In a Classroom Environment}
 First of all, to extract Bleach's full potential, it is important to understand the conditions imposed in a classroom environment. In this context, highlighting the period of time allocated to an academic semester in Compilers courses is essential.
 
-Given the fact that, normally, an academic semester spans through 10 to 16 weeks depending on the internal organization of the university, for the sake of simplicity, it will be assumed that the academic semester spans through 14 weeks.
+Given the fact that, normally, an academic semester spans through 10 to 16 weeks depending on the internal organization of the university, for the sake of simplicity, it will be assumed that the academic semester spans through 15 weeks.
 
 Now, below it is defined a proposal of how Compilers courses that opt to use Bleach could be structured considering the assumed time frame:
 \begin{itemize}
@@ -1495,13 +1495,15 @@ Now, below it is defined a proposal of how Compilers courses that opt to use Ble
     
     \item \textbf{Weeks 7 - 8 (Tree-Walk Interpretation):}
         \begin{itemize}
-            \item 
+            \item Provides an explanation about how a tree-walk interpreter works in practice. This can be done by reviewing the concepts of trees and their respective types of traversal. Explanation about how each node in a syntax tree represents a different construct of a programming language, focusing on Bleach.
+            \item Introduction to the Visitor design pattern, which is very useful to deal with the traversal of syntax trees
+            \item Proposition of an assignment that deals with the initial implementation of the Bleach tree-walk interpreter, by first dealing with literal values, unary operators and binary operators.
         \end{itemize}
 
     
-    \item \textbf{Week 9 (Scopes and Environments):}
+    \item \textbf{Week 9 (Variables, Scopes and Environments):}
         \begin{itemize}
-            \item Provides an explanation about scopes (a conceptual idea), blocks (its visual representation) and environments (its respective implementation). 
+            \item Provides an explanation about variable declaration statements, initializer of a variable, scopes (a conceptual idea), blocks (its visual representation) and environments (its respective implementation). 
             \item Explains how to manage variables that are stored in different scopes and the concept of variable shadowing.
             \item Proposition of a practice assignment to extend Bleach, so it can support the taught concepts.
         \end{itemize}
@@ -1510,29 +1512,37 @@ Now, below it is defined a proposal of how Compilers courses that opt to use Ble
         \begin{itemize}
             \item Provides an explanation about how control flow structures work behind the scenes. Explanation of how implement the most basic of these structures (\texttt{if} statement and \texttt{while} loop).
             \item Proposition of a programming assignment to extend Bleach in order for it support such structures.
-            \item Proposition of bonus challenges that make the students think about concepts that have not been directly taught but can be learned through different types of references, such as: Addition of support for \texttt{for} and \texttt{while} loops and also for \texttt{else if} and \texttt{else} clauses as a mean to make the \texttt{if} statement more robust.
+            \item Proposition of bonus challenges that make the students think about concepts that have not been directly taught but can be learned through different types of references, such as: Addition of support for \texttt{for} and \texttt{while} loops (as well as support for the \texttt{break} and \texttt{continue} statements) and also for \texttt{else if} and \texttt{else} clauses as a mean to make the \texttt{if} statement more robust.
         \end{itemize}
-
-    \newpage
 
     \item \textbf{Week 11 (Functions):}
         \begin{itemize}
-            \item Provides explanation about how function declaration statements and function calls work behind the scenes. As well as how one can implement such concepts.
-            \item Proposition of an assignment to extend Bleach to support function declaration statements as well as function calls.
-            \item Proposition of a bonus challenge where students need to implement anonymous/lambda functions.
+            \item Provides explanation about how function declaration statements and function calls work behind the scenes. As well as how closures work and how one can implement such concepts.
+            \item Proposition of an assignment to extend Bleach to support function declaration statements, function calls and closures.
+            \item Proposition of a bonus challenge where students need to implement anonymous (lambda) functions.
         \end{itemize}
 
-    \item \textbf{Week 12 (Resolving):}
+    \item \textbf{Week 12 (Standard Library):}
         \begin{itemize}
-            \item 
+            \item Provides an explanation about what are standard libraries and native functions of a programming language, by providing a few examples of those present in languages like C and Python.
+            \item Proposition of an assignment where students are asked to implement simple native functions for Bleach, following Bleach's documentation or other ideas.
         \end{itemize}
     
-    \item \textbf{Week 13 (Object-Oriented Features):}
+    \item \textbf{Week 13 (Resolving):}
         \begin{itemize}
-            \item 
+            \item Provides explanation about what is static analysis, its role and its importance in the development of a programming language implementation, focusing on dynamically-typed languages, like Bleach, where such analysis is simpler and compared to statically-typed languages.
+            \item Provides explanation about the importance of name resolution and how it can lead to unexpected bugs in during the interpretation of the AST (i.e., the runtime).
+            \item Proposition of an assignment where students must implement their own Resolver component (a very simple component in an interpreter, where name resolution occurs).
+        \end{itemize}
+    
+    \item \textbf{Week 14 (Object-Oriented Features):}
+        \begin{itemize}
+            \item Provides explanation about the essential object-oriented features present in Bleach: classes, instances, attributes, methods, the \texttt{self} keyword and single inheritance.
+            \item Proposition of an assignment where students must extend Bleach in, so it can support all of the presented concepts and features.
+            \item Proposition of a challenge asking students to implement static methods for classes and multiple inheritance instead of single inheritance.
         \end{itemize}
 
-    \item \textbf{Week 14 (Projects Presentation and Final Exam):}
+    \item \textbf{Week 15 (Projects Presentation and Final Exam):}
         \begin{itemize}
             \item In the last week of the academic semester, the students must present their tree-walk interpreters, as well as the extra challenge assignment that they were able to solve.
             \item Finally, apply final assessments and conduct project discussions.
@@ -1542,11 +1552,15 @@ Now, below it is defined a proposal of how Compilers courses that opt to use Ble
 
 Teaching a Bleach implementation that employs the idea of Tree-Walk Interpreters can provide several benefits to the students, such as:
 \begin{itemize}
-    \item \textbf{Simplicity:}
-    \item \textbf{Fast Execution and Iteration:}
-    \item \textbf{Hands-On Experience:}
-    \item \textbf{Flexibility for Future Modifications:}
-    \item \textbf{Solid Foundation for Future Learning:}
+    \item \textbf{Simplicity:} Generally speaking, a tree-walk interpreter is much simpler to implement than a full-compiler (it does not deal with the IR generation, optimization and code generation phases). Also, it does no go to deep into type systems, which can have their own courses given their complexity and vastness. Therefore, this might be ideal for students who are having their first contact with the world of programming language design and implementation without overwhelming them with the low-level concepts and implementations mentioned above.
+    
+    \item \textbf{Fast Execution and Iteration:} By implementing a tree-walk interpreter, students are able to see immediate results of their own work, since an interpreter essentially executes code from the generated AST, as explained in Chapter 2, making the connection between language syntax and runtime behavior more evident, while also motivating students since they can see the results of their work early on the course.
+    
+    \item \textbf{Hands-On Experience:} This approach enable students to obtain hands-on experience implementing a full interpreter, giving them a concrete understanding of how language constructs like variables, expressions, statements, control flow structures, functions, OOP features and simple static analysis work in practice.
+    
+    \item \textbf{Flexibility for Future Modifications:} This approach also encourages the students to experiment with language features (once students they have grasped the core concepts of tree-walk interpreters implementation) by adding new features, including but not restricted to the ones suggested earlier, which allows for creativity and deeper learning.
+    
+    \item \textbf{Solid Foundation for Future Learning:} By going through this methodology, it is expected that the students will be prepared to deal with more complex topics, such as bytecode interpreters, type systems and compilers with a deeper understanding of language runtime.
 \end{itemize}
 
 \begin{comment}

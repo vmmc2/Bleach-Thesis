@@ -9,3 +9,41 @@
 \begin{flushright}
    \textit{-- NORIAKI KUBO}
 \end{flushright}
+
+\section{Background and Motivation}
+In Computer Engineering and Computer Science programs, Compilers course are essential for development of students' knowledge in this area, since it provides the basis of how programming languages are executed by computers.
+
+Despite its importance, this particular course is often considered difficult for students to grasp due to its complexity and abstract nature. Due to this issue, efforts have been made since this topic started being taught at universities, in order to build learning tools focused on theoretical aspects. However, in certain scenarios there is still a lack of practical tool that are capable of allowing students to get their hands dirty and work with compiler components.
+
+Given this context, it becomes clear that there exists a gap when it comes down to learning tools focused in practical aspects. Therefore, the opportunity to design and implement a specialized programming language to address these educational challenges emerged.
+
+\section{The Problem}
+When analyzing the structure of initial and traditional Compilers courses, it is noticeable that they often rely too much on theoretical lectures and, in some cases, on code examples that fail to engage and motivate undergraduate students that are having their first contact with compilers design and implementation.
+
+Given this past scenario, changes started to being made in order to offer a better and more fruitful learning experience through the creation of different "toy" programming languages. Unfortunately, even though the intentions were good, when analyzing them in retrospect, it is safe to conclude that most of them are either too simple and uninteresting to demonstrate real-world compiler concepts or too complex and overwhelming for students to work with in an educational setting that usually spans across just one academic semester.
+
+By examining these circumstances and the history behind programming languages and compilers development, it became clear that currently there is a lack of programming languages that could effectively used in balancing educational clarity and practical experimentation. Having this obstacle in mind, this thesis seeks to offer a new solution for this problem, by focusing more on teaching just the essential concepts and giving the students the chance to practice as much as they can, instead of spending too much time on theoretical aspects of this field.
+
+\section{Objectives}
+The main goal of this undergraduate thesis is to present a programming language specifically designed and implemented for use in undergraduate Compilers courses at Computer Engineering and Computer Science programs.
+
+The language aims to offer a practice-oriented understanding of core compiler and interpreter phases such as lexical analysis, syntax parsing, semantic resolution, and interpretation.
+
+Finally, by allowing the students to implement and interact with these components in an active learning environment, Bleach seeks to create a better connection between theoretical knowledge and practical application.
+
+\section{Scope}
+It is very important to highlight to the reader that this undergraduates thesis' focus is exclusively on the presentation, implementation and evaluation of a programming language that was designed to simplify the understanding of compiler phases, particularly lexical analysis, syntax analysis, semantic resolution and interpretation. In other words, this thesis aims to defend a new point of view where teaching interpreters implementation instead of compilers is a reasonable and valuable approach that is supposed to not overwhelm students who are having their first contact with the subject. 
+
+Therefore, the implementation of the programming language presented here will not address advanced compiler topics, such as: type systems, code optimization, register allocation, or machine code generation, since each one of them is complex enough to be studied by several weeks.
+
+Instead, the language implementation presented here will emphasize core concepts in an accessible way to undergraduate students.
+
+\section{Contributions}
+The main contribution of this thesis is the design and implementation of a new programming language specifically tailored for teaching Compilers courses.
+
+The language’s simplicity allows students to experiment with real compiler phases without being overwhelmed by the complexities of full-scale language implementations.
+
+On top of that, the language provides detailed feedback at each stage of the interpreting pipeline, helping students to have a more solid comprehension of this area. Also, the implementation of the language has its own test suite, that can, and should be, used by the teaching staff during the course.
+
+\section{Thesis Structure}
+Ultimately, this thesis is structured in the following format: Chapter 2 provides a literature review that discusses essentials theoretical concepts of the programming language design and implementation field. Chapter 3 is dedicated to provide a historical context about how the teaching of this subject evolved during the last 60 years and also to show studies that highlight the importance of a practice-oriented approach in Compilers courses. This chapter also provides an overview of existing programming languages that attempt to solve the same problem exposed in this chapter. Then, Chapter 4 presents Bleach, the programming language proposed as a new solution for the mentioned issue. The chapter goes deep into the features that the language has and gives a brief overview of its standard library. After this, an in-depth analysis of how each component of the implemented interpreter is presented and, it ends with a discussion about the challenges when designing and implementing the language, as well as the trade-offs made during these two processes. Chapter 5 goes into the evaluation aspect of the language, by explaining how its test suite works. Then, as a statement of it expressiveness, a link to a GitHub repository containing implementations of famous algorithms and data structures is presented to the reader. Concluding the chapter, a brief feature comparison between Bleach and its competitors is shown, proving that Bleach is, indeed, a viable option to choose when teaching Compilers courses. At last, Chapter 6 concludes this thesis by reflecting on the contributions that were made and opportunities of future work and enhancements regarding Bleach.
