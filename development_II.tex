@@ -415,7 +415,6 @@ print -n; // -42
                         \caption{Example of usage of the "negation" operator (\texttt{-}).}
                     \end{figure}
                 \end{itemize}
-                \newpage
             \item \textbf{Logical:}
                 \begin{itemize}
                     \item \textbf{Not} (\texttt{!}): Inverts the value of an operand of type \texttt{bool}.
@@ -603,7 +602,7 @@ print true != !!true; // false
                         \caption{Example of usage of the "not equal" operator (\texttt{!=}).}
                     \end{figure}
                 \end{itemize}
-                
+            \newpage
             \item \textbf{Logical:}
                 \begin{itemize}
                     \item \textbf{And} (\texttt{and}): This operator returns \texttt{true} if, and only if, both operands are "truthy" values. Otherwise, it returns \texttt{false}. This operator performs short-circuiting whenever possible.
@@ -965,8 +964,6 @@ print square.perimeter; // 20
     \caption{Example that illustrates the usage of attributes of a class in Bleach.}
 \end{figure}
 
-    \textbf{Falar sobre a implicação semântica de ter um método e um atributo com o mesmo nome em uma instância de uma classe.}
-
     \item \textbf{Methods:} In Bleach, methods of a class don't have type annotations in their signature, just like functions. The types are checked during runtime when the method is called, which can potentially throw a runtime error if a value of an unexpected type is passed as an argument. In order to declare a method of a class in Bleach, the programmer can use the same syntax as in a function declaration, just needing to replace the \texttt{function} keyword by the \texttt{method} keyword. To call a method of a class, it is required to use the "dot" notation (\texttt{.}) combined with the function calling convention (\texttt{()}), as exhibited below:
 \begin{figure}[H]
     \centering
@@ -976,9 +973,7 @@ class Dog{
     return "Owf Owf!";
   }
 }
-
 let dog = Dog();
-
 print dog.bark(); // "Owf Owf!"
     \end{lstlisting}
     \caption{Example that illustrates the usage of methods of a class in Bleach.}
@@ -1001,8 +996,6 @@ print dog.louderBark(); // "WOOF!"
     \end{lstlisting}
     \caption{Example that illustrates the addition of a new method to an instance of a class during runtime.}
 \end{figure}
-    
-    \textbf{Falar sobre os métodos especiais "init" e "str". Ambos podem ser omitidos na declaração de uma classe. O que acontece quando eles são omitidos? Quais as implicações disso?}
 
     \item \textbf{Inheritance and the \texttt{super} keyword:} In Bleach, as in other popular languages like C++, Java and Python, inheritance allows the user to create a new class based on an existing class, extending or modifying its functionality.
 
@@ -1107,7 +1100,7 @@ First of all, a brief overview of this interpreter will be presented. Such overv
 Then, a comprehensive analysis about each of the introduced components will be made.
 
 \subsection{Bleach Tree-Walk Interpreter Overview}
-First of all, it is important to remember the reader that the implementation of the Bleach language presented in this subsection is a Tree-Walk Interpreter, a type of interpreter that was previously presented in Section 2.2 of this document. Also its underlying language is C++. The box-diagram exhibited below shows how such sort of interpreter works with more details:
+First of all, it is important to remember the reader that the implementation of the Bleach language presented in this subsection is a Tree-Walk Interpreter, a type of interpreter that was previously presented in Section 2.2 of this document. Its underlying language is C++. The box-diagram exhibited in Figure 4.54 shows how such interpreter works with more details.
 
 \begin{figure}[h!]
   \centering
@@ -1137,10 +1130,10 @@ First of all, it is important to remember the reader that the implementation of 
 \end{figure}
 
 \subsection{Lexer}
-When it comes to the lexer, its goal is to transform the received source code (which is viewed by it as a large string of characters) into a sequence of tokens that will be fed to the parser of the interpreter. Such transformation performed by the lexer is known as lexical analysis.
+We recall that the goal of the lexer is to transform the received source code (which is viewed by it as a large string of characters) into a sequence of tokens that will be fed to the parser. Such transformation performed by the lexer is known as lexical analysis.
 
-When it comes to the possible tokens to be generated during the lexical analysis, these are the following types of tokens recognized by the lexer:
-
+Regarding the possible tokens that can be generated during the lexical analysis, we list the types of tokens recognized by the lexer on Tables 4.2, 4.3 and 4.4:
+\newpage
 \begin{itemize}
     \item \textbf{Single-Character Tokens:}
 
@@ -1204,8 +1197,6 @@ When it comes to the possible tokens to be generated during the lexical analysis
         \caption{Double-Character Tokens recognized by the lexer of Bleach's Interpreter.}
     \end{table}
 
-    \newpage
-
     \item \textbf{Multi-Character Tokens:}
     \begin{table}[h!]
     \centering
@@ -1222,7 +1213,7 @@ When it comes to the possible tokens to be generated during the lexical analysis
     \item \textbf{FILE\_END Token:} This token is a special one that the Bleach interpreter supports. It is responsible for signaling the end of a \texttt{.bch} file. This token has an empty string as its lexeme. Its addition will be discussed on section 4.5.
 \end{itemize}
 
-When talking about tokens, specially identifier tokens, it is important to provide the table of keywords of a programming language. In Bleach's case, this table is shown below:
+With respect to identifier tokens, it is important to provide the table of keywords of a programming language. In Bleach's case, this table is shown below:
 \begin{table}[H]
     \centering
     \begin{tabular}{|c|c|c|}
@@ -1239,14 +1230,14 @@ When talking about tokens, specially identifier tokens, it is important to provi
     \caption{Table with all keywords available in Bleach.}
 \end{table}
 
-Regarding the implementation of the lexer itself, the road taken to achieve such goal was to build a hand-written lexer.
-
-The implemented hand-written lexer can successfully recognize string literals and number literals. It can also ignore whitespace characters, single-line comments and multi-line comments. On top of that, the lexer is able to successfully distinguish token that share the same initial characters on their lexemes by using the concept of lookahead and "maximal munch", both previously presented. The "maximal munch" concept is also used to identify tokens that have a keyword as their lexemes from tokens that have just an identifier as their lexemes. 
+Regarding the implementation, the lexer was hand-written. It can successfully recognize string literals and number literals. It can also ignore whitespace characters, single-line comments and multi-line comments. On top of that, the lexer is able to successfully distinguish token that share the same initial characters on their lexemes by using the concept of lookahead and "maximal munch", both previously presented. The "maximal munch" concept is also used to identify tokens that have a keyword as their lexemes from tokens that have just an identifier as their lexemes. 
 
 Lastly, the lexer is capable of identifying invalid characters, unterminated string literals, unterminated multi-line comments and misuse of the \texttt{':'} character.
 
+\newpage
+
 \subsection{Parser}
-When it comes to the parser, its goal is to transform the received sequence of tokens into an Abstract Syntax Tree (AST) that will be fed to the resolver of the interpreter. This conversion executed by the parser is known as syntax analysis.
+The goal of the parser is to transform the received sequence of tokens into an Abstract Syntax Tree (AST) that will be fed to the resolver of the interpreter. This conversion is known as syntax analysis.
 
 Regarding the possible AST nodes to be generated during the syntax analysis, they can be divided into two groups of nodes (expressions and statements). These groups are structured as displayed in Table \ref{tab:ASTNodes}:
 
@@ -1275,11 +1266,12 @@ Regarding the possible AST nodes to be generated during the syntax analysis, the
     \label{tab:ASTNodes}  % Label for referencing the table
 \end{table}
 
-\newpage
 
-With respect to the parsing technique that is behind the parser component of the implemented Bleach interpreter, the chosen one was the Recursive-Descent parsing technique. With this in mind, we present the BNF-grammar of Bleach: \newline
+With respect to the parsing technique, the chosen one was the Recursive-Descent parsing technique. With this in mind, we present the BNF-grammar of Bleach in Figure 4.50: \newline
 
-\scalebox{0.75}{
+\begin{figure}
+    \centering
+\scalebox{0.70}{
 \[
 \begin{array}{rcl}
 \texttt{program}   & ::= & \texttt{statement\textsuperscript{*} EOF} \\[1pt]
@@ -1322,6 +1314,11 @@ With respect to the parsing technique that is behind the parser component of the
 \end{array}
 \]
 }
+    \caption{BNF-Grammar of Bleach.}
+    \label{fig:enter-label}
+\end{figure}
+
+
 
 \newpage
 
@@ -1329,24 +1326,24 @@ In other words, the grammar of Bleach is defined by the set of rules that have b
 
 For example, by analyzing the BNF-Grammar presented, it becomes clear to the reader the precedence of the binary arithmetical operators. The operators \texttt{"*"}, \texttt{"/"} and \texttt{"\%"} have the same precedence among them, but have more precedence when compared to the operators \texttt{"+"} and \texttt{"-"}, which also have the same precedence among them.
 
-Going further, as mentioned previously, the parser is implemented with a top-down approach called Recursive-Descent parsing. In the case of the implemented interpreter, this parser is hand-written, since, as explained in Chapter 2, this particular parsing technique is basically a direct translation of a grammar to code that makes use of recursive functions, which makes its implementation straight-forward.
+As mentioned previously, the parser is implemented with a top-down approach called Recursive-Descent parsing. In the case of the implemented interpreter, this parser is hand-written, since, as explained in Chapter 2, this particular parsing technique is basically a direct translation of a grammar to code that makes use of recursive functions, which makes its implementation straight-forward.
 
 Concerning the parsing phase and the AST generation, as explained in Chapter 2, a recursive-descent parser starts the parsing process from the outermost grammar rule, which in Bleach's case is the \texttt{program} rule, and executes the process already explained when it comes to a top-down recursive descent parsing strategy.
 
 One of the most important aspects of parsing is error reporting. In the parsing phase, the kind of error that is reported is commonly know as syntax error.
 
-Following the guidelines presented in Chapter 2, to deal with syntax errors, the parser component of the implemented interpreter implements the ideas of "panic mode" and "error recovery". When a parser enters such mode, it needs to keep parsing process going until and continue to report more valid syntax errors until it reaches the end of the tokens sequence. To achieve this goal, the parser has a synchronization mechanism that looks for "synchronization points" from which the parser can continue the parsing process without issues. When in synchronization the parser ignores any tokens until it finds one that is a "synchronization point" and, in Bleach's case, such points are between statements.
+Following the guidelines presented in Chapter 2, to deal with syntax errors, the parser component implements the ideas of "panic mode" and "error recovery". When the parser enters such mode, it needs to keep parsing process going until and continue to report more valid syntax errors until it reaches the end of the tokens sequence. To achieve this goal, the parser has a synchronization mechanism that looks for "synchronization points" from which the parser can continue the parsing process without issues. When in synchronization the parser ignores any tokens until it finds one that is a "synchronization point" and, in Bleach's case, such points are between statements.
 
 \subsection{Resolver}
-The resolver is a component of the interpreter responsible for performing a semantic analysis through the AST generated by the parser in the previous phase. To do such traversal on the AST the Visitor design pattern is used, since it is better suited for this type of task, as explained in Chapter 2. 
+The resolver is a component of the interpreter responsible for performing a semantic analysis through the AST generated by the parser. To do such traversal on the AST, the Visitor design pattern is used, since it is better suited for this type of task, as previously explained. 
 
-Even though the resolver performs a semantic analysis pass over the source code, it is a simple and straight-forward one. This pass is in charge of discovering where variables were declared and guarantee that they are properly used within their scope. This component is able to resolve variable references by traversing the AST generated by the parser and associating each variable with its corresponding environment/scope inside which it was defined.
+Even though the resolver performs a semantic analysis pass over the source code, it is a simple and straight-forward one. This pass is in charge of discovering where variables were declared and guaranteeing that they are properly used within their scope. This component is able to resolve variable references by traversing the AST generated by the parser and associating each variable with its corresponding environment/scope inside which it was defined.
 
-As a way to make these associations correctly the resolver has a stack of environments/scopes in which the the environment/scope at the top of the stack is the current environment/scope being analyzed. For instance, the resolver component always creates a new environment/scope and pushes it to the top of the mentioned stack every time it starts the visiting of one of the following types of AST node: \texttt{LambdaFunction}, \texttt{Block}, \texttt{Class}, \texttt{DoWhile}, \texttt{For}, \texttt{While}. When the visiting of such nodes is ended, the environment/scope at the top of the previously mentioned stack is popped and the AST traversal continues. Still on this aspect, the resolver is responsible for providing the runtime with the information necessary to find the correct variable to which a certain identifier is referring to in the chain of environments created at runtime.
+As a way to make these associations correctly the resolver has a stack of scopes in which the the scope at the top of the stack is the current scope being analyzed. For instance, the resolver component always creates a new scope and pushes it to the top of the mentioned stack every time it starts the visiting of one of the following types of AST node: \texttt{LambdaFunction}, \texttt{Block}, \texttt{Class}, \texttt{DoWhile}, \texttt{For}, \texttt{While}. When the visiting of such nodes is ended, the scope at the top of the previously mentioned stack is popped and the AST traversal continues. Still on this aspect, the resolver is responsible for providing the runtime with the information necessary to find the correct variable to which a certain identifier is referring to in the chain of environments created at runtime.
 
-Diving deeper in this respect, the resolver is also able of reporting different types of errors related to variable declaration and usage.
+The resolver is also able of reporting different types of errors related to variable declaration and usage.
 \begin{itemize}
-    \item The resolver is able to find a variable re-declaration inside the same environment/scope and report it as an error.
+    \item The resolver is able to find a variable re-declaration inside the same scope and report it as an error.
     \item The resolver is also able to identify that a variable is being used in its own initializer expression and report it as an error.   
 \end{itemize}
 
@@ -1363,14 +1360,14 @@ On top of that, the resolver component of the Bleach interpreter is capable of c
 \end{itemize}
 
 \subsection{Runtime}
-The runtime is the last component of the interpreter. In short, this component is responsible for executing statements, evaluating expressions, performing control-flow, managing environments/scopes with their variables and respective values and also throwing runtime errors whenever required. From a different point of view, the runtime can be viewed as the engine responsible for executing code accordingly with the semantics of the implemented programming language.
+The runtime is the last component of the interpreter. In short, this component is responsible for executing statements, evaluating expressions, performing control-flow, managing scopes with their variables and respective values and also throwing runtime errors whenever required. From a different point of view, the runtime can be viewed as the engine responsible for executing code accordingly with the semantics of the implemented programming language.
 
 This type of interpreter works, as explained in Chapter 2, by executing a recursive traversal on the AST and performing different actions depending on the type of the AST's node that is currently being visited. All types of AST's node were also previously presented in Table \ref{tab:ASTNodes}.
 
 Dealing with the first group of AST nodes, the ones that represent expressions, the behavior of the runtime will fundamentally be the same: it will visit the node that represents an expression, then evaluate the expression, finally it will produce the value from said expression and will move on to continue the recursive traversal of the abstract syntax tree. 
 However, the evaluation of these AST expression nodes consistently varies accordingly with the specific expression in question. A rundown of these specific behaviors regarding each type of expression node is presented beneath:
 \begin{itemize}
-    \item \textbf{Assign:} When visiting this kind of expression node, the interpreter first evaluates the RHS (right-hand side) of this expression node. This evaluation will produce a value that must be assigned to the LHS (left-hand side) of this very same node. However, the evaluation of the LHS is a bit different than the one made with respect to the RHS. This one evaluates to a location in-memory in which the value obtained through the evaluation of the RHS will be stored. In order to find out the correct memory location, the runtime makes use of information previously computed by the resolver about variable resolution and environments. By default, this visiting returns the value from the RHS evaluation.
+    \item \textbf{Assign:} When visiting this kind of expression node, the interpreter first evaluates the RHS (right-hand side) of this expression node. This evaluation will produce a value that must be assigned to the LHS (left-hand side) of this very same node. However, the evaluation of the LHS is different. This one evaluates to a location in-memory in which the value obtained through the evaluation of the RHS will be stored. In order to find out the correct memory location, the runtime makes use of information previously computed by the resolver about variable resolution and environments. By default, this visiting returns the value from the RHS evaluation.
     \item \textbf{Binary:} When visiting this type of expression node, the interpreter first evaluates its left operand and, then, the right one. Finally, it performs the operation depending on the type of operator that this node stores and returns the result of such operation.
     \item \textbf{Call:} When visiting this sort of expression node, the interpreter first evaluates the callee of this node in order to figure out if it is a valid one (a function, an anonymous/function, a native function, a method, a class, or a method from the \texttt{list} and \texttt{str} built-in types). Once this is done, the interpreter evaluates each of the expressions that represent the arguments of the call and store such values appropriately. Finally, it makes the call to the callee passing the evaluated arguments. This sort of expression node returns the same thing the function that has been called returns.
     \item \textbf{Get:} When visiting this kind of expression node, the interpreter first evaluates the expression representing the entity on which the property is trying to be accessed. If such expression evaluates to an instance of a class, a value of type \texttt{list} or a value of type \texttt{str}, then the interpreter tries to find the value associated to the property and, finally, returns it.
@@ -1387,7 +1384,7 @@ However, the evaluation of these AST expression nodes consistently varies accord
     \item \textbf{Variable:} When visiting this type of expression node, the interpreter uses the expression node itself, which represents a variable usage, combined with the variable's token to figure out at which environment the required variable is at. Then, the runtime accesses that environment, retrieves and returns the value associated to the required variable. 
 \end{itemize}
 
-Now the focus is turned to the second group of AST nodes, the one that contains nodes representing different kinds of statement, which can be called statement nodes. However, before showing each one, it is important to recall the reader that statements do not produce values. Keeping this in mind, there exists the following types of statement nodes:
+The second group of AST nodes is the one that contains nodes representing different kinds of statement, which can be called statement nodes. However, before showing each one, it is important to recall the reader that statements do not produce values. Keeping this in mind, there exists the following types of statement nodes:
 \begin{itemize}
     \item \textbf{Block:} When visiting this kind of statement node, the interpreter first stores the current environment (the implementation of the concept of lexical scope). Then, sets the current environment of the interpreter to another that has been created and whose enclosing one is the one that has been on use before the interpreter started the visit to this statement node. On this new environment current environment, the interpreter executes the statements present in the "Block" node one-by-one from top to bottom. After finishing this, it restore the environments to the initial configuration before starting the visit of this type of statement node.
     \item \textbf{Break:} When visiting this sort of statement node, the interpreter just throws an instance of a "Break" entity that will be caught by the runtime when visiting any loop statement node (\texttt{do-while}, \texttt{for}, \texttt{while}) and dealt with by it. This entity is responsible for simulating the behavior of loop interruption at runtime caused by the use of a \texttt{break} statement.
@@ -1419,14 +1416,14 @@ Now the focus is turned to the second group of AST nodes, the one that contains 
 \section{Challenges, Decisions and Trade-Offs}
 This section is dedicated to report the challenges faced when designing Bleach and implementing its Tree-Walk Interpreter as well as the decisions made, the reasoning behind them and trade-offs that rose from such decisions.
 
-For structuring purposes, this section is organized as a list of challenges. The first group of challenges is all about language design while the second one is about interpreter implementation challenges.
+For structuring purposes, this section is organized as a list of challenges. The first group of challenges is about language design while the second one is about interpreter implementation challenges.
 
 \begin{itemize}
     \item \textbf{Language Design Challenges, Decisions and Trade-Offs:}
     \begin{itemize}
         \item \textbf{Concept of "Truthy" and "Falsey" values}: Since popular programming languages like Ruby, Python, JavaScript and TypeScript started adopting this idea that every value has an associated notion of truthiness or falseness, it felt right to also adopt this philosophy in order to make Bleach modern and flexible. The question that rose from this adoption was: Which values should be considered 'truthy' and which should be considered 'falsey'? For the sake of design's simplicity and easiness when it came down to Bleach's implementation, the road taken by Ruby was also followed: the values \texttt{false} and \texttt{nil} are considered "falsey", while every other one is considered "truthy".
         
-        \item \textbf{Inserting the concept of \texttt{nil} in Bleach:} This is undoubtedly an idea that may raise questions, specially since the creator of the concept itself, Tony Hoare, regrets inventing it, calling such a thing "a billion dollar mistake" \cite{hoare_billion_dollar_mistake}. However, since Bleach and its interpreter implementation are heavily inspired by the "Crafting Interpreters" book \cite{nystrom2021crafting}, it took the same road as the language presented in that book simply because in a dynamically-typed language, which is Bleach's case, trying to exclude the idea of \texttt{nil} is more annoying than just allowing it. Thus, due to simplicity, it was adopted.
+        \item \textbf{Inserting the concept of \texttt{nil} in Bleach:} This is undoubtedly an idea that may raise questions, specially since the creator of the concept itself, Tony Hoare, regrets inventing it, calling it "a billion dollar mistake" \cite{hoare_billion_dollar_mistake}. However, since Bleach and its interpreter implementation are heavily inspired by the "Crafting Interpreters" book \cite{nystrom2021crafting}, it took the same road as the language presented in that book simply because in a dynamically-typed language, which is Bleach's case, trying to exclude the idea of \texttt{nil} is more annoying than just allowing it. Thus, due to simplicity, it was adopted.
         
         \item \textbf{Absence of a \texttt{char} type:} The reader might have questions about the absence of this built-in data type in Bleach. The answer is: simplicity and familiarity. By not adding a new data type to the language, its type system becomes smaller. Moreover, the \texttt{str} type is enough to represent a such a type, since values of the \texttt{char} type can be viewed as values of the \texttt{str} that have length equal to \texttt{1}. In addition, it is important to remember that Bleach is dynamically-typed, which means that types are determined at runtime. Therefore, having a smaller type system reduces the amount of checks the runtime system must perform. Ultimately, popular dynamically-typed languages such as Python, Ruby and JavaScript adopted this same approach, thus, following it seems reasonable since this is a familiar pattern for students that had already contact with the mentioned languages.
         
@@ -1434,14 +1431,14 @@ For structuring purposes, this section is organized as a list of challenges. The
         
         \item \textbf{Permission to re-declare global variables:} This decision has both pros and cons but, in the end, the pros seem to have a bigger impact than the cons. The major con is the visible inconsistency between local and global variables, since the local ones cannot be re-declared while global ones can. However, it is worth remembering the reader that the interpreter implemented for this language has two operating modes (one that activates an interactive session, a REPL, and another that reads and executes the content present inside a \texttt{.bch} file). Usually, in a REPL, the user might have difficulties on keeping track of which variable have been already declared and which have not. Following this reasoning, in order to make the user experience better when using the REPL, global variable re-declaration has been allowed.
         
-        \item \textbf{Adoption of single inheritance instead of multiple inheritance:} This design decision was mainly motivated by clarity, simplicity and maintainability. Bleach was designed to be an educational tool, thus, there is encouragement to make it beginner-friendly and more accessible for students. With this in mind, dealing with single inheritance is much easier than with multiple inheritance. In this vein, it is valuable explaining to the reader that single inheritance makes the whole hierarchy of classes less complicated to understand. A class can only have one "parent" class, with the exception of the base class. This structure makes inheritance more predictable and avoids the complexities of multiple inheritance, such as the "Diamond Problem" \cite{wikipedia_the_diamond_problem}.
+        \item \textbf{Adoption of single inheritance instead of multiple inheritance:} This design decision was mainly motivated by clarity, simplicity and maintainability. Bleach was designed to be an educational tool, thus, there is encouragement to make it beginner-friendly and more accessible for students. With this in mind, dealing with single inheritance is easier than with multiple inheritance. In this vein, it is valuable explaining to the reader that single inheritance makes the whole hierarchy of classes less complicated to understand. A class can only have one "parent" class, with the exception of the base class. This structure makes inheritance more predictable and avoids the complexities of multiple inheritance, such as the "Diamond Problem" \cite{wikipedia_the_diamond_problem}.
     \end{itemize}
 
 
     \item \textbf{Tree-Walk Interpreter Implementation Challenges, Decisions and Trade-Offs:}
     \begin{itemize}
     
-        \item \textbf{Lexer Implementation:} When it came to the building of the Lexer component of the interpreter implementation, different strategies could have been adopted. In particular, a hand-written Lexer was the preferred one. The rationale behind this decision is that, even though there are tools capable of automatically generate a lexer given a set of rules defined by regular expressions (such as: Flex \cite{Flex} \cite{wiki_Flex}, JFLex \cite{klein2010jflex}), implementing one from scratch is not a hard task. Basically, all the programmer needs to do is deal with basic string processing and conditional logic, knowledge that is expected from CS students that are taking their undergraduate Compilers course. Moreover, demanding the students to implement the lexer themselves might be better a better approach to put their theoretical knowledge to practice instead of asking them to use semi-transparent automated tool solutions like Flex or JFlex, that abstract the nitty-gritty details of a lexer implementation.
+        \item \textbf{Lexer Implementation:} When it came to the building of the Lexer component, different strategies could have been adopted. In particular, a hand-written Lexer was the preferred one. The rationale behind this decision is that, even though there are tools capable of automatically generate a lexer given a set of rules defined by regular expressions (such as: Flex \cite{Flex} \cite{wiki_Flex}, JFLex \cite{klein2010jflex}), implementing one from scratch is not a hard task. Basically, all the programmer needs to do is deal with basic string processing and conditional logic, knowledge that is expected from CS students that are taking their undergraduate Compilers course. Moreover, demanding the students to implement the lexer themselves might be better a better approach to put their theoretical knowledge to practice instead of asking them to use semi-transparent automated tool solutions like Flex or JFlex, that abstract the nitty-gritty details of a lexer implementation.
 
         \item \textbf{Parser Implementation:} Regarding the choice of which way to follow when implementing the parser component, the most important factor taken into account was accessibility, easiness and simplicity. With these reasons in sight, the parser was implemented as a Top-Down Recursive Descent Parser. According to Nystrom \cite{nystrom2021crafting}, this kind of parser is intuitive and easy to understand, since it works as direct translation of the programming language grammar rules into functions/methods, easy to implement given the reason presented before and also simple to debug. The combination of these aspects make it a good choice for educational purposes, which is Bleach's main goal. One could argument that there are other kinds of parsers that could be used, such as LL(0) parser, LL(K) parser, LR(0) parser, LR(1) parser, LALR parser, among others. However, none of these approaches has a focus on education and learning. Besides, Nystrom affirms in \cite{nystrom2021crafting} that, even though, Recursive-Descent parsers are simple, they should not be underestimated since they are widely used in several popular programming language implementations: GCC, V8 (A JavaScript Runtime present in the Chrome browser) and the Roslyn Compiler (A C\# compiler written in C\#). Last but not least, there are tools that allow the automatic creation of parsers thanks to the use of tools like: ANTLR \cite{ANTLR}, Bison \cite{Bison} or Yacc \cite{johnson1975yacc} \cite{Yacc}. However, the use of such instruments might abstract important theoretical concepts of parsing theory. Therefore, the avoidance of such methodology.
         
