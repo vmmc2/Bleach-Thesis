@@ -11,26 +11,21 @@
 \end{flushright}
 
 \section{Introduction}
-This chapter is dedicated to provide a detailed explanation about the Bleach programming language. Firstly, a brief overview of Bleach's features will be presented by showcasing a few programs written in the language. Then, a detailed breakdown of each of its components and features will be shown to the reader. Afterwards, the challenges encountered during the development of this project will be presented, as well as decisions and trade-offs made. Finally, a comparison between Bleach and the previous languages introduced will be made, as well as a discussion about how Bleach can be properly used to its fullest in an undergraduate Compilers course.
+This chapter is dedicated to provide a detailed explanation about the Bleach programming language. Firstly, a brief overview of Bleach's features is presented by showcasing a few programs written in the language. Then, a detailed breakdown of each of its components and features is shown. Afterwards, the challenges encountered during the development of this project are presented, as well as decisions and trade-offs made. Finally, a comparison between Bleach and the previous languages introduced is presented, as well as a discussion about how Bleach can be properly used to its fullest in undergraduate Compilers courses.
 
 \section{Bleach Overview}
-As previously mentioned, this section is dedicated to showcase a few of Bleach's features through the exposition of simple, yet useful, programs to the reader. It's expected that the reader has some familiarity programming with another languages, such as C \cite{kernighan1988c}, C++ \cite{strousrup2000c++}, JavaScript \cite{javascript_language}, Lox \cite{nystrom2021crafting}, Python \cite{python_language} and Ruby \cite{ruby_language}, so the similarities between Bleach and these languages make themselves more evident. \newline
+As previously mentioned, this section is dedicated to showcase a few of Bleach's features through the exposition of simple, yet useful, programs to the reader. It is expected that the reader has some familiarity programming in other languages, such as C \cite{kernighan1988c}, C++ \cite{strousrup2000c++}, JavaScript \cite{javascript_language}, Lox \cite{nystrom2021crafting}, Python \cite{python_language} or Ruby \cite{ruby_language}, so the similarities between Bleach and these languages make themselves more evident.
 
-\begin{figure}
-    \centering
-    \begin{lstlisting}
-function greet(){
-  print "Hello, World!";
-}
+\newpage
 
-greet(); // "Hello, World!"
-    \end{lstlisting}
-    \caption{Bleach's simplest program: The famous "Hello, World!" program.}
-\end{figure}
+The first example of Bleach program shown below is the simplest and most famous one known in Computer Science: The "Hello, World!" program: \newline
+\begin{lstlisting}
+print "Hello, World!"; // "Hello, World!"
+\end{lstlisting}
 
-\begin{figure}
-    \centering
-    \begin{lstlisting}
+
+Next, there is a Bleach program that shows the combined usage of recursive functions, if-else statements and arithmetic operators to calculate the factorial of a number: \newline
+\begin{lstlisting}
 function factorial(n){
   if(n == 0){
     return 1;
@@ -40,13 +35,11 @@ function factorial(n){
 }
 
 print factorial(5); // 120
-    \end{lstlisting}
-    \caption{A Bleach program that shows the usage of recursive functions, if-else statements and arithmetic operators to calculate the factorial of a number.}
-\end{figure}
+\end{lstlisting}
 
-\begin{figure}
-    \centering
-    \begin{lstlisting}
+
+After this, a Bleach program that illustrates the usage of for loops and the native \texttt{list} type in order to build a list that contains some information about numbers from 0 to 10: \newline
+\begin{lstlisting}
 function main(){
   let numbersInfo = [];
   for(let i = 0; i <= 10; i = i + 1){
@@ -60,13 +53,13 @@ function main(){
 }
 
 main();
-    \end{lstlisting}
-    \caption{A Bleach program that shows the usage of for loops and the native \texttt{list} type in order to build a list that contains some information about numbers from 0 to 10.}
-\end{figure}
+\end{lstlisting}
 
-\begin{figure}
-    \centering
-    \begin{lstlisting}
+\newpage
+
+
+Now, there is a Bleach program that implements a function which receives the coefficients of a quadratic equation in order to compute its roots: \newline
+\begin{lstlisting}
 function quadraticEquationSolver(a, b, c){
   let delta = std::math::pow(b, 2) - 4 * a * c;
   let x1 = (-b + std::math::sqrt(delta))/(2 * a);
@@ -76,13 +69,11 @@ function quadraticEquationSolver(a, b, c){
 }
 
 print quadraticEquationSolver(1, 0, -4); // [2, -2]
-    \end{lstlisting}
-    \caption{A Bleach that uses a function which receives the coefficients of a quadratic equation to compute its roots.}
-\end{figure}
+\end{lstlisting}
 
-\begin{figure}
-    \centering
-    \begin{lstlisting}
+
+Below, there is a Bleach program that illustrates Object-Oriented features of the language, such as: classes, instances, attributes, methods, overriding and inheritance: \newline
+\begin{lstlisting}
 class Shape{ // Base Class
   method init(name){
     self.name = name;
@@ -127,13 +118,10 @@ let t = Triangle(3, 7);
 print c + " It has an area of " + c.area() + " units.";
 // This is a Triangle. It has an area of 10.5 units.
 print t + " It has an area of " + t.area() + " units.";
-    \end{lstlisting}
-    \caption{A Bleach program that illustrates its Object-Oriented features, such as: classes, instances, attributes, methods, overriding and inheritance.}
-\end{figure}
+\end{lstlisting}
 
-\begin{figure}
-    \centering
-    \begin{lstlisting}
+And finally, a Bleach program that shows its capability with dealing with user-input and writing to \texttt{.txt} files: \newline
+\begin{lstlisting}
 function writeToFile(){
   let userInput = std::io::readLine();
   std::io::fileWrite("output.txt", "w", userInput, true);
@@ -145,13 +133,12 @@ function writeToFile(){
 }
 
 writeToFile();
-    \end{lstlisting}
-    \caption{A Bleach program that shows its capability with dealing with user-input and writing to \texttt{.txt} files.}
-\end{figure}
+\end{lstlisting}
+
 
 \section{Bleach Features}
 \subsection{Introduction}
-Bleach is a high-level and dynamically-typed programming language designed with the intent to be used as a teaching tool in undergraduate Compilers course. The motivation behind its creation lies in the fact that according to the studies mentioned in section 3 and in my personal experience, a more incremental and practice-oriented approach when teaching this course is also more rewarding to the teaching staff and to the students, especially when it comes to grasp the core concepts of it. Last but not least, as it will be shown in this chapter and in the next one, Bleach is a more complete language when compared to Cool and MiniJava, which might capture students' interest in implementing a programming language that resembles those they are used to utilizing in their daily lives.
+Bleach is a high-level and dynamically-typed programming language designed with the intent to be used as a teaching tool in undergraduate Compilers courses. The motivation behind its creation lies in the fact that according to the studies mentioned in section 3 and in my personal experience, a more incremental and practice-oriented approach when teaching such courses is more rewarding to the teaching staff and to the students, especially when it comes to grasp the core concepts of it. Last but not least, as it is shown in this chapter and in the next one, Bleach is a more complete language when compared to Cool and MiniJava, which might better capture students' interest in implementing a programming language that resembles those they are used to utilizing in their daily lives.
 
 \subsection{Data Types}
 Bleach has 5 built-in data types made available to the user. Such types are divided into scalar types  and compound types.
@@ -160,7 +147,7 @@ Scalar types are types that can represent a single value. In Bleach, there are 3
 \begin{itemize}
     \item \texttt{bool}: This data type is used to represent one of two possible values: \texttt{true} or \texttt{false}. Such values are used to express logical conditions and to control the execution of certain parts of a program's source code.
     
-    In this context, it's important to mention that Bleach takes inspiration from Ruby and other modern programming languages and implements the concept of "truthy" and "falsey" values in order to evaluate the truthiness or the falseness of values when they are being evaluated inside \texttt{if} statements, loops (\texttt{while}, \texttt{do-while}, \texttt{for}) and ternary operators (\texttt{condition ? expression\_1 : expression\_2}).
+    In this context, it is important to mention that Bleach takes inspiration from Ruby and other modern programming languages and implements the concept of "truthy" and "falsey" values in order to evaluate the truthiness or the falseness of values when they are being evaluated inside \texttt{if} statements, loops (\texttt{while}, \texttt{do-while}, \texttt{for}) and ternary operators (\texttt{condition ? expression\_1 : expression\_2}).
 
     Essentially, this means that, in Bleach, values of any type (built-in or user-defined) can be used in places where a value of type \texttt{bool} is expected. Moreover, Bleach opted to follow the same convention of Ruby in this matter, which says:
 
@@ -169,7 +156,7 @@ Scalar types are types that can represent a single value. In Bleach, there are 3
         \item \textbf{"Truthy" values:} Any other value that is not \texttt{false} nor \texttt{nil}.
     \end{itemize}
     
-    \item \texttt{nil}: This one is an old acquaintance for most programmers. The \texttt{nil} type has just one possible value: the \texttt{nil} value. In short this value conveys the idea of "no value" or the idea of "absence of a value".
+    \item \texttt{nil}: This one is an old acquaintance for most programmers. The \texttt{nil} type has just one possible value, the \texttt{nil} value. In short this value conveys the idea of "no value" or the "absence of a value".
 
     In other programming languages, this concept appears in other forms, like: \texttt{NULL}, \texttt{nullptr}, \texttt{null}, \texttt{None}, \texttt{nil}, and others. Since Bleach has some influence from Ruby, it adopted \texttt{nil}.
     
@@ -183,7 +170,7 @@ Scalar types are types that can represent a single value. In Bleach, there are 3
 
 Compound types are types that can group multiple values into one. In Bleach, there are 2 compound types: \texttt{list} and \texttt{str}.
 \begin{itemize}
-    \item \texttt{list}: Taking inspiration from Python \cite{python_language}, Bleach has this type. Here, the \texttt{list} type represents an linear-sequence of elements. As previously stated, Bleach is a dynamically-typed language, just like Python. Thus, the \texttt{list} type can store values of different types with no issues. Moreover, Bleach has support for \texttt{list} literals, just as the ones shown below:\newline
+    \item \texttt{list}: Taking inspiration from Python \cite{python_language}, Bleach has this type. Here, the \texttt{list} type represents a linear-sequence of elements. As previously stated, Bleach is a dynamically-typed language, just like Python. Thus, the \texttt{list} type can store values of different types with no issues. Moreover, Bleach has support for \texttt{list} literals, just as the ones shown below:\newline
 
     \begin{figure}[H]
         \centering
@@ -199,17 +186,17 @@ let l3 = [false, "Brazil", 9.98, nil];
     Finally, as in Python, the \texttt{list} type in Bleach has the following useful methods that makes the student's life easier when working with this type.
     
     \begin{itemize}
-        \item \texttt{append}: Method responsible for adding one value of any type to the end of the \texttt{list} value it was called on. Returns \texttt{nil}.
+        \item \texttt{append}: Responsible for adding one value of any type to the end of the \texttt{list} value it was called on. Returns \texttt{nil}.
         \item \texttt{clear}: Method responsible for deleting every element that is currently stored inside the \texttt{list} value it was called on. Returns \texttt{nil}.
-        \item \texttt{empty}: Method responsible for checking whether the \texttt{list} value it was called on currently has values stored inside it or not. Returns a \texttt{bool} value.
-        \item \texttt{fill}: Method responsible for resizing the \texttt{list} value it was called on to a provided size and also filling all of its indexes with a provided value of any type. Returns \texttt{nil}; 
-        \item \texttt{getAt}: Method responsible for returning the value present at the provided index. Returns a value of any type.
-        \item \texttt{pop}: Method responsible for deleting and returning the last element present inside a \texttt{list} value, if any. Returns a value of any type.
-        \item \texttt{setAt}: Method responsible for setting the value stored at the provided index to the value that was provided. Returns \texttt{nil}.
-        \item \texttt{size}: Method responsible for checking and returning the current amount of elements that the \texttt{list} value it was on called on currently has. Return a \texttt{num} value.
+        \item \texttt{empty}: Responsible for checking whether the \texttt{list} value it was called on currently has values stored inside it or not. Returns a \texttt{bool} value.
+        \item \texttt{fill}: Responsible for resizing the \texttt{list} value it was called on to a provided size and also filling all of its indexes with a provided value of any type. Returns \texttt{nil}; 
+        \item \texttt{getAt}: Responsible for returning the value present at the provided index. Returns a value of any type.
+        \item \texttt{pop}: Responsible for deleting and returning the last element present inside a \texttt{list} value, if any. Returns a value of any type.
+        \item \texttt{setAt}: Responsible for setting the value stored at the provided index to the value that was provided. Returns \texttt{nil}.
+        \item \texttt{size}: Responsible for checking and returning the current amount of elements that the \texttt{list} value it was on called on currently has. Returns a \texttt{num} value.
     \end{itemize}
 
-    Last but not least, it's important to mention that any misuse of the methods presented above will result in a runtime error during the program's execution.
+    Last but not least, it is important to highlight that any misuse of the methods presented above will result in a runtime error during the program's execution.
 
     \item \texttt{str}: Also taking inspiration from Python \cite{python_language}, Bleach has this type. The \texttt{str} type represents an indexed-sequence of characters (a string), typically used to store and manipulate text. Just as the \texttt{list} type, Bleach also has support for literal values of this type:
 
@@ -226,26 +213,28 @@ let s3 = "Jugram Haschwalth";
 
     There are other aspects about the \texttt{str} type that must be mentioned.
 
-    First of all, it is important to recall that it's a sequence type. In short, it means that values of this type can be indexed. In a string, indexing usually allows the programmer to access individual characters from the value, which, in the Bleach programming language, are also values of \texttt{str} type.
+    First of all, it is important to recall that it is a sequence type. In short, it means that values of this type can be indexed. In a string, indexing usually allows the programmer to access individual characters from the value, which, in the Bleach programming language, are also values of \texttt{str} type.
 
     Also, as seen in Figure 4.8, in Bleach, literals values of this type are always enclosed by double quotes (\texttt{""}).
 
     Finally, as in Python, this type has the following useful methods available:
 
     \begin{itemize}
-        \item \texttt{empty}: Method responsible for checking whether the \texttt{str} value it was called is equal to \texttt{""} or not. Returns a \texttt{bool} value.
-        \item \texttt{find}: Method responsible for trying to figure out if the provided sub-string (a \texttt{str} value) exists within the \texttt{str} value the method was called on. Returns a \texttt{num} value which denotes the index at which the sub-string appears, otherwise returns \texttt{-1}. 
-        \item \texttt{length}: Method responsible for checking and returning the current amount of characters (which are also values of type \texttt{str}) that the \texttt{str} value it was on called on currently has. Returns a \texttt{num} value.
-        \item \texttt{split}: Method responsible for generating a \texttt{list} where each value is of \texttt{str} type. This method receives as its unique argument a value of \texttt{str} type that works as the separator. Returns a \texttt{list} value.
-        \item \texttt{substr}: Method responsible for retrieving a sub-string from the \texttt{str} value it was called on. The method receives two arguments of \texttt{num} type that work as the start and end delimiters. Returns a \texttt{str} value.
+        \item \texttt{empty}: Responsible for checking whether the \texttt{str} value it was called is equal to \texttt{""} or not. Returns a \texttt{bool} value.
+        \item \texttt{find}: Responsible for trying to figure out if the provided sub-string (a \texttt{str} value) exists within the \texttt{str} value the method was called on. Returns a \texttt{num} value which denotes the index at which the sub-string appears, otherwise returns \texttt{-1}. 
+        \item \texttt{getAt}: Responsible for returning the \texttt{str} value of length 1 present at the provided index. Returns a \texttt{str} value.
+        \item \texttt{length}: Responsible for checking and returning the current amount of characters (which are also values of type \texttt{str}) that the \texttt{str} value it was on called on currently has. Returns a \texttt{num} value.
+        \item \texttt{split}: Responsible for generating a \texttt{list} where each value is of \texttt{str} type. This method receives as its unique argument a value of \texttt{str} type that works as the separator. Returns a \texttt{list} value.
+        \item \texttt{setAt}: Responsible for setting the value stored at the provided index to the value that was provided (which must be a \texttt{str} value of length \texttt{1}). Returns \texttt{nil}.
+        \item \texttt{substr}: Responsible for retrieving a sub-string from the \texttt{str} value it was called on. The method receives two arguments of \texttt{num} type that work as the start and end delimiters. Returns a \texttt{str} value.
     \end{itemize}
 
 \end{itemize}
 
 \subsection{Comments}
-Even though it is recommendable that a programmer writes code in a way that is readable and understandable, there are certain scenarios where extra explanation about what certain parts of a program's source code is actually doing is necessary.
+Even though it is recommendable that a programmer writes code in a way that is readable and understandable, there are certain scenarios where extra explanation about what certain parts of a program's source code is actually doing is welcomed.
 
-In these specific cases, programmers usually leave comments in their code that the compiler/interpreter will ignore but people reading their code may find helpful.
+In these specific cases, programmers usually leave comments in their code that the compiler/interpreter will ignore but people reading such code may find helpful.
 
 Given this, Bleach takes inspiration from C \cite{kernighan1988c} when it comes to support for single-line comments and multi-line comments.
 
@@ -275,7 +264,7 @@ In Bleach this is not different. Variables still have this main functionality. H
 \begin{itemize}
     \item In Bleach, all variables are mutable. In other words, once a variable is declared, any amount of assignments are allowed to be performed on this declared variable.
     
-    \item A direct consequence of the particularity explained above is that there is no concept of constants in Bleach. There are just mutable variables, as previously mentioned.
+    \item A direct consequence of the particularity explained above is that there is no concept of constants in Bleach.
     
     \item In Bleach, to declare a new variable, the \texttt{let} keyword must be used:
     \begin{figure}[H]
@@ -296,7 +285,7 @@ print someVariable; // nil
         \caption{Example of variable declaration without an initializer in Bleach.}
     \end{figure}
 
-    \item Since Bleach is a dynamically-typed programming language, variables don't have types associated with them. Instead, it's the values stored inside them that have types. The most important consequence of this fact is that a variable can hold a value of different types at different points in time:
+    \item Since Bleach is a dynamically-typed programming language, variables do not have types associated with them. Instead, it is the value stored inside of a variable that has a type. The most important consequence of this fact is that a variable can hold values of different types at different points in time:
     \begin{figure}[H]
         \centering
         \begin{lstlisting}
@@ -368,7 +357,7 @@ print y; // 13;
     \end{figure}
 \end{itemize}
 
-Lastly, the Bleach programming language has support for variable shadowing. In practice, this means that when a variable is declared in an inner scope with the same name of another variable, which was declared in an outer scope, the inner variable "shadows" or hides the variable declared in the outer scope. This means that, until this inner scope ends, every variable reference will "hit" the inner one, not the outer one. In this matter, it is important that in order to create a new scope, the user just needs to use curly braces (\texttt{\{\}}). The two examples presented below show how variable shadowing works in practice in Bleach:
+Lastly, Bleach has support for variable shadowing. In practice, this means that when a variable is declared in an inner scope with the same name of another variable, which was declared in an outer scope, the inner variable "shadows" or hides the variable declared in the outer scope. This means that, until this inner scope ends, every variable reference will "hit" the inner one, not the outer one. In this matter, it is important that in order to create a new scope, the user just needs to use curly braces (\texttt{\{\}}). The two examples presented below show how variable shadowing works in practice in Bleach:
 \begin{figure}[H]
     \centering
     \begin{lstlisting}
@@ -847,7 +836,7 @@ function functionName(parameter1, parameter2, parameter3){
 
 Still regarding function declaration statements, it is relevant to mention that if the programmer omits the \texttt{return} statement from it, then when such function is called at runtime it will, by default, return the \texttt{nil} value.
 
-In Bleach, function calls are no different than in the most famous programming languages. The programmer is expected to call it by its name and provide the necessary arguments, according to its respective declaration statement. The code snippet below shows how to properly call a function in Bleach.
+In Bleach, function calls are no different than in the most famous programming languages. The programmer is expected to call it by its name and provide the necessary arguments, according to its respective declaration statement. The code snippet below shows how to properly call a function in Bleach:
 
 \begin{figure}[H]
     \centering
@@ -867,7 +856,7 @@ print answer; // 2
 
 As happens in most dynamically-typed programming languages, when a function call does not comply with its respective declaration statement, a runtime error is thrown.
 
-It is very important to mention that functions in Bleach have certain limitations: They don't have support optional parameters, nor for default value for its parameters, and also cannot be overloaded.
+It is very important to mention that functions in Bleach have certain limitations: They do not have support optional parameters, nor for default value for its parameters, and also cannot be overloaded.
 
 Going further, in Bleach, functions are first-class values. Basically, this means that a function is not different from any other value in Bleach. This fact implies in the consequences listed below:
 
@@ -896,14 +885,14 @@ The code snippet shown below demonstrates how to use an anonymous function in Bl
 
 
 \subsection{The Object-Oriented Paradigm in Bleach}
-As previously stated, Bleach is a multi-paradigm programming language, since it has support both the procedural and the object-oriented paradigms.
+As previously stated, Bleach is a multi-paradigm programming language, since it supports both the procedural and the object-oriented paradigms.
 
-When it comes to the object-oriented paradigm, Bleach has support to the following features of it, such as: classes, attributes/fields, methods, instances, the \texttt{self} keyword and inheritance. These features allow the reader to build modular, reusable, and maintainable code by organizing software into objects, entities that are capable of representing both data and behavior.
+When it comes to the object-oriented paradigm, Bleach has support to the following features: classes, attributes/fields, methods, instances, the \texttt{self} keyword and inheritance. These features allow the reader to build modular, reusable, and maintainable code by organizing software into objects, entities that are capable of representing both data and behavior.
 
 The rest of this subsection is dedicated to provide a more in-depth overview about each of the mentioned features:
 
 \begin{itemize}
-    \item \textbf{Classes:} As is common knowledge among undergraduate CS students, in the object-oriented paradigm, a class is basically a "blueprint" for creating instances/object. Regarding this, since Bleach is a dynamically-typed language, it made sense for it to take the same route as Python: It does not require explicit type information about attributes and methods. Furthermore, there is a lot of flexibility when it comes to additions, because the programmer can add new attributes and methods at runtime to instances of a class, as will be shown later in this subsection. In order to declare a new class, the user must use the \texttt{class} keyword followed by the name of the declared class and curly braces (\texttt{\{\}}):
+    \item \textbf{Classes:} As is common knowledge among undergraduate CS students, in the object-oriented paradigm, a class is basically a "blueprint" for creating instances or objects. Regarding this, since Bleach is a dynamically-typed language, it made sense for it to take the same route as Python: It does not require explicit type information about attributes and methods. Furthermore, there is a lot of flexibility when it comes to additions, because the programmer can add new attributes and methods at runtime to instances of a class, as is shown later in this subsection. In order to declare a new class, the user must use the \texttt{class} keyword followed by the name of the declared class and curly braces (\texttt{\{\}}):
 \begin{figure}[H]
     \centering
     \begin{lstlisting}
@@ -926,7 +915,7 @@ class Person{
 
     Since Bleach took the same approach to deal with instances/objects as Lox, it is safe to say that the following quote written by Robert Nystrom in \cite{nystrom2021crafting} also applies to Bleach: "Instances are loose bags of data and you can freely add fields to them as you see fit using normal imperative code."
     
-    \item \textbf{The \texttt{self} keyword:} The keyword \texttt{self} serves for a very specific purpose inside a class: It's a reference to the current instance/object of the class. This keyword allows methods within a class to access the specific instance's attributes and other methods.
+    \item \textbf{The \texttt{self} keyword:} The keyword \texttt{self} serves for a very specific purpose inside a class: It is a reference to the current instance/object of the class. This keyword allows methods within a class to access the specific instance's attributes and other methods.
     
     In addition to that, the \texttt{self} keyword assists to clarify when local variables (parameters that receive passed arguments in a method call, for example) have the same name as instance variables.
 
@@ -953,7 +942,7 @@ print counter.count; // 3;
     \caption{Example of a more refined use of the \texttt{self} keyword in Bleach.}
 \end{figure}
     
-    \item \textbf{Attributes:} As seen in the item above, attributes don't need to have type annotations attached to them. Instead, the attributes' types are determined when values are assigned to them at runtime. On top of that, attributes of a class can store values of different types at different points in time. As in most programming languages that are object-oriented, in order to access the attributes of a class, one must use the "dot" (\texttt{.}) notation, as displayed below:
+    \item \textbf{Attributes:} As seen in the item above, attributes do not have type annotations attached to them. Instead, the attributes' types are determined when values are assigned to them at runtime. On top of that, attributes of a class can store values of different types at different points in time. As in most programming languages that are object-oriented, in order to access the attributes of a class, one must use the "dot" (\texttt{.}):
 \begin{figure}[H]
     \centering
     \begin{lstlisting}
@@ -1067,46 +1056,46 @@ Bleach's native functions are organized into the following namespaces:
 \begin{itemize}
     \item \texttt{std::chrono}
         \begin{itemize}
-            \item \texttt{std::chrono::clock}: Native function that does not take any arguments and calculates the current time in seconds as a \texttt{num} value since the epoch (which usually is 00:00:00 UTC on January 1, 1970) and returns that value.
+            \item \texttt{std::chrono::clock}: Responsible for calculating the current time in seconds as a \texttt{num} value since the epoch (which usually is 00:00:00 UTC on January 1, 1970) and returns that value.
         \end{itemize}
     \item \texttt{std::io}
         \begin{itemize}
-            \item \texttt{std::io::fileRead}: Native function responsible for receiving a \texttt{str} value that represents the path (absolute or relative) to a \texttt{.txt} file, reading its contents and returning them as a \texttt{str} value.
+            \item \texttt{std::io::fileRead}: Responsible for receiving a \texttt{str} value that represents the path (absolute or relative) to a \texttt{.txt} file, reading its contents and returning them as a \texttt{str} value.
             
-            \item \texttt{std::io::fileWrite}: Native function that receives a \texttt{str} value representing a path (absolute or relative) to a \texttt{.txt} file, a \texttt{str} value representing the opening mode of the file to be read (which can be "a" for append or "w" for write), another \texttt{str} value representing the content to be written to the file and a \texttt{bool} value signaling whether or not a newline must be inserted at the end of such content in the file.
+            \item \texttt{std::io::fileWrite}: Responsible for receiving a \texttt{str} value representing a path (absolute or relative) to a \texttt{.txt} file, a \texttt{str} value representing the opening mode of the file to be read (which can be "a" for append or "w" for write), another \texttt{str} value representing the content to be written to the file and a \texttt{bool} value signaling whether or not a newline must be inserted at the end of such content in the file.
             
-            \item \texttt{std::io::readLine}: Native function responsible for receiving user input from the terminal. It returns such input as a value of type \texttt{str}.
+            \item \texttt{std::io::readLine}: Responsible for receiving user input from the terminal. It returns such input as a value of type \texttt{str}.
             
-            \item \texttt{std::io::print}: Native function responsible for receiving a variable number of arguments and outputting them to the console/terminal. Such arguments can be of any type (built-in or user-defined). This function returns \texttt{nil}.
+            \item \texttt{std::io::print}: Responsible for receiving a variable number of arguments and outputting them to the console/terminal. Such arguments can be of any type (built-in or user-defined). This function returns \texttt{nil}.
         \end{itemize}
     \item \texttt{std::math}
         \begin{itemize}
-            \item \texttt{std::math::abs}: Native function responsible for receiving a value of type \texttt{num} and returning the absolute value of the received one, which is also of type \texttt{num}.
+            \item \texttt{std::math::abs}: Responsible for receiving a value of type \texttt{num} and returning the absolute value of the received one, which is also of type \texttt{num}.
 
-            \item \texttt{std::math::ceil}: Native function responsible for receiving a value of type \texttt{num} and returning the smallest integer number that is bigger than the provided value. This function returns a value of type \texttt{num}.
+            \item \texttt{std::math::ceil}: Responsible for receiving a value of type \texttt{num} and returning the smallest integer number that is bigger than the provided value. This function returns a value of type \texttt{num}.
 
-            \item \texttt{std::math::floor}: Native function responsible for receiving a value of type \texttt{num} and returning the largest integer that is smaller than the provided value. This function returns a value of type \texttt{num}.
+            \item \texttt{std::math::floor}: Responsible for receiving a value of type \texttt{num} and returning the largest integer that is smaller than the provided value. This function returns a value of type \texttt{num}.
             
-            \item \texttt{std::math::log}: Native function responsible for receiving two values of type \texttt{num} and computing the logarithm of the second argument with respect to the base represented by the first argument. The basis of the logarithm (the first argument) must be a positive number different than \texttt{1}, while the argument (the second argument) must be a positive number. If these conditions are not met, then a runtime error will be thrown.
+            \item \texttt{std::math::log}: Responsible for receiving two values of type \texttt{num} and computing the logarithm of the second argument with respect to the base represented by the first argument. The basis of the logarithm (the first argument) must be a positive number different than \texttt{1}, while the argument (the second argument) must be a positive number. If these conditions are not met, then a runtime error will be thrown.
             
-            \item \texttt{std::math::pow}: Native function responsible for receiving two values of type \texttt{num} and computing the exponential function where the first argument is the base and the second argument is the exponent. This function returns a value of type \texttt{num}.
+            \item \texttt{std::math::pow}: Responsible for receiving two values of type \texttt{num} and computing the exponential function where the first argument is the base and the second argument is the exponent. This function returns a value of type \texttt{num}.
             
-            \item \texttt{std::math::sqrt}: Native function responsible for receiving a value of type \texttt{num} and computing its square root. This function returns a value of type \texttt{num}. Passing a negative number as an argument will result in a runtime error.
+            \item \texttt{std::math::sqrt}: Responsible for receiving a value of type \texttt{num} and computing its square root. This function returns a value of type \texttt{num}. Passing a negative number as an argument will result in a runtime error.
             
         \end{itemize}
     \item \texttt{std::random}
         \begin{itemize}
-            \item \texttt{std::random::random}: Native function responsible for receiving two values of type \texttt{num} as its arguments and returning a random \texttt{num} value that is between the two provided values. If the first argument is bigger than the second one, then a runtime error will be thrown.
+            \item \texttt{std::random::random}: Responsible for receiving two values of type \texttt{num} as its arguments and returning a random \texttt{num} value that is between the two provided values. If the first argument is bigger than the second one, then a runtime error will be thrown.
         \end{itemize}
     \item \texttt{std::utils}
         \begin{itemize}
-            \item \texttt{std::utils::ord}: Native function responsible for receiving a value of type \texttt{str} of length \texttt{1} and returning its respective ASCII number. This functions returns a value of type \texttt{num}. Passing a string with length different than \texttt{1} will result in a runtime error.
+            \item \texttt{std::utils::ord}: Responsible for receiving a value of type \texttt{str} of length \texttt{1} and returning its respective ASCII number. This functions returns a value of type \texttt{num}. Passing a string with length different than \texttt{1} will result in a runtime error.
             
-            \item \texttt{std::utils::strToNum}: Native function responsible for receiving a value of type \texttt{str} that represents a number as its unique argument. The function converts the \texttt{str} value into its respective \texttt{num} value and, then, returns such value of type \texttt{num}. If the \texttt{str} value does not represent a number, a runtime error is thrown.
+            \item \texttt{std::utils::strToNum}: Responsible for receiving a value of type \texttt{str} that represents a number as its unique argument. The function converts the \texttt{str} value into its respective \texttt{num} value and, then, returns such value of type \texttt{num}. If the \texttt{str} value does not represent a number, a runtime error is thrown.
 
-            \item \texttt{std::utils::strToBool}: Native function responsible for receiving a value of type \texttt{str} that represents a boolean as its unique argument. The function converts the \texttt{str} value into its respective \texttt{bool} value and, then, returns such value of type \texttt{bool}. If the \texttt{str} value does not represent a boolean, a runtime error is thrown.
+            \item \texttt{std::utils::strToBool}: Responsible for receiving a value of type \texttt{str} that represents a boolean as its unique argument. The function converts the \texttt{str} value into its respective \texttt{bool} value and, then, returns such value of type \texttt{bool}. If the \texttt{str} value does not represent a boolean, a runtime error is thrown.
 
-            \item \texttt{std::utils::strToNil}: Native function responsible for receiving a value of type \texttt{str} that represents the \texttt{nil} value as its unique argument. The function converts the \texttt{str} value into this value and, then, returns it. If the \texttt{str} value does not represent \texttt{nil}, a runtime error is thrown.
+            \item \texttt{std::utils::strToNil}: Responsible for receiving a value of type \texttt{str} that represents the \texttt{nil} value as its unique argument. The function converts the \texttt{str} value into this value and, then, returns it. If the \texttt{str} value does not represent \texttt{nil}, a runtime error is thrown.
         \end{itemize}
 \end{itemize}
 
@@ -1147,8 +1136,8 @@ First of all, it is important to remember the reader that the implementation of 
   \caption{Box-Diagram representing the phases of the Bleach Interpreter.}
 \end{figure}
 
-\subsection{Lexer/Scanner}
-When it comes to the lexer/scanner, it's worth remembering the reader that its goal is to transform the received source code (which is viewed by it as a large string of characters) into a sequence of tokens that will be fed to the parser of the interpreter. Such transformation performed by the lexer is known as lexical analysis.
+\subsection{Lexer}
+When it comes to the lexer, its goal is to transform the received source code (which is viewed by it as a large string of characters) into a sequence of tokens that will be fed to the parser of the interpreter. Such transformation performed by the lexer is known as lexical analysis.
 
 When it comes to the possible tokens to be generated during the lexical analysis, these are the following types of tokens recognized by the lexer:
 
@@ -1257,9 +1246,9 @@ The implemented hand-written lexer can successfully recognize string literals an
 Lastly, the lexer is capable of identifying invalid characters, unterminated string literals, unterminated multi-line comments and misuse of the \texttt{':'} character.
 
 \subsection{Parser}
-When it comes to the parser, it's worth remembering the reader that its goal is to transform the received sequence of tokens into an Abstract Syntax Tree (AST) that will be fed to the resolver of the interpreter. This conversion executed by the parser is known as syntax analysis.
+When it comes to the parser, its goal is to transform the received sequence of tokens into an Abstract Syntax Tree (AST) that will be fed to the resolver of the interpreter. This conversion executed by the parser is known as syntax analysis.
 
-Regarding the possible AST nodes to be generated during the syntax analysis, they can be divided into two groups of nodes (expressions and statements). These groups are structured as displayed below:
+Regarding the possible AST nodes to be generated during the syntax analysis, they can be divided into two groups of nodes (expressions and statements). These groups are structured as displayed in Table \ref{tab:ASTNodes}:
 
 \begin{table}[h!]
 \centering
@@ -1282,13 +1271,13 @@ Regarding the possible AST nodes to be generated during the syntax analysis, the
     Unary &  \\ \hline
     Variable &  \\ \hline
     \end{tabular}
-    \label{tab:ASTNodes}  % Label for referencing the table
     \caption{All possible types of AST nodes in the Bleach programming language. \newline}
+    \label{tab:ASTNodes}  % Label for referencing the table
 \end{table}
 
 \newpage
 
-With respect to the parsing technique that is behind the parser component of the implemented Bleach interpreter, the chosen one was the Recursive-Descent parsing technique. With this in mind, it's important to present the BNF-grammar of Bleach: 
+With respect to the parsing technique that is behind the parser component of the implemented Bleach interpreter, the chosen one was the Recursive-Descent parsing technique. With this in mind, we present the BNF-grammar of Bleach: \newline
 
 \scalebox{0.75}{
 \[
@@ -1349,13 +1338,13 @@ One of the most important aspects of parsing is error reporting. In the parsing 
 Following the guidelines presented in Chapter 2, to deal with syntax errors, the parser component of the implemented interpreter implements the ideas of "panic mode" and "error recovery". When a parser enters such mode, it needs to keep parsing process going until and continue to report more valid syntax errors until it reaches the end of the tokens sequence. To achieve this goal, the parser has a synchronization mechanism that looks for "synchronization points" from which the parser can continue the parsing process without issues. When in synchronization the parser ignores any tokens until it finds one that is a "synchronization point" and, in Bleach's case, such points are between statements.
 
 \subsection{Resolver}
-The resolver is a component of the interpreter responsible for performing a semantic analysis through the AST generated by the parser in the previous phase. To do that such traversal on the AST the Visitor design pattern is used, since it is better suited for this type of task, as explained previously in Chapter 2. 
+The resolver is a component of the interpreter responsible for performing a semantic analysis through the AST generated by the parser in the previous phase. To do such traversal on the AST the Visitor design pattern is used, since it is better suited for this type of task, as explained in Chapter 2. 
 
 Even though the resolver performs a semantic analysis pass over the source code, it is a simple and straight-forward one. This pass is in charge of discovering where variables were declared and guarantee that they are properly used within their scope. This component is able to resolve variable references by traversing the AST generated by the parser and associating each variable with its corresponding environment/scope inside which it was defined.
 
-As a way to make these associations correctly the resolver has a stack of environments/scopes in which the the environment/scope at the top of the stack is the current environment/scope being analyzed. For instance, the resolver component always creates a new environment/scope and pushes it to the top of the mentioned stack every time it starts the visiting of one of the following types of AST node: \texttt{LambdaFunction}, \texttt{Block}, \texttt{Class}, \texttt{DoWhile}, \texttt{For}, \texttt{While}. When the visiting of such nodes is ended, the environment/scope at the top of the previously mentioned stack is popped and the AST traversal continues. Still on this aspect, the resolver is responsible for providing the runtime the information necessary to find the correct variable to which a certain identifier is referring to in the chain of environments created at runtime.
+As a way to make these associations correctly the resolver has a stack of environments/scopes in which the the environment/scope at the top of the stack is the current environment/scope being analyzed. For instance, the resolver component always creates a new environment/scope and pushes it to the top of the mentioned stack every time it starts the visiting of one of the following types of AST node: \texttt{LambdaFunction}, \texttt{Block}, \texttt{Class}, \texttt{DoWhile}, \texttt{For}, \texttt{While}. When the visiting of such nodes is ended, the environment/scope at the top of the previously mentioned stack is popped and the AST traversal continues. Still on this aspect, the resolver is responsible for providing the runtime with the information necessary to find the correct variable to which a certain identifier is referring to in the chain of environments created at runtime.
 
-Diving the deeper in this respect, the resolver is also able of reporting different types of errors related to variable declaration and usage.
+Diving deeper in this respect, the resolver is also able of reporting different types of errors related to variable declaration and usage.
 \begin{itemize}
     \item The resolver is able to find a variable re-declaration inside the same environment/scope and report it as an error.
     \item The resolver is also able to identify that a variable is being used in its own initializer expression and report it as an error.   
@@ -1376,7 +1365,7 @@ On top of that, the resolver component of the Bleach interpreter is capable of c
 \subsection{Runtime}
 The runtime is the last component of the interpreter. In short, this component is responsible for executing statements, evaluating expressions, performing control-flow, managing environments/scopes with their variables and respective values and also throwing runtime errors whenever required. From a different point of view, the runtime can be viewed as the engine responsible for executing code accordingly with the semantics of the implemented programming language.
 
-As previously explained the implemented interpreter for the Bleach programming language presented in this document is a Tree-Walk one. This type of interpreter works, as earlier explained in Chapter 2, by executing a recursive traversal on the AST and performing different actions depending on the type of the AST's node that is currently being visited. All types of AST's node were also previously presented in Table~\ref{tab:ASTNodes}.
+This type of interpreter works, as explained in Chapter 2, by executing a recursive traversal on the AST and performing different actions depending on the type of the AST's node that is currently being visited. All types of AST's node were also previously presented in Table \ref{tab:ASTNodes}.
 
 Dealing with the first group of AST nodes, the ones that represent expressions, the behavior of the runtime will fundamentally be the same: it will visit the node that represents an expression, then evaluate the expression, finally it will produce the value from said expression and will move on to continue the recursive traversal of the abstract syntax tree. 
 However, the evaluation of these AST expression nodes consistently varies accordingly with the specific expression in question. A rundown of these specific behaviors regarding each type of expression node is presented beneath:
