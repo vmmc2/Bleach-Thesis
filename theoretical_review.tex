@@ -10,7 +10,7 @@
    \textit{-- NORIAKI KUBO}
 \end{flushright}
 
-\section{Introduction}
+% \section{Introduction}
 This chapter is dedicated to provide a literature review about the Programming Language Design and Compiler/Interpreter Implementation fields. The conceptual content presented here is heavily influenced by \cite{aho1986compilers}, \cite{cooper2022engineering} and \cite{nystrom2021crafting}.
 
 \section{What is a Compiler and How does it work?}
@@ -437,7 +437,7 @@ A tree-Walk interpreter is a simple kind of interpreter that usually works by ex
 
 In this scenario, a tree-walk interpreter runs the user's source code by executing a traversal on the received AST and performing different types of actions by taking into account the type of node that it is currently on.
 
-Due to its simplicity, this kind of programming language implementation is very common in student projects and toy languages. However, it is not often used in general-purpose language, since the nature of the code execution makes it slow, with one exception, according to \cite{nystrom2021crafting}, being the earlier versions of Ruby, which were implemented as tree-walk interpreters up to version 1.9, when the language implementation was changed to a bytecode virtual machine.
+Due to its simplicity, this kind of programming language implementation is very common in student projects and educational programming languages. However, it is not often used in general-purpose language, since the nature of the code execution makes it slow, with one exception, according to \cite{nystrom2021crafting}, being the earlier versions of Ruby, which were implemented as tree-walk interpreters up to version 1.9, when the language implementation was changed to a bytecode virtual machine.
 
 \subsection{Transpilers}
 A transpiler, also known as source-to-source compiler or transcompiler, is special type of compiler. The idea behind it is very simple: Instead of translating the program written in a source programming language to some kind of intermediate representation (AST, IR, CFG, etc), it translates the program to another source programming language.

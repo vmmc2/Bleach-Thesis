@@ -10,7 +10,7 @@
    \textit{-- NORIAKI KUBO}
 \end{flushright}
 
-\section{Introduction}
+% \section{Introduction}
 This chapter is dedicated to provide a detailed explanation about the Bleach programming language. Firstly, a brief overview of Bleach's features is presented by showcasing a few programs written in the language. Then, a detailed breakdown of each of its components and features is shown. Afterwards, the challenges encountered during the development of this project are presented, as well as decisions and trade-offs made. Finally, a comparison between Bleach and the previous languages introduced is presented, as well as a discussion about how Bleach can be properly used to its fullest in undergraduate Compilers courses.
 
 \section{Bleach Overview}
@@ -137,7 +137,7 @@ writeToFile();
 
 
 \section{Bleach Features}
-\subsection{Introduction}
+% \subsection{Introduction}
 Bleach is a high-level and dynamically-typed programming language designed with the intent to be used as a teaching tool in undergraduate Compilers courses. The motivation behind its creation lies in the fact that according to the studies mentioned in section 3 and in my personal experience, a more incremental and practice-oriented approach when teaching such courses is more rewarding to the teaching staff and to the students, especially when it comes to grasp the core concepts of it. Last but not least, as it is shown in this chapter and in the next one, Bleach is a more complete language when compared to Cool and MiniJava, which might better capture students' interest in implementing a programming language that resembles those they are used to utilizing in their daily lives.
 
 \subsection{Data Types}
@@ -313,7 +313,7 @@ let pi = 9.51413;
     \caption{Example demonstrating re-declaration of global variables in Bleach.}
 \end{figure}
 
-As expected from most programming language, Bleach supports local variables, which are those declared within a specific block of code, such as a function, method, an \texttt{if-elif-else} statement or a loop statement (\texttt{while}, \texttt{do-while}, \texttt{for}). In this regard, it's important to remember the reader that the scope of a local variable is limited to the block in which it is defined, meaning it can only be accessed and used within that block. Furthermore, once the block of code finishes executing, the local variable is normally destroyed, and its memory is released.
+As expected from most programming language, Bleach supports local variables, which are those declared within a specific block of code, such as a function, method, an \texttt{if-elif-else} statement or a loop statement (\texttt{while}, \texttt{do-while}, \texttt{for}). In this regard, it is important to remember the reader that the scope of a local variable is limited to the block in which it is defined, meaning it can only be accessed and used within that block. Furthermore, once the block of code finishes executing, the local variable is normally destroyed, and its memory is released.
 \begin{figure}[H]
     \centering
     \begin{lstlisting}
@@ -329,7 +329,7 @@ foo();
     \caption{Example demonstrating the usage of local variables in Bleach.}
 \end{figure}
 
-As previously shown, variables are declared with the usage of the \texttt{let} keyword. Besides, after declaring a variable, the user is allowed to assign different values of different types at different points in time to the declared variable. To do that, the assignment operator (\texttt{=}) comes into play. However, before showing examples of code snippets that make use of this operator, it's very important to mention two semantic details of assignment in Bleach:
+As previously shown, variables are declared with the usage of the \texttt{let} keyword. Besides, after declaring a variable, the user is allowed to assign different values of different types at different points in time to the declared variable. To do that, the assignment operator (\texttt{=}) comes into play. However, before showing examples of code snippets that make use of this operator, it is very important to mention two semantic details of assignment in Bleach:
 \begin{itemize}
     \item In Bleach, an assignment is an expression, not a statement. This means that every assignment produces a value.
     \begin{figure}[H]
@@ -1234,7 +1234,7 @@ Regarding the implementation, the lexer was hand-written. It can successfully re
 
 Lastly, the lexer is capable of identifying invalid characters, unterminated string literals, unterminated multi-line comments and misuse of the \texttt{':'} character.
 
-\newpage
+% \newpage
 
 \subsection{Parser}
 The goal of the parser is to transform the received sequence of tokens into an Abstract Syntax Tree (AST) that will be fed to the resolver of the interpreter. This conversion is known as syntax analysis.
@@ -1473,7 +1473,6 @@ Lastly, we present a proposal of how Compilers courses that opt to use Bleach co
             \item Proposes the implementation of a lexer for the Bleach programming language. 
         \end{itemize}
 
-    \newpage
     
     \item \textbf{Weeks 5 - 6 (Parsing):} 
         \begin{itemize}
